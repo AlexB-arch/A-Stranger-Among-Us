@@ -1,0 +1,27 @@
+ChatGPT prompt: "i'm writing a text adventure game in java. Can you help me with a file outline for what i need?"
+
+ChatGPT suggested file structure:
+
+/TextAdventureGame
+│
+├── /src
+│   ├── Main.java                // Entry point for the game
+│   ├── Game.java                // Main game logic and loop
+│   ├── Player.java              // Player class with attributes and methods
+│   ├── Room.java                // Class for room/locations in the game
+│   ├── Item.java                // Class for items the player can interact with
+│   ├── NPC.java                 // Class for non-player characters
+│   ├── Command.java             // Command class to handle player input
+│   ├── GameUtils.java           // Utility methods (e.g., parsing input)
+│   └── /utils                   // Additional utility classes (if needed)
+│
+├── /resources
+│   ├── items.txt                // Text file with item definitions
+│   ├── rooms.txt                // Text file with room definitions
+│   ├── npc.txt                  // Text file with NPC definitions
+│   └── dialogues.txt            // Text file with NPC dialogues
+│
+└── /tests                       // Unit tests for your game logic
+    ├── PlayerTest.java
+    ├── RoomTest.java
+    └── GameTest.java
