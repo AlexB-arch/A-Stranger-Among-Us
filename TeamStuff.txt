@@ -31,3 +31,23 @@ Austin Geisert
 
   I can code, write docs, write tests, coordinate and help make the project move forward. 
 
+
+Brendan Gipson
+
+What am I good at?
+	*API integration.
+	*Data manipulation.
+
+How do I perform?
+	*Typically kind of slowly.
+	*I'll always work figure out a problem.
+	*I will find a way to get something to work.
+
+What do I value?
+	*My time, above everything. I need time to recharge or I won't do good work.
+	*Quality. If product isn't good, than I won't publish it.
+
+How can I contribute?
+	*I can help work on just about anything, though I do enjoy creating and managing objects.
+	*Otherwise I can really do anything, anything that is needed of me.
+
