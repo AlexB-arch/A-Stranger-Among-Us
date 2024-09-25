@@ -12,3 +12,21 @@ What do I value?
 
 How can I contribute to the project?
 - By pulling my own weight and asking questions in a timely manner.
+
+
+* What am I good at?
+
+  Doing everything to push a team effort forward: specifically serving  those in my team the best I can. 
+
+* How do I perform?
+
+  I always try my best within reason, but I do tend to doubt my overall abilities. I tend to highly value responsibility and my overall performance. 
+
+* What do I value?
+
+  I value the work and doing well but also recently living well and having the ethics to support the work. 
+
+* How can I contribute to the project?
+
+  I can code, write docs, write tests, coordinate and help make the project move forward. 
+
