@@ -1,13 +1,13 @@
 package text_adventure;
 
 public class Game {
+
   //private Player player;
   //private Room currentRoom;
   //private boolean isRunning;
 
   public Game() {
     // Initialize the game
-
     // Create the player
     // Create the rooms
     // Set that the game is running
