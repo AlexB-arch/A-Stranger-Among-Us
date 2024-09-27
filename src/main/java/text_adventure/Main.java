@@ -3,8 +3,6 @@ package text_adventure;
 import java.io.Console;
 
 
-
-
 public class Main {
     private static String[] rooms = {
         "You are in a lucious, green area with trees, not Abilene.\nWhat is your command: north or exit?",
