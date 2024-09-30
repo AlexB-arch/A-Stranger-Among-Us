@@ -30,6 +30,10 @@ public class Game {
     // Check if the input is valid
     // If the input is valid, process the input
     // If the input is not valid, print an error message
+    /* 
+    Console console = System.console();
+    String command = console.readLine();
+    */
   }
 
   public void endGame(){
