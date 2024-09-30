@@ -1,5 +1,11 @@
-Alex 
+#### Alex 
+- Strengths
+  Outside perspective, Focus on practicality, Team player.
 
+- Weaknesses
+  Uncertain Schedule, Lack of confidence due to experience.
+
+- Paper Thoughts: Always get more sources.
 
 #### Austin Geisert
 - Strengths
