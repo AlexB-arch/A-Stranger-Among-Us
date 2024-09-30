@@ -2,18 +2,29 @@ package text_adventure;
 
 public class Game {
 
-  //private Player player;
-  //private Room currentRoom;
-  //private boolean isRunning;
+  private GameManager manager;
+  private Player player;
 
   public Game() {
     // Initialize the game
+    this.manager = new GameManager();
+    this.player = new Player();
     // Create the player
     // Create the rooms
     // Set that the game is running
   }
 
   public void start(){
+    System.out.println("Welcome to the Text Adventure Game!");
+
+    // Start the game loop
+    while (!manager.isGameOver()) {
+      String input = manager.getInput();
+      processInput(input);
+      manager.updateGame();
+    }
+
+    System.out.println("Game Over!");
   }
 
   private void gameLoop(){
