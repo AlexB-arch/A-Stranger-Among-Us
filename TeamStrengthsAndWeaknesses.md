@@ -17,4 +17,11 @@
 - Paper Thoughts: Use "Spell check / Grammar check" more effectively. Reduce uncertainty by reducing complexity. 
 
 
-Brendan
+### Brendan
+- Strengths
+  Creative, good at problem-solving, your idea guy
+
+  -Weaknesses
+  Not great at working on teams, relatively inexperienced, very forgetful, and aloof at times
+
+  -Paper Thoughts: I got .5 points off. So close yet so far from perfection.
