@@ -2,6 +2,8 @@ package text_adventure;
 
 public class Game {
 
+  public static String consoleMessage;
+
   private GameManager manager;
   private Player player;
 
@@ -15,16 +17,6 @@ public class Game {
   }
 
   public void start(){
-    System.out.println("Welcome to the Text Adventure Game!");
-
-    // Start the game loop
-    while (!manager.isGameOver()) {
-      String input = manager.getInput();
-      processInput(input);
-      manager.updateGame();
-    }
-
-    System.out.println("Game Over!");
   }
 
   private void gameLoop(){
@@ -38,6 +30,11 @@ public class Game {
     // Check if the input is valid
     // If the input is valid, process the input
     // If the input is not valid, print an error message
+  }
+
+  public void endGame(){
+    consoleMessage = "You've been ejected into the cold vacuum of space. Game Over.";
+    System.out.println(consoleMessage);
   }
 
   // Add more methods as needed
