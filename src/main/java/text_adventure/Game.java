@@ -46,7 +46,7 @@ public class Game {
   // Keep in mind to add error checking and handling
   // state management
 
-  public void gameStartArt(){
+  public static void gameStartArt(){
     consoleMessage = "Welcome to the Space Station Adventure Game!";
     System.out.println(consoleMessage);
   }
