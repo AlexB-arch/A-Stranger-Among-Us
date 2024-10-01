@@ -10,7 +10,7 @@ public class Game {
 
   private static Boolean gameOver = false;
   private Player player;
-  private Commands commands;
+  private Parser commands;
 
   public Game() {
   }
@@ -31,7 +31,7 @@ public class Game {
 		do {
 			System.out.print("Enter command: ");
 			input = in.readLine();
-			Commands.runCommand(input);
+			Parser.runCommand(input);
 			System.out.println("You entered '" + input + "'");
 		}while (!gameOver);
   }

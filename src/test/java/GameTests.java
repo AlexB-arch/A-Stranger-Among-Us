@@ -2,9 +2,17 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.Before;
 
+import text_adventure.Parser;
 import text_adventure.Game;
 
 public class GameTests {
+
+    Game game;
+
+    @Before
+    public void setUp() {
+        game = new Game();
+    }
 
 
     @Test
