@@ -8,15 +8,13 @@ public class Game {
 
   public static String consoleMessage;
 
-  private static Boolean gameOver = false;
   private Player player;
-  private Parser commands;
+  private Parser input;
 
   public Game() {
   }
 
   public void start() throws IOException{
-    gameStartArt();
     consoleMessage = "You're working on fixing some wires in the sleeping quarters when the lights suddenly go out. You attempt to flick them back on, only to find that they won't react. You decide to put your task on hold to investigate.";
     System.out.println(consoleMessage);
 
@@ -31,15 +29,20 @@ public class Game {
 		do {
 			System.out.print("Enter command: ");
 			input = in.readLine();
-			Parser.runCommand(input);
-			System.out.println("You entered '" + input + "'");
-		}while (!gameOver);
+			Parser.tokenizedInput(input);
+			System.out.println("You entered '" + input + "'"); // for debugging. Delete later
+
+      if (input.equals("quit")) {
+        endGame();
+        break;
+      } 
+
+		}while (!input.equals("quit"));
   }
 
   public static void endGame(){
     consoleMessage = "You've been ejected into the cold vacuum of space. Game Over.";
     System.out.println(consoleMessage);
-    gameOver = true;
   }
 
   // Add more methods as needed

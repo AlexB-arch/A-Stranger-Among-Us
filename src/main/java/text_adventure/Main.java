@@ -8,9 +8,16 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-		Game game = new Game();
+	static Game game;
 
+    public static void main(String[] args) throws IOException {
+		BufferedReader in;
+		String input;
+		String output;
+
+		game = new Game();
 		game.start();
+
+		
 	}
 }
