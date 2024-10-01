@@ -22,10 +22,16 @@ public class Verbs {
         "east",
         "up",
         "down",
-        "quit"
+        "quit",
+        "exit",
+        "use",
+        "unlock",
+        "lock",
+        "read",
+        "inventory",
     };
     
-    public static HashMap<String, WordType> initializeVerbs() {
+    public static HashMap<String, WordType> initVerbs() {
         HashMap<String, WordType> verbMap = new HashMap<>();
         for (String word : verbs) {
             verbMap.put(word, WordType.VERB);
