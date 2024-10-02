@@ -1,15 +1,10 @@
 package text_adventure;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
-import text_adventure.resources.Directions;
-import text_adventure.resources.Verbs;
 
 public class Game implements java.io.Serializable {
 
