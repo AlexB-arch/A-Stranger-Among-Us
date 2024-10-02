@@ -18,6 +18,7 @@ public class Parser {
   public static void initDictionary() {
 	dictionary = new HashMap<String, WordType>();
 
+	// Pass the dictionary to the other classes to populate it
 	Verbs.insertVerbs(dictionary);
 	Nouns.insertNouns(dictionary);
   }
