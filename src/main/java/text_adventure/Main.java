@@ -34,7 +34,6 @@ public class Main {
 			if (!output.trim().isEmpty()){
 				game.showMessage(output);
 			}
-		} while (!input.equals("quit"));
-		
+		} while (!input.equals("quit") || !output.equals("exit"));
 	}
 }

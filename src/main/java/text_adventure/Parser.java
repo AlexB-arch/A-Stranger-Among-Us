@@ -189,7 +189,7 @@ public class Parser {
 	}
 
 	static List<String> tokenizedInput(String input) {
-		String delimiters = "[ \t,.:;?!\"']+";
+		String delimiters = "\s|('[^']*')|(?=\\W)";
 		List<String> tokens = new ArrayList<String>();
 		StringTokenizer tokenizer = new StringTokenizer(input, delimiters);
 
