@@ -31,11 +31,9 @@ public class Verbs {
         "inventory",
     };
     
-    public static HashMap<String, WordType> initVerbs() {
-        HashMap<String, WordType> verbMap = new HashMap<>();
+    public static void insertVerbs(HashMap<String, WordType> dictionary) {
         for (String word : verbs) {
-            verbMap.put(word, WordType.VERB);
+            dictionary.put(word, WordType.VERB);
         }
-        return verbMap;
     }
 }

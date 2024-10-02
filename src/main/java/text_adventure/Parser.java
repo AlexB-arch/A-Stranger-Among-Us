@@ -1,25 +1,26 @@
 package text_adventure;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.HashMap;
-import java.util.Map;
 
 import text_adventure.resources.WordType;
-import text_adventure.resources.Directions;
+import text_adventure.resources.Nouns;
 import text_adventure.resources.Verbs;
 
 public class Parser {
 
   // Initializes a list of words for player actions
-  static HashMap<String, WordType> dictionary = Verbs.initVerbs();
+  public static HashMap<String, WordType> dictionary;
+
+  // Intialize the dictionary
+  public static void initDictionary() {
+	dictionary = new HashMap<String, WordType>();
+
+	Verbs.insertVerbs(dictionary);
+	Nouns.insertNouns(dictionary);
+  }
 
   // Processes the Verb-Noun-Preposition-Noun input structure
   static String processVerbNounPrepositionNoun(List<WordProcessor> input) {

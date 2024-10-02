@@ -3,25 +3,33 @@ package text_adventure;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
-public class Game {
+import text_adventure.objects.Player;
+import text_adventure.objects.Room;
+import text_adventure.resources.Directions;
+import text_adventure.resources.Verbs;
+
+public class Game implements java.io.Serializable {
 
   public static String consoleMessage;
 
+  private ArrayList<Room> map;
   private Player player;
-  private Parser input;
 
   public Game() {
+    Parser.initDictionary();
+    start();
   }
 
-  public void start() throws IOException{
+  public void start() {
     consoleMessage = "You're working on fixing some wires in the sleeping quarters when the lights suddenly go out. You attempt to flick them back on, only to find that they won't react. You decide to put your task on hold to investigate.";
     System.out.println(consoleMessage);
 
-    gameLoop();
+    // Initialize all rooms in this method
   }
 
-  private void gameLoop() throws IOException{
+  private void gameLoop(){
     BufferedReader in;
 		String input;
 
