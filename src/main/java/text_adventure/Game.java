@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
@@ -11,8 +12,6 @@ import text_adventure.resources.Directions;
 import text_adventure.resources.Verbs;
 
 public class Game implements java.io.Serializable {
-
-  public static String consoleMessage;
 
   private ArrayList<Room> map;
   private Player player;
@@ -23,42 +22,68 @@ public class Game implements java.io.Serializable {
   }
 
   public void start() {
-    consoleMessage = "You're working on fixing some wires in the sleeping quarters when the lights suddenly go out. You attempt to flick them back on, only to find that they won't react. You decide to put your task on hold to investigate.";
-    System.out.println(consoleMessage);
+	// Initialize the player
 
     // Initialize all rooms in this method
   }
 
-  private void gameLoop(){
-    BufferedReader in;
-		String input;
+  // Call the parser to tokenize the input
+  String runCommands(String inputString){
+	List<String> inputList;
+	String string = "";
+	String lowerCaseInput;
 
-		in = new BufferedReader(new InputStreamReader(System.in));
-		do {
-			System.out.print("Enter command: ");
-			input = in.readLine();
-			Parser.tokenizedInput(input);
-			System.out.println("You entered '" + input + "'"); // for debugging. Delete later
+	// Cleans up the input and converts it to lowercase
+	lowerCaseInput = inputString.trim().toLowerCase();
 
-      if (input.equals("quit")) {
-        endGame();
-        break;
-      } 
+	if (!lowerCaseInput.equals("quit")) {
+		if(lowerCaseInput.equals("")){
+			string = "Please enter a command.\n";
+		} else {
+			inputList = Parser.tokenizedInput(lowerCaseInput);
+			string = Parser.parseInput(inputList);
+		}
+	}
 
-		}while (!input.equals("quit"));
+	return string;
   }
 
-  public static void endGame(){
-    consoleMessage = "You've been ejected into the cold vacuum of space. Game Over.";
-    System.out.println(consoleMessage);
+  public void endGame(){
+	String message;
+
+    message = "You've been ejected into the cold vacuum of space. Game Over.";
+    
+	showMessage(message);
   }
 
-  // Add more methods as needed
-  // Keep in mind to add error checking and handling
-  // state management
+  public void showIntro(){
+		String message;
 
-  public static void gameStartArt(){
-    consoleMessage = "Welcome to the Space Station Adventure Game!";
-    System.out.println(consoleMessage);
+    	message = "Welcome to A Stranger Among Us!\n";
+		message += "You're working on fixing some wires in the sleeping quarters when the lights suddenly go out. You attempt to flick them back on, only to find that they won't react. You decide to put your task on hold to investigate.\n";
+		message += "Where do you want to go?\n";
+		message += "Enter: n, s, w, e, up, or down\n";
+		message += "Or type 'quit' to exit the game.\n";
+		
+		showMessage(message);
   }
+
+  // Display messages to the console
+  public void showMessage(String message){
+		if (message.endsWith("\n")) { // stripping any trailing newlines
+			message = message.substring(0, message.length() - 1);
+		}
+
+		if (!message.isEmpty()) {
+			System.out.println(message);
+		}
+  }
+
+  // Use look method to display the player's current location
+  public void look() {
+		//showMessage("You are in the " + player.describeLocation());
+  }
+
+  // Call Player methods
+
 }

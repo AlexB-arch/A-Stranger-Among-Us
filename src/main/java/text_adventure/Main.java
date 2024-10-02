@@ -10,14 +10,31 @@ public class Main {
 
 	static Game game;
 
+	// Do we want to save and load the game?
+
     public static void main(String[] args) throws IOException {
 		BufferedReader in;
 		String input;
 		String output;
 
 		game = new Game();
-		game.start();
+		in = new BufferedReader(new InputStreamReader(System.in));
+		game.showIntro();
 
+		do {
+			System.out.print(">> ");
+			input = in.readLine();
+			
+			switch (input) {
+				default:
+					output = game.runCommands(input);
+					break;
+			}
+
+			if (!output.trim().isEmpty()){
+				game.showMessage(output);
+			}
+		} while (!input.equals("quit"));
 		
 	}
 }

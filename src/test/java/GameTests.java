@@ -18,19 +18,6 @@ public class GameTests {
         game = new Game();
     }
 
-
-    @Test
-    public void testGameStart() {
-        Game.gameStartArt();
-        assertTrue(Game.consoleMessage.equals("Welcome to the Space Station Adventure Game!"));
-    }
-
-    @Test
-    public void testGameEnd() {
-        Game.endGame();
-        assertTrue(Game.consoleMessage.equals("You've been ejected into the cold vacuum of space. Game Over."));
-    }
-
     // Tests dictionary initialization
     @Test
     public void testDictionary() {
