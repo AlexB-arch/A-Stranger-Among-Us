@@ -6,8 +6,9 @@ public class Player {
 
   // what kind of attributes are needed for the player?
 
-  public Player(String description, Room currentLocation, Inventory inventory) {
+  public Player(String description, Room currentLocation) {
     // Initialize the player
+    super();
 
     // Do we want to have names for the player?
     // Player starts with a description, location, and inventory
