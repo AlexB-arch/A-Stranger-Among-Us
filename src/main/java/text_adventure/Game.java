@@ -9,8 +9,12 @@ import text_adventure.objects.Room;
 public class Game implements java.io.Serializable {
 
   private ArrayList<Room> map;
-  private Player player;
 
+  public static Player player;
+
+//   public static Player getPlayer() {
+//     return player;
+//   }
   private boolean shouldexit;
 
   public Game() {
@@ -20,11 +24,31 @@ public class Game implements java.io.Serializable {
 
   }
 
-  public void start() {
-	// Initialize the player
+	public void start() {
+		// Initialize the player
+		player = new Player();
 
-    // Initialize all rooms in this method
-  }
+		// Initialize the map
+		map = new ArrayList<Room>();
+
+		// Create the rooms
+		Room room1 = new Room("Room 1", "You are in Room 1", null, null, null, null);
+		Room room2 = new Room("Room 2", "You are in Room 2", null, null, null, null);
+
+		// Set the directions for each room
+		room1.setExits(room2, room1, null, null);
+		room2.setExits(null, room1, null, null);
+
+
+		// Add the rooms to the map
+		map.add(room1);
+		map.add(room2);
+
+		// Set the current room
+		player.setCurrentLocation(map.get(0));
+		// Display the intro message
+		showIntro();
+	}
 
   // Call the parser to tokenize the input
   public String runCommands(String inputString){
@@ -32,8 +56,8 @@ public class Game implements java.io.Serializable {
 	String string = "";
 	String lowerCaseInput;
 
-	// Cleans up the input and converts it to lowercase
-	lowerCaseInput = inputString.trim().toLowerCase();
+		// Cleans up the input and converts it to lowercase
+		lowerCaseInput = inputString.trim().toLowerCase();
 
 	if (!lowerCaseInput.equals("quit")) {
 		if(lowerCaseInput.equals("")){
@@ -46,8 +70,8 @@ public class Game implements java.io.Serializable {
 		string = endGame();
 	}
 
-	return string;
-  }
+		return string;
+	}
 
   public String endGame(){
 	String message;
@@ -57,7 +81,7 @@ public class Game implements java.io.Serializable {
 	return message;
   }
 
-  public void showIntro(){
+  	public void showIntro(){
 		String message;
 
     	message = "Welcome to A Stranger Among Us!\n";
@@ -77,7 +101,7 @@ public class Game implements java.io.Serializable {
   }
 
   // Display messages to the console
-  public void showMessage(String message){
+  	public void showMessage(String message){
 		if (message.endsWith("\n")) { // stripping any trailing newlines
 			message = message.substring(0, message.length() - 1);
 		}
@@ -85,13 +109,10 @@ public class Game implements java.io.Serializable {
 		if (!message.isEmpty()) {
 			System.out.println(message);
 		}
-  }
+  	}
 
-  // Use look method to display the player's current location
-  public void look() {
+	// Use look method to display the player's current location
+	public void look() {
 		//showMessage("You are in the " + player.describeLocation());
-  }
-
-  // Call Player methods
-
+	}
 }

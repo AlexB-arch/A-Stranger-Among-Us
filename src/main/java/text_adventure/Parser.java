@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import java.util.HashMap;
 
 import text_adventure.resources.WordType;
+import text_adventure.resources.Directions;
 import text_adventure.resources.Nouns;
 import text_adventure.resources.Verbs;
 
@@ -117,6 +118,15 @@ public class Parser {
 		} else {
 			switch(input1.getWord()) {
 				// TODO: Add the player actions such as look, take, etc.
+				// Add the player movement actions here
+				case "north":
+					Game.player.move(Directions.NORTH);
+				case "south":
+					Game.player.move(Directions.SOUTH);
+				case "east":
+					Game.player.move(Directions.EAST);
+				case "west":
+					Game.player.move(Directions.WEST);
 				default:
 					response = "Not yet implemented";
 					break;
