@@ -1,9 +1,12 @@
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.Rule;
+
 
 import text_adventure.Parser;
 import text_adventure.Game;
@@ -13,10 +16,18 @@ public class GameTests {
 
     Game game;
 
+
+    public String formatTestOutput( String testName, String input,String output){
+        return "-------\n"+testName+"\n"+"Input:"+input+"\nOutput:"+output+"\n------";
+    }
+
+    
     @Before
     public void setUp() {
         game = new Game();
     }
+    
+
 
     // Tests dictionary initialization
     @Test
@@ -36,5 +47,59 @@ public class GameTests {
         // Check if the dictionary has the NOUN value for "wires"
         assertTrue(Parser.dictionary.get("wires") == WordType.NOUN);
     }
+
+    @Test
+    public void testUp() {
+        String expectedOutput = "Not yet implemented";
+        String input = "up";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("testUp",input,output),expectedOutput.equals(output));
+    }
+
+    @Test
+    public void testDown() {
+        String expectedOutput = "Not yet implemented";
+        String input = "up";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test Down", input, output),expectedOutput.equals(output));
+    }
+
+     @Test
+     public void testQuit() {
+         String expectedOutput = "Not yet implemented";
+         String input = "Quit";
+         String output = game.runCommands(input);
+         assertTrue(formatTestOutput("Test Quit", input, output),expectedOutput.equals(output));
+     }
+    @Test
+    public void testNorth() {
+        String expectedOutput = "Not yet implemented";
+        String input = "north";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test North", input, output),expectedOutput.equals(output));
+    }
+    @Test
+    public void testSouth() {
+        String expectedOutput = "Not yet implemented";
+        String input = "south";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test South", input, output),expectedOutput.equals(output));
+    }
+    @Test
+    public void testEast() {
+        String expectedOutput = "Not yet implemented";
+        String input = "east";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test East", input, output),expectedOutput.equals(output));
+    }
+    @Test
+    public void testWest() {
+        String expectedOutput = "Not yet implemented";
+        String input = "west";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test West", input, output),expectedOutput.equals(output));
+    }
+   
+    
     
 }

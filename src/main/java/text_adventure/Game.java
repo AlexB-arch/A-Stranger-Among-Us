@@ -11,9 +11,13 @@ public class Game implements java.io.Serializable {
   private ArrayList<Room> map;
   private Player player;
 
+  private boolean shouldexit;
+
   public Game() {
     Parser.initDictionary();
+	shouldexit = false;
     start();
+
   }
 
   public void start() {
@@ -23,7 +27,7 @@ public class Game implements java.io.Serializable {
   }
 
   // Call the parser to tokenize the input
-  String runCommands(String inputString){
+  public String runCommands(String inputString){
 	List<String> inputList;
 	String string = "";
 	String lowerCaseInput;
@@ -38,17 +42,19 @@ public class Game implements java.io.Serializable {
 			inputList = Parser.tokenizedInput(lowerCaseInput);
 			string = Parser.parseInput(inputList);
 		}
+	}else{
+		string = endGame();
 	}
 
 	return string;
   }
 
-  public void endGame(){
+  public String endGame(){
 	String message;
 
     message = "You've been ejected into the cold vacuum of space. Game Over.";
-    
-	showMessage(message);
+    setShouldExit(true);
+	return message;
   }
 
   public void showIntro(){
@@ -61,6 +67,13 @@ public class Game implements java.io.Serializable {
 		message += "Or type 'quit' to exit the game.\n";
 		
 		showMessage(message);
+  }
+  public boolean getShouldExit(){
+	return shouldexit;
+  }
+
+  private void setShouldExit(boolean bool){
+	shouldexit = bool;
   }
 
   // Display messages to the console
