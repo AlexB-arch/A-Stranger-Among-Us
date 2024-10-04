@@ -9,8 +9,12 @@ import text_adventure.objects.Room;
 public class Game implements java.io.Serializable {
 
   private ArrayList<Room> map;
-  private Player player;
 
+  public static Player player;
+
+//   public static Player getPlayer() {
+//     return player;
+//   }
   private boolean shouldexit;
 
   public Game() {
