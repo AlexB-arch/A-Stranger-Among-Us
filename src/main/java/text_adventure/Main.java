@@ -18,7 +18,6 @@ public class Main {
 
 		game = new Game();
 		in = new BufferedReader(new InputStreamReader(System.in));
-		game.showIntro();
 
 		do {
 			System.out.print(">> ");
