@@ -1,11 +1,17 @@
-package text_adventure;
+package text_adventure.objects;
+
+import text_adventure.resources.Directions;
 
 public class Player {
 
   // what kind of attributes are needed for the player?
 
-  public Player() {
+  public Player(String description, Room currentLocation) {
     // Initialize the player
+    super();
+
+    // Do we want to have names for the player?
+    // Player starts with a description, location, and inventory
   }
 
   // getters and setters, if any

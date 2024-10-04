@@ -1,70 +1,202 @@
 package text_adventure;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.HashMap;
+
+import text_adventure.resources.WordType;
+import text_adventure.resources.Nouns;
+import text_adventure.resources.Verbs;
 
 public class Parser {
 
-  public static void parseCommand(List<String> commands){
+  // Initializes a list of words for player actions
+  public static HashMap<String, WordType> dictionary;
 
-    String action;
-    String target;
+  // Intialize the dictionary
+  public static void initDictionary() {
+	dictionary = new HashMap<String, WordType>();
 
-    // List of valid actions and objects
-    List<String> actions = new ArrayList<>(Arrays.asList("take", "drop", "quit", "exit"));
-    List<String> objects = new ArrayList<>(Arrays.asList("wrench", "keycard", "screwdriver"));
+	// Pass the dictionary to the other classes to populate it
+	Verbs.insertVerbs(dictionary);
+	Nouns.insertNouns(dictionary);
+  }
 
-    // Check if the command is valid
-    if (commands.size() != 2) {
-      System.out.println("Only 2 word commands allowed!");
+  // Processes the Verb-Noun-Preposition-Noun input structure
+  static String processVerbNounPrepositionNoun(List<WordProcessor> input) {
+    WordProcessor input1 = input.get(0);
+    WordProcessor input2 = input.get(1);
+    WordProcessor input3 = input.get(2);
+    WordProcessor input4 = input.get(3);
+    String response = "";
+
+    // Check if the first word is a valid action
+    if ((input1.getWordType() != WordType.VERB) || (input3.getWordType() != WordType.PREPOSITION)) {
+      response = "Can't do that. I don't understand how to '" + input1.getWord() + " something " + input3.getWord() + "' something!";
+    } else if ( input2.getWordType() != WordType.NOUN) {
+      response = "Can't do that. " + input2.getWord() + " is not a valid object!\r\n";
+    } else if ( input4.getWordType() != WordType.NOUN) {
+      response = "Can't do that. " + input4.getWord() + " is not a valid object!\r\n";
     } else {
-      action = commands.get(0);
-      target = commands.get(1);
-      if (!actions.contains(action)) {
-        System.out.println(action + " is not a known verb!");
-      }
-      if (!objects.contains(target)) {
-        System.out.println(target + " is not a known noun!");
+      switch (input1.getWord() + input3.getWord()) { // Concatenates the verb and preposition
+		case "putin":
+		case "putinto":
+			//response = Main.game.putObjectIn(input2.getWord(), input4.getWord());
+			break;
+		
+		default:
+			response = "I don't know how to '" + input1.getWord() + " " + input2.getWord() + " " + input3.getWord() + " " + input4.getWord() + "'";
+			break;
       }
     }
+
+    return response;
   }
 
-  // Tokenize the input string
-  public static List<String> wordList(String input) {
-    String delims = " \t,.:;?!\"'";
-    List<String> stringlist = new ArrayList<>();
-    StringTokenizer tokenizer = new StringTokenizer(input, delims);
-    String token;
+  // Processes the Verb-Preposition-Noun input structure
+  static String processVerbPreopisitionNoun(List<WordProcessor> input) {
+		WordProcessor input1 = input.get(0);
+		WordProcessor input2 = input.get(1);
+		WordProcessor input3 = input.get(2);
+		String response = "";
 
-    while (tokenizer.hasMoreTokens()) {
-      token = tokenizer.nextToken();
-      stringlist.add(token);
-    }
-    return stringlist;
-  }
+		// Check if the first word is a valid action
+		if ((input1.getWordType() != WordType.VERB) || (input2.getWordType() != WordType.PREPOSITION)) {
+			response = "Can't do that. I don't understand how to '" + input1.getWord() + " " + input2.getWord() + "' something!";
+		} else if ( input3.getWordType() != WordType.NOUN) {
+			response = "Can't do that. " + input3.getWord() + " is not a valid object!\r\n";
+		} else {
+			switch (input1.getWord() + input2.getWord()) {
+				case "lookat":
+					//response = Main.game.lootAtObject(input3.getWord());
+					break;
+				case "lookin":
+					//response = Main.game.lookInObject(input3.getWord());
+					break;
+				default:
+					response = "I don't know how to '" + input1.getWord() + " " + input2.getWord() + " " + input3.getWord() + "'";
+					break;
+	  		}
+		}
 
-  // Run the command
-  public static String runCommand(String inputString) {
-    List<String> wordList;
-    String output = "ok";
-    String lowerString = inputString.trim().toLowerCase();
+		return response;
+	}
 
-    if (!lowerString.equals("quit")) {
-      if (lowerString.equals("")) {
-        output = "You must enter a command";
-      } else {
-        wordList = wordList(lowerString);
-        parseCommand(wordList);
-      }
-    } else {
-      output = "quit";
-      Game.endGame();
-    }
-    return output;
-  }
+	// Processes the Verb-Noun input structure
+	static String processVerbNoun(List<WordProcessor> input) {
+		WordProcessor input1 = input.get(0);
+		WordProcessor input2 = input.get(1);
+		String response = "";
+
+		// Check if the first word is a valid action
+		if (input1.getWordType() != WordType.VERB) {
+			response = "Can't do that. " + input1.getWord() + " is not a valid action!";
+		} else if (input2.getWordType() != WordType.NOUN) {
+			response = "Can't do that. " + input2.getWord() + " is not a valid object!";
+		} else {
+			switch (input1.getWord()) {
+				//TODO: Implement the cases
+				default:
+					response = "Not yet implemented";
+					break;
+			}
+		}
+
+		return response;
+	}
+
+	// Processes the Verb input structure
+	static String processVerb(List<WordProcessor> input) {
+		WordProcessor input1 = input.get(0);
+		String response = "";
+
+		// Check if the first word is a valid action
+		if (input1.getWordType() != WordType.VERB){
+			response = "Can't do that. " + input1.getWord() + " is not a valid action!";
+		} else {
+			switch(input1.getWord()) {
+				// TODO: Add the player actions such as look, take, etc.
+				default:
+					response = "Not yet implemented";
+					break;
+			}
+		}
+
+		return response;
+	}
+
+	// Processes the input structure
+	static String processInput(List<WordProcessor> input) {
+		String response = "";
+
+		// Check the size of the input
+		if (input.size() == 0) {
+			response = "You must write a command!";
+		} else {
+			switch(input.size()) {
+				case 1:
+					response = processVerb(input);
+					break;
+				case 2:
+					response = processVerbNoun(input);
+					break;
+				case 3:
+					response = processVerbPreopisitionNoun(input);
+					break;
+				case 4:
+					response = processVerbNounPrepositionNoun(input);
+					break;
+				default:
+					response = "I don't understand that command!";
+					break;
+			}
+		}
+
+		return response;
+	}
+
+	// Parses the input
+	static String parseInput(List<String> input) {
+		List<WordProcessor> processedInput = new ArrayList<WordProcessor>();
+		WordType type;
+		String response;
+		String errorMessage = "";
+
+		for (String word : input) {
+			if (dictionary.containsKey(word)){
+				type = dictionary.get(word);
+				
+				if (type != WordType.ARTICLE) { 
+					// Skip articles
+					processedInput.add(new WordProcessor(word, type));
+				}
+
+			} else {
+				processedInput.add(new WordProcessor(word, WordType.ERROR));
+				errorMessage += "I don't know the word '" + word + "'\r\n";
+			}
+		}
+
+		// Check if there is an error message to send back
+		if (errorMessage != "") {
+			response = errorMessage;
+		} else {
+			response = processInput(processedInput);
+		}
+
+		return response;
+	}
+
+	static List<String> tokenizedInput(String input) {
+		String delimiters = "\s|('[^']*')|(?=\\W)";
+		List<String> tokens = new ArrayList<String>();
+		StringTokenizer tokenizer = new StringTokenizer(input, delimiters);
+
+		while (tokenizer.hasMoreTokens()) {
+			tokens.add(tokenizer.nextToken());
+		}
+
+		return tokens;
+	}
 }
