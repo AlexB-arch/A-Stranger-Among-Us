@@ -2,86 +2,136 @@ package text_adventure.objects;
 
 import text_adventure.resources.Directions;
 
-public class Room {
+public class Room implements java.io.Serializable{
 
     private String name, description;
-    private int north, south, east, west, up, down;
+    private Room north, south, west, east;
 
-    // Constructor with all directions
-    public Room( String name, String description, int north, int south, int east, int west, int up, int down ) {
-        this.north = north;
-        this.south = south;
-        this.east = east;
-        this.west = west;
-        this.up = up;
-        this.down = down;
+    // Constructor
+    public Room(String name, String description, Room north, Room south, Room west, Room east) {
+        setName(name);
+        setDescription(description);
+        setNorth(north);
+        setSouth(south);
+        setWest(west);
+        setEast(east);
     }
 
-    // Room description
-    public String describeRoom(){
-        String roomDescription;
-
-        roomDescription = String.format("%s. %s.", roomName(), roomDescription());
-
-        return roomDescription;
-    }
-
-    // Room name
-    public String roomName(){
-        return name;
-    }
-
-    public String roomDescription(){
-        return description;
-    }
-
-    // Get the direction of the room
-    public int getNorth() {
+    public Room getNorth(){
         return north;
     }
 
-    public int getSouth() {
-        return south;
-    }
-
-    public int getEast() {
-        return east;
-    }
-
-    public int getWest() {
-        return west;
-    }
-
-    public int getUp() {
-        return up;
-    }
-
-    public int getDown() {
-        return down;
-    }
-
-    // Set the direction of the room
-    public void setNorth(int north) {
+    public void setNorth(Room north){
         this.north = north;
     }
 
-    public void setSouth(int south) {
+    public Room getSouth(){
+        return south;
+    }
+
+    public void setSouth(Room south){
         this.south = south;
     }
 
-    public void setEast(int east) {
-        this.east = east;
+    public Room getWest(){
+        return west;
     }
 
-    public void setWest(int west) {
+    public void setWest(Room west){
         this.west = west;
     }
 
-    public void setUp(int up) {
-        this.up = up;
+    public Room getEast(){
+        return east;
     }
 
-    public void setDown(int down) {
-        this.down = down;
+    public void setEast(Room east){
+        this.east = east;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    // Returns the room in the specified direction
+    public Room getRoom(Directions dir){
+        switch(dir){
+            case NORTH:
+                return getNorth();
+            case SOUTH:
+                return getSouth();
+            case WEST:
+                return getWest();
+            case EAST:
+                return getEast();
+            default:
+                return null;
+        }
+    }
+
+    // Returns the name of the room in the specified direction
+    public String getRoomName(Directions dir){
+        switch(dir){
+            case NORTH:
+                return getNorth().getName();
+            case SOUTH:
+                return getSouth().getName();
+            case WEST:
+                return getWest().getName();
+            case EAST:
+                return getEast().getName();
+            default:
+                return null;
+        }
+    }
+
+    // Returns the description of the room in the specified direction
+    public String getRoomDescription(Directions dir){
+        switch(dir){
+            case NORTH:
+                return getNorth().getDescription();
+            case SOUTH:
+                return getSouth().getDescription();
+            case WEST:
+                return getWest().getDescription();
+            case EAST:
+                return getEast().getDescription();
+            default:
+                return null;
+        }
+    }
+
+    public void setExits(Room north, Room south, Room east, Room west) {
+        this.north = north;
+        this.south = south;
+        this.east = east;
+        this.west = west;
+    }
+
+    public Room getExit(Directions direction) {
+        switch (direction) {
+            case NORTH:
+                return north;
+            case SOUTH:
+                return south;
+            case EAST:
+                return east;
+            case WEST:
+                return west;
+            default:
+                return null;
+        }
     }
 }

@@ -7,5 +7,5 @@ public enum Directions {
     WEST,
     UP,
     DOWN;   
-    public static final int NOEXIT = -1;
+    public final int NOEXIT = -1;
 }
