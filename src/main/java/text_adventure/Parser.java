@@ -33,7 +33,7 @@ public class Parser {
 
     // Check if the first word is a valid action
     if ((input1.getWordType() != WordType.VERB) || (input3.getWordType() != WordType.PREPOSITION)) {
-      response = "Can't do that. I don't undertsand how to '" + input1.getWord() + " something " + input3.getWord() + "' something!";
+      response = "Can't do that. I don't understand how to '" + input1.getWord() + " something " + input3.getWord() + "' something!";
     } else if ( input2.getWordType() != WordType.NOUN) {
       response = "Can't do that. " + input2.getWord() + " is not a valid object!\r\n";
     } else if ( input4.getWordType() != WordType.NOUN) {
@@ -63,7 +63,7 @@ public class Parser {
 
 		// Check if the first word is a valid action
 		if ((input1.getWordType() != WordType.VERB) || (input2.getWordType() != WordType.PREPOSITION)) {
-			response = "Can't do that. I don't undertsand how to '" + input1.getWord() + " " + input2.getWord() + "' something!";
+			response = "Can't do that. I don't understand how to '" + input1.getWord() + " " + input2.getWord() + "' something!";
 		} else if ( input3.getWordType() != WordType.NOUN) {
 			response = "Can't do that. " + input3.getWord() + " is not a valid object!\r\n";
 		} else {

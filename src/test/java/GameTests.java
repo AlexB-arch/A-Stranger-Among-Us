@@ -49,6 +49,21 @@ public class GameTests {
     }
 
     @Test
+    public void testDictionaryAddition() {
+
+       int parserSize = Parser.dictionary.size();
+        // Add a word to the dictionary and check its value.
+        Parser.dictionary.put("sword", WordType.VERB);
+        assertTrue(Parser.dictionary.get("sword") == WordType.VERB);
+
+        // Check that the dictionary size increased by one
+        assertTrue(formatTestOutput("Test praser",Integer.toString(parserSize),Integer.toString(Parser.dictionary.size())),Parser.dictionary.size() > parserSize);
+
+    }
+    
+    
+
+    @Test
     public void testUp() {
         String expectedOutput = "Not yet implemented";
         String input = "up";
@@ -66,7 +81,7 @@ public class GameTests {
 
      @Test
      public void testQuit() {
-         String expectedOutput = "Not yet implemented";
+         String expectedOutput = "You've been ejected into the cold vacuum of space. Game Over.";
          String input = "Quit";
          String output = game.runCommands(input);
          assertTrue(formatTestOutput("Test Quit", input, output),expectedOutput.equals(output));
@@ -99,7 +114,24 @@ public class GameTests {
         String output = game.runCommands(input);
         assertTrue(formatTestOutput("Test West", input, output),expectedOutput.equals(output));
     }
-   
+
+    @Test
+    public void testUnknownWord() {
+        String input = "ff";
+        String expectedOutput = "I don\'t know the word \'"+input+"\'";
+        String output = game.runCommands(input);
+        System.out.print(output);
+        assertTrue(formatTestOutput("Test Unknown Word", input, output),expectedOutput.equals(output.trim()));
+    }
+
+    @Test
+    public void testNoInput(){
+        String input = "";
+        String expectedOutput = "Please enter a command.\n";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test Non input", input, output),expectedOutput.equals(output));
+    }
+    
     
     
 }
