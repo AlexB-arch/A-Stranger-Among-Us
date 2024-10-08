@@ -12,7 +12,11 @@ public class Nouns {
         "sleeping quarters",
         "lights",
         "task",
-        "investigate"
+        "investigate",
+        "north",
+        "south",
+        "east",
+        "west",
 
         // Add more nouns as needed
     };

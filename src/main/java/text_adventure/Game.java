@@ -1,14 +1,11 @@
 package text_adventure;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 
 public class Game implements java.io.Serializable {
-
-  private ArrayList<Room> map;
 
   public static Player player;
 
@@ -28,27 +25,21 @@ public class Game implements java.io.Serializable {
 		// Initialize the player
 		player = new Player();
 
-		// Initialize the map
-		map = new ArrayList<Room>();
-
 		// Create the rooms
 		Room bridge = new Room("the Bridge", "The bridge is dark. The only source of light is the numerous buttons on the ship's controls.", null, null, null, null);
-		Room hallwayA1 = new Room("Hallway A1", "An ample hallway connects the bridge with several rooms.", null, null, null, null);
-		Room capsOffice = new Room("Captain's Office", "The Captain's office is completely dark. He doesn't seem to be here.", null, null, null, null);
+		Room hallwayA1 = new Room("Hallway A1", "A hallway connects several rooms.", null, null, null, null);
+		Room capsQuarters = new Room("Captain's Quarters", "The Captain's office is completely dark. He doesn't seem to be here.", null, null, null, null);
+		Room sleepingQaurters = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The crew is nowhere to be found.", null, null, null, null);
 
 		// Set the directions for each room
 		bridge.setExits(hallwayA1, null, null, null);
-		hallwayA1.setExits(null, bridge, capsOffice, null);
-		capsOffice.setExits(null, null, null, hallwayA1);
+		hallwayA1.setExits(null, bridge, capsQuarters, null);
+		capsQuarters.setExits(null, null, null, hallwayA1);
+		sleepingQaurters.setExits(null, null, null, hallwayA1);
 
+		// Players starts in the sleeping quarters
+		player.setCurrentLocation(sleepingQaurters);
 
-		// Add the rooms to the map
-		map.add(bridge);
-		map.add(hallwayA1);
-		map.add(capsOffice);
-
-		// Set the current room
-		player.setCurrentLocation(map.get(0));
 		// Display the intro message
 		showIntro();
 	}
@@ -59,10 +50,10 @@ public class Game implements java.io.Serializable {
 	String string = "";
 	String lowerCaseInput;
 
-		// Cleans up the input and converts it to lowercase
-		lowerCaseInput = inputString.trim().toLowerCase();
+	// Cleans up the input and converts it to lowercase
+	lowerCaseInput = inputString.trim().toLowerCase();
 
-	if (!lowerCaseInput.equals("quit")) {
+	if (!lowerCaseInput.equals("quit") || !lowerCaseInput.equals("exit")) {
 		if(lowerCaseInput.equals("")){
 			string = "Please enter a command.\n";
 		} else {
@@ -90,8 +81,8 @@ public class Game implements java.io.Serializable {
     	message = "Welcome to A Stranger Among Us!\n";
 		message += "You're working on fixing some wires in the sleeping quarters when the lights suddenly go out.\nYou attempt to flick them back on, only to find that they won't react. \nYou decide to put your task on hold to investigate.\n";
 		message += "Where do you want to go?\n";
-		message += "Enter: north, south, west, east, up, or down\n";
-		message += "Or type 'quit' to exit the game.\n";
+		message += "Enter 'go' and north, south, west, or east to move. \n";
+		message += "Or type 'quit' or 'exit' to stop the game.\n";
 		
 		showMessage(message);
   }
@@ -116,6 +107,6 @@ public class Game implements java.io.Serializable {
 
 	// Use look method to display the player's current location
 	public void look() {
-		//showMessage("You are in the " + player.describeLocation());
+		showMessage(player.getCurrentLocation().getDescription());
 	}
 }

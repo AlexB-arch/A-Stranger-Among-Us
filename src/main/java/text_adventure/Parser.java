@@ -98,6 +98,9 @@ public class Parser {
 		} else {
 			switch (input1.getWord()) {
 				//TODO: Implement the cases
+				case "go":
+					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
+					break;
 				default:
 					response = "Not yet implemented";
 					break;
@@ -117,18 +120,20 @@ public class Parser {
 			response = "Can't do that. " + input1.getWord() + " is not a valid action!";
 		} else {
 			switch(input1.getWord()) {
-				// TODO: Add the player actions such as look, take, etc.
-				// Add the player movement actions here
-				case "north":
-					Game.player.move(Directions.NORTH);
-				case "south":
-					Game.player.move(Directions.SOUTH);
-				case "east":
-					Game.player.move(Directions.EAST);
-				case "west":
-					Game.player.move(Directions.WEST);
+				case "go":
+					// call verb noun
+					response = "Go where?";
+					break;
+				case "look":
+					Main.game.look();
+					break;
+				case "inventory":
+					//response = Main.game.showInventory();
+					break;
+				case "quit", "exit":
+					response = Main.game.endGame();
+					break;
 				default:
-					response = "Not yet implemented";
 					break;
 			}
 		}

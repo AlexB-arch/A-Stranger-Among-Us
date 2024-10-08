@@ -118,4 +118,26 @@ public class Room implements java.io.Serializable{
                 return null;
         }
     }
+
+    // When the player enters a room, the room description and available exits are displayed
+    public String displayRoom(){
+        String message = "";
+        message += "You are in the " + getName() + ".\n";
+        message += getDescription() + "\n";
+        message += "Exits: ";
+        if (north != null) {
+            message += "north ";
+        }
+        if (south != null) {
+            message += "south ";
+        }
+        if (east != null) {
+            message += "east ";
+        }
+        if (west != null) {
+            message += "west ";
+        }
+        message += "\n";
+        return message;
+    }
 }
