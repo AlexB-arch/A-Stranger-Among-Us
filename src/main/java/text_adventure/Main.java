@@ -18,7 +18,6 @@ public class Main {
 
 		game = new Game();
 		in = new BufferedReader(new InputStreamReader(System.in));
-		game.showIntro();
 
 		do {
 			System.out.print(">> ");
@@ -33,6 +32,7 @@ public class Main {
 			if (!output.trim().isEmpty()){
 				game.showMessage(output);
 			}
-		} while (!input.equals("quit") || !output.equals("exit"));
+			
+		} while (game.getShouldExit() != true);
 	}
 }

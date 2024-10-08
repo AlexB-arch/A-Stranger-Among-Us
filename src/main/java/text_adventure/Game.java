@@ -8,13 +8,21 @@ import text_adventure.objects.Room;
 
 public class Game implements java.io.Serializable {
 
-	private ArrayList<Room> map;
-	static Player player;
+  private ArrayList<Room> map;
 
-	public Game() {
-		Parser.initDictionary();
-		start();
-	}
+  public static Player player;
+
+//   public static Player getPlayer() {
+//     return player;
+//   }
+  private boolean shouldexit;
+
+  public Game() {
+    Parser.initDictionary();
+	shouldexit = false;
+    start();
+
+  }
 
 	public void start() {
 		// Initialize the player
@@ -45,34 +53,36 @@ public class Game implements java.io.Serializable {
 		showIntro();
 	}
 
-	// Call the parser to tokenize the input
-	String runCommands(String inputString){
-		List<String> inputList;
-		String string = "";
-		String lowerCaseInput;
+  // Call the parser to tokenize the input
+  public String runCommands(String inputString){
+	List<String> inputList;
+	String string = "";
+	String lowerCaseInput;
 
 		// Cleans up the input and converts it to lowercase
 		lowerCaseInput = inputString.trim().toLowerCase();
 
-		if (!lowerCaseInput.equals("quit")) {
-			if(lowerCaseInput.equals("")){
-				string = "Please enter a command.\n";
-			} else {
-				inputList = Parser.tokenizedInput(lowerCaseInput);
-				string = Parser.parseInput(inputList);
-			}
+	if (!lowerCaseInput.equals("quit")) {
+		if(lowerCaseInput.equals("")){
+			string = "Please enter a command.\n";
+		} else {
+			inputList = Parser.tokenizedInput(lowerCaseInput);
+			string = Parser.parseInput(inputList);
 		}
+	}else{
+		string = endGame();
+	}
 
 		return string;
 	}
 
-	public void endGame(){
-		String message;
+  public String endGame(){
+	String message;
 
-		message = "You've been ejected into the cold vacuum of space. Game Over.";
-		
-		showMessage(message);
-	}
+    message = "You've been ejected into the cold vacuum of space. Game Over.";
+    setShouldExit(true);
+	return message;
+  }
 
   	public void showIntro(){
 		String message;
@@ -84,7 +94,14 @@ public class Game implements java.io.Serializable {
 		message += "Or type 'quit' to exit the game.\n";
 		
 		showMessage(message);
-  	}
+  }
+  public boolean getShouldExit(){
+	return shouldexit;
+  }
+
+  private void setShouldExit(boolean bool){
+	shouldexit = bool;
+  }
 
   // Display messages to the console
   	public void showMessage(String message){
