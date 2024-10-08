@@ -24,17 +24,20 @@ public class Game implements java.io.Serializable {
 		map = new ArrayList<Room>();
 
 		// Create the rooms
-		Room room1 = new Room("Room 1", "You are in Room 1", null, null, null, null);
-		Room room2 = new Room("Room 2", "You are in Room 2", null, null, null, null);
+		Room bridge = new Room("the Bridge", "The bridge is dark. The only source of light is the numerous buttons on the ship's controls.", null, null, null, null);
+		Room hallwayA1 = new Room("Hallway A1", "An ample hallway connects the bridge with several rooms.", null, null, null, null);
+		Room capsOffice = new Room("Captain's Office", "The Captain's office is completely dark. He doesn't seem to be here.", null, null, null, null);
 
 		// Set the directions for each room
-		room1.setExits(room2, room1, null, null);
-		room2.setExits(null, room1, null, null);
+		bridge.setExits(hallwayA1, null, null, null);
+		hallwayA1.setExits(null, bridge, capsOffice, null);
+		capsOffice.setExits(null, null, null, hallwayA1);
 
 
 		// Add the rooms to the map
-		map.add(room1);
-		map.add(room2);
+		map.add(bridge);
+		map.add(hallwayA1);
+		map.add(capsOffice);
 
 		// Set the current room
 		player.setCurrentLocation(map.get(0));

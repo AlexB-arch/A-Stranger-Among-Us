@@ -65,25 +65,9 @@ public class Room implements java.io.Serializable{
         this.description = description;
     }
 
-    // Returns the room in the specified direction
-    public Room getRoom(Directions dir){
-        switch(dir){
-            case NORTH:
-                return getNorth();
-            case SOUTH:
-                return getSouth();
-            case WEST:
-                return getWest();
-            case EAST:
-                return getEast();
-            default:
-                return null;
-        }
-    }
-
     // Returns the name of the room in the specified direction
-    public String getRoomName(Directions dir){
-        switch(dir){
+    public String getRoomName(Directions direction){
+        switch(direction){
             case NORTH:
                 return getNorth().getName();
             case SOUTH:
@@ -98,8 +82,8 @@ public class Room implements java.io.Serializable{
     }
 
     // Returns the description of the room in the specified direction
-    public String getRoomDescription(Directions dir){
-        switch(dir){
+    public String getRoomDescription(Directions direction){
+        switch(direction){
             case NORTH:
                 return getNorth().getDescription();
             case SOUTH:
