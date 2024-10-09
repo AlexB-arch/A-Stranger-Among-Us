@@ -6,7 +6,9 @@ public enum Directions {
     NORTH, 
     SOUTH, 
     EAST, 
-    WEST;
+    WEST,
+    UP,
+    DOWN;
     
     public static final Room NOEXIT = null;
 }

@@ -17,6 +17,8 @@ public class Nouns {
         "south",
         "east",
         "west",
+        "up",
+        "down",
 
         // Add more nouns as needed
     };

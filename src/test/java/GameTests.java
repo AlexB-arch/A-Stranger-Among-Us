@@ -1,11 +1,13 @@
 
 import static org.junit.Assert.*;
 
+import java.io.PrintStream;
 import java.util.HashMap;
 
 import org.junit.Test;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 
 
 import text_adventure.Parser;
@@ -17,6 +19,15 @@ public class GameTests {
     Game game;
 
 
+    // Captures text from the console
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+    // Standard output. Needs to be restored afterwards.
+    private final PrintStream output = System.out;
+
+
+
+
     public String formatTestOutput( String testName, String input,String output){
         return "-------\n"+testName+"\n"+"Input:"+input+"\nOutput:"+output+"\n------";
     }
@@ -25,6 +36,13 @@ public class GameTests {
     @Before
     public void setUp() {
         game = new Game();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+    }
+
+    @After
+    public void tearDown() {
+        System.setOut(output);
     }
     
 
@@ -65,54 +83,58 @@ public class GameTests {
 
     @Test
     public void testUp() {
-        String expectedOutput = "Not yet implemented";
-        String input = "up";
-        String output = game.runCommands(input);
-        assertTrue(formatTestOutput("testUp",input,output),expectedOutput.equals(output));
+        // Test using standard output
+        String expectedOutput = "You can't go that way.";
+        String input = "go up";
+        game.runCommands("go up");
+        output.println(outputStreamCaptor);
+        assertTrue(formatTestOutput("Test Up", input, outputStreamCaptor.toString()),expectedOutput.equals(outputStreamCaptor.toString().trim()));
+        
     }
 
     @Test
     public void testDown() {
-        String expectedOutput = "Not yet implemented";
-        String input = "up";
-        String output = game.runCommands(input);
-        assertTrue(formatTestOutput("Test Down", input, output),expectedOutput.equals(output));
+        String expectedOutput = "You can't go that way.";
+        String input = "go up";
+        game.runCommands(input);
+        assertTrue(formatTestOutput("Test Down", input, outputStreamCaptor.toString()),expectedOutput.equals(outputStreamCaptor.toString().trim()));
     }
 
      @Test
      public void testQuit() {
-         String expectedOutput = "You've been ejected into the cold vacuum of space. Game Over.";
-         String input = "Quit";
-         String output = game.runCommands(input);
-         assertTrue(formatTestOutput("Test Quit", input, output),expectedOutput.equals(output));
-     }
+        String expectedOutput = "You've been ejected into the cold vacuum of space. Game Over.";
+        String input = "Quit";
+        game.runCommands(input);
+        assertTrue(formatTestOutput("Test Quit", input, outputStreamCaptor.toString()),expectedOutput.equals(outputStreamCaptor.toString().trim()));
+    }
+
     @Test
     public void testNorth() {
-        String expectedOutput = "Not yet implemented";
-        String input = "north";
-        String output = game.runCommands(input);
-        assertTrue(formatTestOutput("Test North", input, output),expectedOutput.equals(output));
+        String expectedOutput = "You can't go that way.";
+        String input = "go north";
+        game.runCommands(input);
+        assertTrue(formatTestOutput("Test North", input, outputStreamCaptor.toString()),expectedOutput.equals(outputStreamCaptor.toString().trim()));
     }
     @Test
     public void testSouth() {
-        String expectedOutput = "Not yet implemented";
-        String input = "south";
-        String output = game.runCommands(input);
-        assertTrue(formatTestOutput("Test South", input, output),expectedOutput.equals(output));
+        String expectedOutput = "You can't go that way.";
+        String input = "go south";
+        game.runCommands(input);
+        assertTrue(formatTestOutput("Test South", input, outputStreamCaptor.toString()),expectedOutput.equals(outputStreamCaptor.toString().trim()));
     }
     @Test
     public void testEast() {
-        String expectedOutput = "Not yet implemented";
-        String input = "east";
-        String output = game.runCommands(input);
-        assertTrue(formatTestOutput("Test East", input, output),expectedOutput.equals(output));
+        String expectedOutput = "You can't go that way.";
+        String input = "go east";
+        game.runCommands(input);
+        assertTrue(formatTestOutput("Test East", input, outputStreamCaptor.toString()),expectedOutput.equals(outputStreamCaptor.toString().trim()));
     }
     @Test
     public void testWest() {
-        String expectedOutput = "Not yet implemented";
-        String input = "west";
-        String output = game.runCommands(input);
-        assertTrue(formatTestOutput("Test West", input, output),expectedOutput.equals(output));
+        String expectedOutput = "You are in the Hallway A1.\n" + "A hallway connects several rooms.\n" + "Exits: south east";
+        String input = "go west";
+        game.runCommands(input);
+        assertTrue(formatTestOutput("Test West", input, outputStreamCaptor.toString()),expectedOutput.equals(outputStreamCaptor.toString().trim()));
     }
 
     @Test
@@ -131,7 +153,21 @@ public class GameTests {
         String output = game.runCommands(input);
         assertTrue(formatTestOutput("Test Non input", input, output),expectedOutput.equals(output));
     }
+
+    @Test
+    public void testLookAt(){
+        String input = "look at wires";
+        String expectedOutput = "I don't know the word 'at'";
+        game.runCommands(input);
+        assertTrue(formatTestOutput("Test Look At", input, outputStreamCaptor.toString()),expectedOutput.equals(outputStreamCaptor.toString().trim()));
+    }
     
-    
+    @Test
+    public void testGo(){
+        String input = "go";
+        String expectedOutput = "Go where?";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test Go", input, output),expectedOutput.equals(output));
+    }
     
 }

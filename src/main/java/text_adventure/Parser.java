@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import java.util.HashMap;
 
 import text_adventure.resources.WordType;
+import text_adventure.resources.Articles;
 import text_adventure.resources.Directions;
 import text_adventure.resources.Nouns;
 import text_adventure.resources.Verbs;
@@ -22,6 +23,7 @@ public class Parser {
 	// Pass the dictionary to the other classes to populate it
 	Verbs.insertVerbs(dictionary);
 	Nouns.insertNouns(dictionary);
+	Articles.insertArticles(dictionary);
   }
 
   // Processes the Verb-Noun-Preposition-Noun input structure
