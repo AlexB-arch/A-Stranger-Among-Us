@@ -1,5 +1,3 @@
-package text_adventure;
-
 import static org.junit.Assert.*;
 
 import java.io.PrintStream;
