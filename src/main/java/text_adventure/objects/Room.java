@@ -9,7 +9,7 @@ public class Room implements java.io.Serializable{
     public Inventory roomInventory;
 
     // Constructor
-    public Room(String name, String description) {
+    public Room(String name, String description, Inventory inventory) {
         setName(name);
         setDescription(description);
         if (inventory != null){
