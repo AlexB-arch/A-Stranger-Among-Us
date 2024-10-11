@@ -4,20 +4,27 @@ import text_adventure.resources.Directions;
 
 public class Player {
   private Room currentLocation;
-
+  public Inventory playerInventory;
   // what kind of attributes are needed for the player?
 
   public Player() {
     // Initialize the player
     // Do we want to have names for the player?
     // Player starts with a description, location, and inventory
+    Inventory playerInventory = new Inventory(); 
+
   }
+
+  // public void openInventory(){
+  //   return playerInventory.strinFormatedItems();
+  // }
 
   // getters and setters, if any
   public Room getCurrentLocation() {
     return currentLocation;
   }
 
+  
   public void setCurrentLocation(Room currentLocation) {
     this.currentLocation = currentLocation;
   }
