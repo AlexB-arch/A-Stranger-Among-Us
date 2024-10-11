@@ -8,13 +8,9 @@ public class Room implements java.io.Serializable{
     private Room north, south, west, east;
 
     // Constructor
-    public Room(String name, String description, Room north, Room south, Room west, Room east) {
+    public Room(String name, String description) {
         setName(name);
         setDescription(description);
-        setNorth(north);
-        setSouth(south);
-        setWest(west);
-        setEast(east);
     }
 
     public Room getNorth(){
@@ -65,25 +61,9 @@ public class Room implements java.io.Serializable{
         this.description = description;
     }
 
-    // Returns the room in the specified direction
-    public Room getRoom(Directions dir){
-        switch(dir){
-            case NORTH:
-                return getNorth();
-            case SOUTH:
-                return getSouth();
-            case WEST:
-                return getWest();
-            case EAST:
-                return getEast();
-            default:
-                return null;
-        }
-    }
-
     // Returns the name of the room in the specified direction
-    public String getRoomName(Directions dir){
-        switch(dir){
+    public String getRoomName(Directions direction){
+        switch(direction){
             case NORTH:
                 return getNorth().getName();
             case SOUTH:
@@ -98,8 +78,8 @@ public class Room implements java.io.Serializable{
     }
 
     // Returns the description of the room in the specified direction
-    public String getRoomDescription(Directions dir){
-        switch(dir){
+    public String getRoomDescription(Directions direction){
+        switch(direction){
             case NORTH:
                 return getNorth().getDescription();
             case SOUTH:
@@ -133,5 +113,27 @@ public class Room implements java.io.Serializable{
             default:
                 return null;
         }
+    }
+
+    // When the player enters a room, the room description and available exits are displayed
+    public String displayRoom(){
+        String message = "";
+        message += "You are in the " + getName() + ".\n";
+        message += getDescription() + "\n";
+        message += "Exits: ";
+        if (north != null) {
+            message += "north ";
+        }
+        if (south != null) {
+            message += "south ";
+        }
+        if (east != null) {
+            message += "east ";
+        }
+        if (west != null) {
+            message += "west ";
+        }
+        message += "\n";
+        return message;
     }
 }
