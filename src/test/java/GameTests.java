@@ -132,6 +132,52 @@ public class GameTests {
         assertTrue(formatTestOutput("Test Non input", input, output),expectedOutput.equals(output));
     }
     
+    @Test
+    public void playerOpenInventory(){
+        String input = "";
+        String expectedOutput = "Please enter a command.\n";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test Player Open Inventory", input, output),expectedOutput.equals(output));
+    }
+
+    @Test
+    public void playerOpenInventoryExternal(){
+        String input = "";
+        String expectedOutput = "Please enter a command.\n";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test Player Open Inventory External ", input, output),expectedOutput.equals(output));
+    }
     
+    @Test
+    // This test should list out a visible or descriptive amount of objects. 
+    public void playerGetVisableObjects(){
+        String input = "";
+        String expectedOutput = "Please enter a command.\n";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test Player Get Visible Items", input, output),expectedOutput.equals(output));
+    }
+    @Test
+    public void playerTakeItem(){
+        String input = "";
+        String expectedOutput = "Please enter a command.\n";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test Non input", input, output),expectedOutput.equals(output));
+    }
+
+    @Test
+    public void playerUseItem(){
+        String input = "";
+        String expectedOutput = "Please enter a command.\n";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test Non input", input, output),expectedOutput.equals(output));
+    }
+
+    @Test
+    public void playerDropItem(){
+        String input = "";
+        String expectedOutput = "Please enter a command.\n";
+        String output = game.runCommands(input);
+        assertTrue(formatTestOutput("Test Non input", input, output),expectedOutput.equals(output));
+    }
     
 }
