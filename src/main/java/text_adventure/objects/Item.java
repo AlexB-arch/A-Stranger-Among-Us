@@ -11,6 +11,7 @@ public interface Item {
   String getDescription();
   double getValue();
   double getWeight();
-  ArrayList<String> actions();
-  
+  ArrayList<String> getActions();
+  // there is so much better way of doing this but I'm tired so this works for now
+  boolean performAction(String action); 
 }
