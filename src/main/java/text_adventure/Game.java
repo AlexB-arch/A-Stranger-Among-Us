@@ -26,19 +26,25 @@ public class Game implements java.io.Serializable {
 		player = new Player();
 
 		// Create the rooms
-		Room bridge = new Room("the Bridge", "The bridge is dark. The only source of light is the numerous buttons on the ship's controls.", null, null, null, null);
-		Room hallwayA1 = new Room("Hallway A1", "A hallway connects several rooms.", null, null, null, null);
-		Room capsQuarters = new Room("Captain's Quarters", "The Captain's office is completely dark. He doesn't seem to be here.", null, null, null, null);
-		Room sleepingQaurters = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The crew is nowhere to be found.", null, null, null, null);
+		Room sleepingQuarters = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The room is empty. The rest of the crew must be in other parts of the ship.\n\nThe door to the east leads to the Mess Hall, which you locked open when you came in. ");
+    Room sleepingQuartersCloset = new Room("Sleeping Quarters Closet", "This is a storage room for the sleeping quarters you were working in when the power went out. There are all sorts of blankets and pillows in here.");
+    Room hallwayA1 = new Room("Hallway A1", "This is the hallway between the Sleeping Quarters and the Mess Hall.");
+    Room MessHall = new Room("Mess Hall", "This is the main hall of the space station.\nTo the north is the Bridge. The door appears to have emergency locked.\nTo the east is the greenhouse. The door appears to have emergency locked.\nTo the west is the Sleeping Quarters.\nTo the south is the Generator Room.\n\n\u001B[33mAlice\u001B[0m is here.\n\n\u001B[33mAlice: Oh it's you! I thought you were a ghost with how dark it is in here. I'm trying to get into the control room to see what's going on. I think I can use a spare battery to override the door's emergency lock. You should go check on Douglass and the Generator.\u001B[0m");
+    Room hallwayA2 = new Room("Hallway A2", "This is the hallway between the Generator Room and the Mess Hall.\n\nTo the North is the Mess Hall and to the South is the Generator Room.");
+    Room GeneratorRoom = new Room("Generator Room", "This is the generator. It appears to be offline. Douglass should be in here somewhere...\n\nTo the west is the Generator tool closet\nTo the north is the hallway to the Mess Hall.");
+    Room GeneratorCloset = new Room("Generator Utility Closet", "*You enter the room to see Douglass's body lying motionless on the floor*\n\n'Douglass... Douglass!' You shout to no avail. He appears to have a stab wound through his space suit.\n\nDouglass is dead.\n\n'");
 
-		// Set the directions for each room
-		bridge.setExits(hallwayA1, null, null, null);
-		hallwayA1.setExits(null, bridge, capsQuarters, null);
-		capsQuarters.setExits(null, null, null, hallwayA1);
-		sleepingQaurters.setExits(null, null, null, hallwayA1);
+    // Set the directions for each room
+    hallwayA1.setExits(null, null, MessHall, sleepingQuartersCloset);
+    sleepingQuarters.setExits(sleepingQuartersCloset, null, hallwayA1, null );
+		sleepingQuartersCloset.setExits(null, sleepingQuarters, null ,null);
+    MessHall.setExits(null, hallwayA2, null, hallwayA1);
+    hallwayA2.setExits(MessHall, GeneratorRoom, null, null);
+    GeneratorRoom.setExits( hallwayA2, null,null ,GeneratorCloset );
+    GeneratorCloset.setExits(null, null, GeneratorRoom, null);
 
 		// Players starts in the sleeping quarters
-		player.setCurrentLocation(sleepingQaurters);
+		player.setCurrentLocation(sleepingQuartersCloset);
 
 		// Display the intro message
 		showIntro();
@@ -70,7 +76,7 @@ public class Game implements java.io.Serializable {
   public String endGame(){
 	String message;
 
-    message = "You've been ejected into the cold vacuum of space. Game Over.";
+    message = "To be continued...";
     setShouldExit(true);
 	return message;
   }
@@ -83,7 +89,7 @@ public class Game implements java.io.Serializable {
 		message += "Where do you want to go?\n";
 		message += "Enter 'go' and north, south, west, or east to move. \n";
 		message += "Or type 'quit' or 'exit' to stop the game.\n";
-		
+
 		showMessage(message);
   }
   public boolean getShouldExit(){
