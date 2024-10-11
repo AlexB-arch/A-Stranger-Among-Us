@@ -4,10 +4,7 @@ import text_adventure.resources.Directions;
 
 public class Player {
   private Room currentLocation;
-
   public Inventory playerInventory;
-
-
   // what kind of attributes are needed for the player?
 
   public Player() {
@@ -27,6 +24,7 @@ public class Player {
     return currentLocation;
   }
 
+  
   public void setCurrentLocation(Room currentLocation) {
     this.currentLocation = currentLocation;
   }

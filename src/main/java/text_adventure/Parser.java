@@ -127,8 +127,9 @@ public class Parser {
 					Game.player.move(Directions.EAST);
 				case "west":
 					Game.player.move(Directions.WEST);
-				case "inventory":
-				///	Game.player.openInventory();
+			    case "open":
+					//Game.player.playerInventory.printItems();
+
 				default:
 					response = "Not yet implemented";
 					break;

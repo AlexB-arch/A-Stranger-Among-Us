@@ -32,8 +32,8 @@ public class Game implements java.io.Serializable {
 		map = new ArrayList<Room>();
 
 		// Create the rooms
-		Room room1 = new Room("Room 1", "You are in Room 1", null, null, null, null);
-		Room room2 = new Room("Room 2", "You are in Room 2", null, null, null, null);
+		Room room1 = new Room("Room 1", "You are in Room 1", null, null, null, null,null);
+		Room room2 = new Room("Room 2", "You are in Room 2", null, null, null, null,null);
 
 		// Set the directions for each room
 		room1.setExits(room2, room1, null, null);
@@ -69,7 +69,6 @@ public class Game implements java.io.Serializable {
 	}else{
 		string = endGame();
 	}
-
 		return string;
 	}
 

@@ -6,15 +6,21 @@ public class Room implements java.io.Serializable{
 
     private String name, description;
     private Room north, south, west, east;
+    public Inventory roomInventory;
 
     // Constructor
-    public Room(String name, String description, Room north, Room south, Room west, Room east) {
+    public Room(String name, String description, Room north, Room south, Room west, Room east,Inventory inventory) {
         setName(name);
         setDescription(description);
         setNorth(north);
         setSouth(south);
         setWest(west);
         setEast(east);
+        if (inventory != null){
+            roomInventory = inventory;
+        }else{
+            roomInventory = new Inventory();
+        }
     }
 
     public Room getNorth(){
