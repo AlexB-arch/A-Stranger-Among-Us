@@ -8,13 +8,9 @@ public class Room implements java.io.Serializable{
     private Room north, south, west, east;
 
     // Constructor
-    public Room(String name, String description, Room north, Room south, Room west, Room east) {
+    public Room(String name, String description) {
         setName(name);
         setDescription(description);
-        setNorth(north);
-        setSouth(south);
-        setWest(west);
-        setEast(east);
     }
 
     public Room getNorth(){
