@@ -29,16 +29,31 @@ public class Player {
     this.currentLocation = currentLocation;
   }
 
-  // Movement
   public void move(Directions direction) {
-    Room nextRoom = currentLocation.getExit(direction);
-    if (nextRoom != null) {
-        currentLocation = nextRoom;
-        System.out.println("You moved to: " + currentLocation.getName());
-    } else {
-        System.out.println("You can't go that way.");
-    }
-}
+
+		if (currentLocation.getExit(direction) == null) {
+      System.out.println("You can't go that way.");
+		} else {
+			switch (direction) {
+				case NORTH:
+         currentLocation = currentLocation.getExit(direction);
+					break;
+				case SOUTH:
+          currentLocation = currentLocation.getExit(direction);
+					break;
+				case EAST:
+          currentLocation = currentLocation.getExit(direction);
+					break;
+				case WEST:
+          currentLocation = currentLocation.getExit(direction);
+					break;
+				default:
+					break;
+			}
+
+      System.out.println(currentLocation.displayRoom());
+		}
+	}
   // Inventory?
     // public void addItem(Item item){}
     // public void removeItem(Item item){}

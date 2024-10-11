@@ -1,14 +1,11 @@
 package text_adventure;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 
 public class Game implements java.io.Serializable {
-
-  private ArrayList<Room> map;
 
   public static Player player;
 
@@ -28,24 +25,27 @@ public class Game implements java.io.Serializable {
 		// Initialize the player
 		player = new Player();
 
-		// Initialize the map
-		map = new ArrayList<Room>();
-
 		// Create the rooms
-		Room room1 = new Room("Room 1", "You are in Room 1", null, null, null, null,null);
-		Room room2 = new Room("Room 2", "You are in Room 2", null, null, null, null,null);
+		Room sleepingQuarters = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The room is empty. The rest of the crew must be in other parts of the ship.\n\nThe door to the east leads to the Mess Hall, which you locked open when you came in. ");
+    Room sleepingQuartersCloset = new Room("Sleeping Quarters Closet", "This is a storage room for the sleeping quarters you were working in when the power went out. There are all sorts of blankets and pillows in here.");
+    Room hallwayA1 = new Room("Hallway A1", "This is the hallway between the Sleeping Quarters and the Mess Hall.");
+    Room MessHall = new Room("Mess Hall", "This is the main hall of the space station.\nTo the north is the Bridge. The door appears to have emergency locked.\nTo the east is the greenhouse. The door appears to have emergency locked.\nTo the west is the Sleeping Quarters.\nTo the south is the Generator Room.\n\n\u001B[33mAlice\u001B[0m is here.\n\n\u001B[33mAlice: Oh it's you! I thought you were a ghost with how dark it is in here. I'm trying to get into the control room to see what's going on. I think I can use a spare battery to override the door's emergency lock. You should go check on Douglass and the Generator.\u001B[0m");
+    Room hallwayA2 = new Room("Hallway A2", "This is the hallway between the Generator Room and the Mess Hall.\n\nTo the North is the Mess Hall and to the South is the Generator Room.");
+    Room GeneratorRoom = new Room("Generator Room", "This is the generator. It appears to be offline. Douglass should be in here somewhere...\n\nTo the west is the Generator tool closet\nTo the north is the hallway to the Mess Hall.");
+    Room GeneratorCloset = new Room("Generator Utility Closet", "*You enter the room to see Douglass's body lying motionless on the floor*\n\n'Douglass... Douglass!' You shout to no avail. He appears to have a stab wound through his space suit.\n\nDouglass is dead.\n\n'");
 
-		// Set the directions for each room
-		room1.setExits(room2, room1, null, null);
-		room2.setExits(null, room1, null, null);
+    // Set the directions for each room
+    hallwayA1.setExits(null, null, MessHall, sleepingQuartersCloset);
+    sleepingQuarters.setExits(sleepingQuartersCloset, null, hallwayA1, null );
+		sleepingQuartersCloset.setExits(null, sleepingQuarters, null ,null);
+    MessHall.setExits(null, hallwayA2, null, hallwayA1);
+    hallwayA2.setExits(MessHall, GeneratorRoom, null, null);
+    GeneratorRoom.setExits( hallwayA2, null,null ,GeneratorCloset );
+    GeneratorCloset.setExits(null, null, GeneratorRoom, null);
 
+		// Players starts in the sleeping quarters
+		player.setCurrentLocation(sleepingQuartersCloset);
 
-		// Add the rooms to the map
-		map.add(room1);
-		map.add(room2);
-
-		// Set the current room
-		player.setCurrentLocation(map.get(0));
 		// Display the intro message
 		showIntro();
 	}
@@ -56,10 +56,10 @@ public class Game implements java.io.Serializable {
 	String string = "";
 	String lowerCaseInput;
 
-		// Cleans up the input and converts it to lowercase
-		lowerCaseInput = inputString.trim().toLowerCase();
+	// Cleans up the input and converts it to lowercase
+	lowerCaseInput = inputString.trim().toLowerCase();
 
-	if (!lowerCaseInput.equals("quit")) {
+	if (!lowerCaseInput.equals("quit") || !lowerCaseInput.equals("exit")) {
 		if(lowerCaseInput.equals("")){
 			string = "Please enter a command.\n";
 		} else {
@@ -75,7 +75,7 @@ public class Game implements java.io.Serializable {
   public String endGame(){
 	String message;
 
-    message = "You've been ejected into the cold vacuum of space. Game Over.";
+    message = "To be continued...";
     setShouldExit(true);
 	return message;
   }
@@ -86,9 +86,9 @@ public class Game implements java.io.Serializable {
     	message = "Welcome to A Stranger Among Us!\n";
 		message += "You're working on fixing some wires in the sleeping quarters when the lights suddenly go out.\nYou attempt to flick them back on, only to find that they won't react. \nYou decide to put your task on hold to investigate.\n";
 		message += "Where do you want to go?\n";
-		message += "Enter: north, south, west, east, up, or down\n";
-		message += "Or type 'quit' to exit the game.\n";
-		
+		message += "Enter 'go' and north, south, west, or east to move. \n";
+		message += "Or type 'quit' or 'exit' to stop the game.\n";
+
 		showMessage(message);
   }
   public boolean getShouldExit(){
@@ -112,6 +112,6 @@ public class Game implements java.io.Serializable {
 
 	// Use look method to display the player's current location
 	public void look() {
-		//showMessage("You are in the " + player.describeLocation());
+		showMessage(player.getCurrentLocation().getDescription());
 	}
 }
