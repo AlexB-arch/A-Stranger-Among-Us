@@ -18,9 +18,9 @@ public class Player {
 
   }
 
-  public void openInventory(){
-    playerInventory.printItems();
-  }
+  // public void openInventory(){
+  //   return playerInventory.strinFormatedItems();
+  // }
 
   // getters and setters, if any
   public Room getCurrentLocation() {
