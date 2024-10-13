@@ -1,4 +1,4 @@
-# Sprint 10 - 18 - 24
+# Sprint Planning
 
 ## Diffulty Ranges:
 1 - 3: Easy
@@ -6,6 +6,7 @@
 7 - 9: Hard
 10: Beg Reeves for mercy.
 
+## Sprint 10 - 18 - 24
 ### Alex:
 NPCs: 5
  - Two major functionalities
