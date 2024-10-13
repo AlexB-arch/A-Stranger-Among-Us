@@ -3,7 +3,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import text_adventure.objects.Item;
 import text_adventure.objects.Key;
 
 

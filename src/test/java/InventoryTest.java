@@ -1,22 +1,11 @@
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 import org.junit.Test;
-import org.junit.Before;
-import org.junit.Rule;
-
-
-import text_adventure.Parser;
-import text_adventure.Game;
-import text_adventure.resources.WordType;
-
-
 import text_adventure.objects.Item;
 import text_adventure.objects.LaserPistol;
-import text_adventure.objects.Key;
 import text_adventure.objects.Inventory;
 
 public class InventoryTest {

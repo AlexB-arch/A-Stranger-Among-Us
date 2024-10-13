@@ -1,11 +1,8 @@
 import static org.junit.Assert.*;
 
-import java.io.PrintStream;
 import java.util.HashMap;
 
 import org.junit.Test;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.junit.After;
 import org.junit.Before;
 
 import text_adventure.Parser;
