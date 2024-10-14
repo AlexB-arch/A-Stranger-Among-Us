@@ -84,6 +84,7 @@ public class Game implements java.io.Serializable {
 		String message;
 
     	message = "Welcome to A Stranger Among Us!\n";
+		message += "by Strangers in a Strange Land \n\n";
 		message += "You're working on fixing some wires in the sleeping quarters when the lights suddenly go out.\nYou attempt to flick them back on, only to find that they won't react. \nYou decide to put your task on hold to investigate.\n";
 		message += "Where do you want to go?\n";
 		message += "Enter 'go' and north, south, west, or east to move. \n";
