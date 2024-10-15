@@ -9,6 +9,7 @@ import text_adventure.resources.WordType;
 import text_adventure.resources.Articles;
 import text_adventure.resources.Directions;
 import text_adventure.resources.Nouns;
+import text_adventure.resources.Prepositions;
 import text_adventure.resources.Verbs;
 
 public class Parser {
@@ -24,6 +25,7 @@ public class Parser {
 	Verbs.insertVerbs(dictionary);
 	Nouns.insertNouns(dictionary);
 	Articles.insertArticles(dictionary);
+	Prepositions.insertPrepositions(dictionary);
   }
 
   // Processes the Verb-Noun-Preposition-Noun input structure
@@ -128,6 +130,9 @@ public class Parser {
 					break;
 				case "look":
 					Main.game.look();
+					break;
+				case "talk":
+					response = "Talk to who?";
 					break;
 				case "inventory":
 					//response = Main.game.showInventory();
