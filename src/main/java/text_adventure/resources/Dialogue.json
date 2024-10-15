@@ -1,0 +1,10 @@
+{
+    "Alice": {
+        "dialog": {
+            "default": "Hello, I'm Alice.",
+            "goodbye": "Goodbye, I hope you have a great day!",
+            "question": "What's your favorite color?",
+            "response": "My favorite color is blue. What's yours?"
+        }
+    }
+}
