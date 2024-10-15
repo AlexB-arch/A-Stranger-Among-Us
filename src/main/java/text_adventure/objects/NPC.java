@@ -5,7 +5,7 @@ public class NPC {
     private String dialogue;
     private Room location;
 
-    // Basic constructor
+    // Basic empty constructor
     public NPC() {
         
     }
@@ -36,4 +36,7 @@ public class NPC {
         return location;
     }
     
+    public void interact() {
+        System.out.println(dialogue);
+    }
 }

@@ -1,4 +1,4 @@
-ChatGPT prompt: "i'm writing a text adventure game in java. Can you help me with a file outline for what i need?"
+**ChatGPT prompt: "i'm writing a text adventure game in java. Can you help me with a file outline for what i need?"**
 
 ChatGPT suggested file structure:
 
@@ -28,7 +28,7 @@ ChatGPT suggested file structure:
     └── GameTest.java
 ```
 
-ChatGPT prompt: "elaborate on the Game file"
+**ChatGPT prompt: "elaborate on the Game file"**
 
 ```Java
 package src;
@@ -256,7 +256,7 @@ Llama3.1-8b
 
 
 
-adjust the setting to be in a sifi space setting 
+**adjust the setting to be in a sifi space setting**
 
 
 Llama3.1-8b 
@@ -436,3 +436,89 @@ public class SpaceSuit implements Item {
     }
 }
 These classes have been adjusted to fit a sci-fi space setting, with items such as keycards, laser pistols, and space suits. The performAction() method allows players to interact with each item in meaningful ways, such as swiping the keycard or firing the laser pistol.
+
+**how do i make an npc that goes with my text adventure game**
+ChatGPT said:
+ChatGPT
+
+To help you create an NPC (non-player character) for your text adventure game, I can take a look at the existing code you uploaded (Game.java). From there, I can suggest how to incorporate an NPC based on your current game structure.
+
+Let me start by reviewing your file!
+
+From the initial portion of your Game.java file, it appears to be a text-based adventure game with predefined rooms and player interaction. The game sets up the player, rooms, and NPC interactions. One NPC, named Alice, is mentioned in the MessHall room. Here's a breakdown of what I see:
+
+    The game initializes the player and rooms.
+    The NPC "Alice" seems to already exist, although it's unclear how she interacts with the player beyond her initial description.
+
+To expand on this and add more NPCs or improve Alice’s functionality, here are some ideas:
+1. Basic NPC Setup
+
+You can define an NPC class that includes attributes like:
+
+    Name
+    Dialogue (what they say)
+    Location (room where they are found)
+    Interactions (what happens when the player interacts with them)
+
+Example NPC Class:
+
+java
+
+public class NPC {
+    private String name;
+    private String dialogue;
+    private Room location;
+
+    public NPC(String name, String dialogue, Room location) {
+        this.name = name;
+        this.dialogue = dialogue;
+        this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDialogue() {
+        return dialogue;
+    }
+
+    public Room getLocation() {
+        return location;
+    }
+
+    public void interact() {
+        // Define what happens when the player interacts with the NPC
+        System.out.println(dialogue);
+    }
+}
+
+2. Adding the NPC to a Room
+
+Once you've created the NPC class, you can add an NPC to specific rooms. For example:
+
+java
+
+Room messHall = new Room("Mess Hall", "This is the main hall of the space station.", null);
+NPC alice = new NPC("Alice", "Oh, it's you! I thought I was alone here.", messHall);
+
+messHall.setNPC(alice);  // You can create a method in the Room class to store NPCs
+
+3. Player Interaction
+
+You could create a command in your game loop that allows the player to interact with the NPC:
+
+java
+
+public void playerInteractWithNPC(String npcName) {
+    Room currentRoom = player.getCurrentRoom();
+    NPC npc = currentRoom.getNPC(npcName);
+    if (npc != null) {
+        npc.interact();
+    } else {
+        System.out.println("There's no one by that name here.");
+    }
+}
+
+Would you like help modifying the file to include this NPC structure, or any other specific NPC features? ​
+​
