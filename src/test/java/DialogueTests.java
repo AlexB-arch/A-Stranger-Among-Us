@@ -11,7 +11,7 @@ import java.util.Map;
 import org.json.*;
 import org.junit.Test;
 
-import text_adventure.DialogueManager;
+import text_adventure.ResourceManager;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
@@ -50,21 +50,23 @@ public class DialogueTests {
     @Test
     public void printDialogueFromJson() {
         // Load the dialogue map
-        JSONObject dialogue = DialogueManager.retrieveDialogue("src/main/java/text_adventure/resources/dialogue.json");
+        JSONObject dialogue = ResourceManager.retrieveDialogue("src/main/java/text_adventure/resources/dialogue.json");
 
-        // Test that the dialogue map is not null
+        // Test that the dialogue file is not null
         assertTrue(dialogue != null);
     }
 
     @Test
     public void testDialogueMap() throws IOException {
+        String expected = "Hello, I'm Alice.";
+
         String content = new String(Files.readAllBytes(Paths.get("src/main/java/text_adventure/resources/dialogue.json")));
 
         // Get alice's dialogue
         JSONObject dialogue = new JSONObject(content);
         JSONObject alice = dialogue.getJSONObject("alice");
-        String aliceDialogue = alice.getJSONObject("dialogue").optString("default");
+        String aliceDialogue = alice.getJSONObject("dialogue").optString("default"); // Get the default dialogue
        
-        System.out.println(aliceDialogue);
+        assertEquals(aliceDialogue, expected);
     }
 }

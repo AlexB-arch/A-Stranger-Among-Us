@@ -9,7 +9,7 @@ import org.json.*;
 
 import text_adventure.objects.NPC;
 
-public class DialogueManager {
+public class ResourceManager {
 
     private static String filePath = "src/main/java/text_adventure/resources/dialogue.json";
 

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import org.json.JSONObject;
 
-import text_adventure.DialogueManager;
+import text_adventure.ResourceManager;
 
 public class NPC {
     private String name;
@@ -77,8 +77,8 @@ public class NPC {
 
     // Get the NPC's dialogue   
     public void loadDialogueMap() {
-        JSONObject dialogueMap = DialogueManager.retrieveDialogue(DialogueManager.getFilePath());
-        DialogueManager.loadDialogueMap(dialogueMap, this);
+        JSONObject dialogueMap = ResourceManager.retrieveDialogue(ResourceManager.getFilePath());
+        ResourceManager.loadDialogueMap(dialogueMap, this);
 
     }
 }
