@@ -7,6 +7,7 @@ public class Room implements java.io.Serializable{
     private String name, description;
     private Room north, south, west, east;
     public Inventory roomInventory;
+    public NPC npc;
 
     // Constructor
     public Room(String name, String description, Inventory inventory) {
@@ -141,5 +142,19 @@ public class Room implements java.io.Serializable{
         }
         message += "\n";
         return message;
+    }
+
+    // Add an NPC to the room
+    public void addNpc(NPC npc){
+        this.npc = npc;
+    }
+
+    // Get the NPC in the room by name
+    public NPC getCurrentRoomNpc(String npcName){
+        // If the NPC is not in the room, return
+        if (npc != null && npc.getName().equalsIgnoreCase(npcName)){
+            return npc;
+        }
+        return null;
     }
 }

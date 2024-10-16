@@ -54,6 +54,24 @@ public class Player {
       System.out.println(currentLocation.displayRoom());
 		}
 	}
+
+	// Interact with NPCs based on name
+	public void interactWithNPC(String npcName) {
+		// Find the NPC in the current room
+		NPC npc = currentLocation.getCurrentRoomNpc(npcName);
+
+		// If the NPC is not in the room, return
+		if (npc == null) {
+			System.out.println("There is no one here by that name.");
+			return;
+		}
+
+		// Get the NPC's dialogue
+		String dialogue = npc.getDialogue(npc.getCurrentState());
+
+		// Print the NPC's dialogue
+		System.out.println(dialogue);
+	}
   // Inventory?
     // public void addItem(Item item){}
     // public void removeItem(Item item){}

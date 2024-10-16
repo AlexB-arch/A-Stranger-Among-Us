@@ -1,6 +1,6 @@
 {
-    "Alice": {
-        "dialog": {
+    "alice" : {
+        "dialogue" : {
             "default": "Hello, I'm Alice.",
             "goodbye": "Goodbye, I hope you have a great day!",
             "question": "What's your favorite color?",

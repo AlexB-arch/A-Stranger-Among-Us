@@ -48,7 +48,10 @@ public class Game implements java.io.Serializable {
 		player.setCurrentLocation(sleepingQuartersCloset);
 
 		// Initialize NPCs
-		NPC alice = new NPC("Alice", "Oh it's you! I thought you were a ghost with how dark it is in here. I'm trying to get into the control room to see what's going on. I think I can use a spare battery to override the door's emergency lock. You should go check on Douglass and the Generator.", MessHall);
+		NPC alice = new NPC("Alice", MessHall);
+
+		// Add NPCs to rooms
+		MessHall.addNpc(alice);
 
 		// Display the intro message
 		showIntro();
@@ -118,5 +121,17 @@ public class Game implements java.io.Serializable {
 	// Use look method to display the player's current location
 	public void look() {
 		showMessage(player.getCurrentLocation().getDescription());
+	}
+
+	// Talk to an NPC
+	public String talkToNPC(String npcName) {
+		// If the NPC is not in the room, return
+		NPC npc = player.getCurrentLocation().getCurrentRoomNpc(npcName);
+
+		if (npc == null) {
+			return "There is no one here by that name.";
+		}
+
+		return npc.getDialogue("default");
 	}
 }

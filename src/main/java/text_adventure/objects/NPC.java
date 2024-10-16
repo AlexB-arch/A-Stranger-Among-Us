@@ -1,18 +1,26 @@
 package text_adventure.objects;
 
+import java.util.HashMap;
+
+import org.json.JSONObject;
+
+import text_adventure.DialogueManager;
+
 public class NPC {
     private String name;
-    private String dialogue;
     private Room location;
+
+    // Dialogue map
+    private HashMap<String, String> dialogueMap = new HashMap<String, String>();
 
     // States
     private String currentState = "default";
     private boolean isAlive = true;
+    private boolean followPlayer = false;
 
-    // Constructor with name, dialogue, and location
-    public NPC(String name, String dialogue, Room location) {
+    // Constructor
+    public NPC(String name, Room location) {
         this.name = name;
-        this.dialogue = dialogue;
         this.location = location;
     }
 
@@ -21,8 +29,8 @@ public class NPC {
         this.name = name;
     }
 
-    public void setDialogue(String dialogue) {
-        this.dialogue = dialogue;
+    public void setDialogue(String state, String dialogue) {
+        this.dialogueMap.put(state, dialogue);
     }
 
     public void setLocation(Room location) {
@@ -41,8 +49,8 @@ public class NPC {
         return name;
     }
 
-    public String getDialogue() {
-        return dialogue;
+    public String getDialogue(String state) {
+        return dialogueMap.get(state);
     }
 
     public Room getLocation() {
@@ -56,8 +64,21 @@ public class NPC {
     public boolean getIsAlive() {
         return isAlive;
     }
-    
-    public void interact() {
-        System.out.println(dialogue);
+
+    // Follow the player
+    public void followPlayer() {
+        followPlayer = true;
+    }
+
+    // Stop following the player
+    public void stopFollowingPlayer() {
+        followPlayer = false;
+    }
+
+    // Get the NPC's dialogue   
+    public void loadDialogueMap() {
+        JSONObject dialogueMap = DialogueManager.retrieveDialogue(DialogueManager.getFilePath());
+        DialogueManager.loadDialogueMap(dialogueMap, this);
+
     }
 }

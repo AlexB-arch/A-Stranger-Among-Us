@@ -79,6 +79,10 @@ public class Parser {
 				case "lookin":
 					//response = Main.game.lookInObject(input3.getWord());
 					break;
+				case "talkto":
+					// Talk to the NPC
+					response = Main.game.talkToNPC(input3.getWord());
+					break;
 				default:
 					response = "I don't know how to '" + input1.getWord() + " " + input2.getWord() + " " + input3.getWord() + "'";
 					break;
