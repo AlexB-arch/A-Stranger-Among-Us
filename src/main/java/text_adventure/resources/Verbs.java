@@ -26,6 +26,7 @@ public class Verbs {
         "read",
         "inventory",
         "talk",
+        "interact",
     };
     
     public static void insertVerbs(HashMap<String, WordType> dictionary) {

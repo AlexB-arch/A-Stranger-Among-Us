@@ -2,9 +2,7 @@ package text_adventure.objects;
 
 import java.util.HashMap;
 
-import org.json.JSONObject;
-
-import text_adventure.ResourceManager;
+import text_adventure.Game;
 
 public class NPC {
     private String name;
@@ -17,6 +15,8 @@ public class NPC {
     private String currentState = "default";
     private boolean isAlive = true;
     private boolean followPlayer = false;
+
+    //TODO: Add states as enum
 
     // Constructor
     public NPC(String name, Room location) {
@@ -70,8 +70,45 @@ public class NPC {
         followPlayer = true;
     }
 
+    public void updateLocation() {
+        // Get the player's location
+        location = Game.player.getCurrentLocation();
+
+        // Keep updating the location to the player's location
+        while (followPlayer) {
+            location = Game.player.getCurrentLocation();
+        }
+    }
+
     // Stop following the player
     public void stopFollowingPlayer() {
         followPlayer = false;
+    }
+
+    public String interact(String playerInput) {
+        String response = "";
+        // always lowercase
+        switch (currentState.toLowerCase()) {
+            case "greet":
+                    // Print the greeting
+                    response = dialogueMap.get("greeting");
+                    // Change the state
+                    currentState = "already_greeted";
+                break;
+            case "talk":
+                    // Print the talking
+                    if (!currentState.equals("already_talked")){
+                        response = dialogueMap.get(currentState);
+                        Game.showMessage(response);
+                        currentState = "already_talked";
+                    }
+                    else{
+                        response = dialogueMap.get(currentState);
+                        Game.showMessage(response);
+                    }                    
+                break;
+        }
+
+        return response;
     }
 }

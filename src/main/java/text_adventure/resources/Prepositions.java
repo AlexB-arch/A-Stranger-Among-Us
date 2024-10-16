@@ -8,6 +8,7 @@ public class Prepositions {
         "on",
         "at",
         "to",
+        "with",
         "under",
         "over",
         "behind",

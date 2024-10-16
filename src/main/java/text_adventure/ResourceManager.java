@@ -45,8 +45,4 @@ public class ResourceManager {
             npc.setDialogue(key, value);
         }
     }
-
-    public static String getFilePath() {
-        return filePath;
-    }
 }

@@ -1,8 +1,12 @@
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.HashMap;
 
 import org.junit.Test;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.After;
 import org.junit.Before;
 
 import text_adventure.Parser;
@@ -60,7 +64,7 @@ public class GameTests {
     }
 
     @Test
-    public void testUnknownWord() {
+    public void testUnknownWord() throws IOException {
         String input = "ff";
         String expectedOutput = "I don't know the word '" + input + "'";
         String output = game.runCommands(input);
@@ -70,7 +74,7 @@ public class GameTests {
     }
 
     @Test
-    public void testNoInput() {
+    public void testNoInput() throws IOException {
         String input = "";
         String expectedOutput = "Please enter a command.\n";
         String output = game.runCommands(input);
@@ -97,7 +101,7 @@ public class GameTests {
     }
 
     @Test
-    public void testMoveToSleepingQuarters() {
+    public void testMoveToSleepingQuarters() throws IOException {
         // Move east to Sleeping Quarters using runCommands
         String input = "go east";
         game.runCommands(input);
@@ -108,7 +112,7 @@ public class GameTests {
     }
 
     @Test
-    public void testSleepingQuartersExits() {
+    public void testSleepingQuartersExits() throws IOException {
         // Move east to Sleeping Quarters
         game.runCommands("go east");
         Room currentRoom = player.getCurrentLocation();
@@ -120,7 +124,7 @@ public class GameTests {
     }
 
     @Test
-    public void testMoveSouthFromSleepingQuarters() {
+    public void testMoveSouthFromSleepingQuarters() throws IOException {
         // Move east to Sleeping Quarters
         game.runCommands("go east");
         // Move south to Hallway A1
@@ -132,17 +136,18 @@ public class GameTests {
     }
 
     @Test
-    public void testHallwayA1Exits() {
+    public void testHallwayA1Exits() throws IOException {
         // Move to Hallway A1
         game.runCommands("go east"); // Sleeping Quarters
         game.runCommands("go south"); // Hallway A1
         Room currentRoom = player.getCurrentLocation();
 
         // Check exits
+        assertEquals("Sleeping Quarters", currentRoom.getExit(Directions.WEST).getName());
     }
 
     @Test
-    public void testMoveToMessHall() {
+    public void testMoveToMessHall() throws IOException {
         // Move to Mess Hall
         game.runCommands("go east"); // Sleeping Quarters
         game.runCommands("go south"); // Hallway A1
@@ -154,7 +159,7 @@ public class GameTests {
     }
 
     @Test
-    public void testMessHallExits() {
+    public void testMessHallExits() throws IOException {
         // Move to Mess Hall
         game.runCommands("go east"); // Sleeping Quarters
         game.runCommands("go south"); // Hallway A1
@@ -167,7 +172,7 @@ public class GameTests {
     }
 
     @Test
-    public void testMoveToHallwayA2() {
+    public void testMoveToHallwayA2() throws IOException {
         // Move to Hallway A2
         game.runCommands("go east"); // Sleeping Quarters
         game.runCommands("go south"); // Hallway A1
@@ -180,7 +185,7 @@ public class GameTests {
     }
 
     @Test
-    public void testHallwayA2Exits() {
+    public void testHallwayA2Exits() throws IOException {
         // Move to Hallway A2
         game.runCommands("go east"); // Sleeping Quarters
         game.runCommands("go south"); // Hallway A1
@@ -193,7 +198,7 @@ public class GameTests {
     }
 
     @Test
-    public void testMoveToGeneratorRoom() {
+    public void testMoveToGeneratorRoom() throws IOException {
         // Move to Generator Room
         game.runCommands("go east"); // Sleeping Quarters
         game.runCommands("go south"); // Hallway A1
@@ -207,7 +212,7 @@ public class GameTests {
     }
 
     @Test
-    public void testGeneratorRoomExits() {
+    public void testGeneratorRoomExits() throws IOException {
         // Move to Generator Room
         game.runCommands("go east"); // Sleeping Quarters
         game.runCommands("go south"); // Hallway A1
@@ -221,7 +226,7 @@ public class GameTests {
     }
 
     @Test
-    public void testMoveToGeneratorCloset() {
+    public void testMoveToGeneratorCloset() throws IOException {
         // Move to Generator Utility Closet
         game.runCommands("go east");  // Sleeping Quarters
         game.runCommands("go south");  // Hallway A1
@@ -236,7 +241,7 @@ public class GameTests {
     }
 
     @Test
-    public void testGeneratorClosetExits() {
+    public void testGeneratorClosetExits() throws IOException {
         // Move to Generator Utility Closet
         game.runCommands("go east");  // Sleeping Quarters
         game.runCommands("go south");  // Hallway A1
@@ -263,7 +268,7 @@ public class GameTests {
     }
 
     @Test
-    public void testRoomDescriptions() {
+    public void testRoomDescriptions() throws IOException {
         Room currentRoom = player.getCurrentLocation();
         assertNotNull("Description should not be null", currentRoom.getDescription());
 

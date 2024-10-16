@@ -1,5 +1,6 @@
 package text_adventure;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -60,7 +61,7 @@ public class Parser {
   }
 
   // Processes the Verb-Preposition-Noun input structure
-  static String processVerbPreopisitionNoun(List<WordProcessor> input) {
+  static String processVerbPreopisitionNoun(List<WordProcessor> input) throws IOException {
 		WordProcessor input1 = input.get(0);
 		WordProcessor input2 = input.get(1);
 		WordProcessor input3 = input.get(2);
@@ -80,8 +81,7 @@ public class Parser {
 					//response = Main.game.lookInObject(input3.getWord());
 					break;
 				case "talkto":
-					// Talk to the NPC
-					response = Main.game.talkToNPC(input3.getWord());
+					response = Main.game.talkToNpc(input3.getWord());
 					break;
 				default:
 					response = "I don't know how to '" + input1.getWord() + " " + input2.getWord() + " " + input3.getWord() + "'";
@@ -153,7 +153,7 @@ public class Parser {
 	}
 
 	// Processes the input structure
-	static String processInput(List<WordProcessor> input) {
+	static String processInput(List<WordProcessor> input) throws IOException {
 		String response = "";
 
 		// Check the size of the input
@@ -183,7 +183,7 @@ public class Parser {
 	}
 
 	// Parses the input
-	static String parseInput(List<String> input) {
+	static String parseInput(List<String> input) throws IOException {
 		List<WordProcessor> processedInput = new ArrayList<WordProcessor>();
 		WordType type;
 		String response;

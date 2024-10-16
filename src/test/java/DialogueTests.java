@@ -78,6 +78,5 @@ public class DialogueTests {
 
         // Test that the dialogue map is not empty
        assertEquals(npc.getDialogue(currentState), expected);
-       System.out.println(npc.getDialogue(currentState));
     }
 }

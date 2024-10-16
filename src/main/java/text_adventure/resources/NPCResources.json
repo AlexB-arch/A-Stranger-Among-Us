@@ -1,10 +1,11 @@
 {
     "alice" : {
         "dialogue" : {
-            "default": "Hello, I'm Alice.",
-            "goodbye": "Goodbye, I hope you have a great day!",
-            "question": "What's your favorite color?",
-            "response": "My favorite color is blue. What's yours?"
+            "default": "Who's there?",
+            "greeting": "Oh it's you! I thought you were a ghost with how dark it is in here.",
+            "already_greeted": "I'm trying to get into the control room to see what's going on.\n I think I can use a spare battery to override the door's emergency lock.\nYou should go check on Douglass and the Generator.",
+            "already_talked": "Go find Douglass and check on the generator!",
+            "generator_fixed": "Thank you for fixing the generator! I can finally get back to work."
         }
     }
 }

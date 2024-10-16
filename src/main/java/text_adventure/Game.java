@@ -1,5 +1,9 @@
 package text_adventure;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.List;
 
 import text_adventure.objects.NPC;
@@ -10,9 +14,6 @@ public class Game implements java.io.Serializable {
 
   public static Player player;
 
-//   public static Player getPlayer() {
-//     return player;
-//   }
   private boolean shouldexit;
 
   public Game() {
@@ -30,7 +31,7 @@ public class Game implements java.io.Serializable {
 		Room sleepingQuarters = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The room is empty. The rest of the crew must be in other parts of the ship.\n\nThe door to the east leads to the Mess Hall, which you locked open when you came in. ",null);
 		Room sleepingQuartersCloset = new Room("Sleeping Quarters Closet", "This is a storage room for the sleeping quarters you were working in when the power went out. There are all sorts of blankets and pillows in here.",null);
 		Room hallwayA1 = new Room("Hallway A1", "This is the hallway between the Sleeping Quarters and the Mess Hall.",null);
-		Room MessHall = new Room("Mess Hall", "This is the main hall of the space station.\nTo the north is the Bridge. The door appears to have emergency locked.\nTo the east is the greenhouse. The door appears to have emergency locked.\nTo the west is the Sleeping Quarters.\nTo the south is the Generator Room.\n\n\u001B[33mAlice\u001B[0m is here.\n\n\u001B[33mAlice: Oh it's you! I thought you were a ghost with how dark it is in here. I'm trying to get into the control room to see what's going on. I think I can use a spare battery to override the door's emergency lock. You should go check on Douglass and the Generator.\u001B[0m",null);
+		Room MessHall = new Room("Mess Hall", "This is the main hall of the space station.\nTo the north is the Bridge. The door appears to have emergency locked.\nTo the east is the greenhouse. The door appears to have emergency locked.\nTo the west is the Sleeping Quarters.\nTo the south is the Generator Room.\n\n\u001B[33mAlice\u001B[0m is here.",null);
 		Room hallwayA2 = new Room("Hallway A2", "This is the hallway between the Generator Room and the Mess Hall.\n\nTo the North is the Mess Hall and to the South is the Generator Room.",null);
 		Room GeneratorRoom = new Room("Generator Room", "This is the generator. It appears to be offline. Douglass should be in here somewhere...\n\nTo the west is the Generator tool closet\nTo the north is the hallway to the Mess Hall.",null);
 		Room GeneratorCloset = new Room("Generator Utility Closet", "*You enter the room to see Douglass's body lying motionless on the floor*\n\n'Douglass... Douglass!' You shout to no avail. He appears to have a stab wound through his space suit.\n\nDouglass is dead.\n\n'",null);
@@ -58,7 +59,7 @@ public class Game implements java.io.Serializable {
 	}
 
   // Call the parser to tokenize the input
-  public String runCommands(String inputString){
+  public String runCommands(String inputString) throws IOException{
 	List<String> inputList;
 	String string = "";
 	String lowerCaseInput;
@@ -108,7 +109,7 @@ public class Game implements java.io.Serializable {
   }
 
   // Display messages to the console
-  	public void showMessage(String message){
+  	public static void showMessage(String message){
 		if (message.endsWith("\n")) { // stripping any trailing newlines
 			message = message.substring(0, message.length() - 1);
 		}
@@ -123,15 +124,37 @@ public class Game implements java.io.Serializable {
 		showMessage(player.getCurrentLocation().getDescription());
 	}
 
-	// Talk to an NPC
-	public String talkToNPC(String npcName) {
-		// If the NPC is not in the room, return
+	public String talkToNpc(String npcName) throws IOException {
 		NPC npc = player.getCurrentLocation().getCurrentRoomNpc(npcName);
-
 		if (npc == null) {
-			return "There is no one here by that name.";
+			return "There is no NPC with that name here.";
 		}
 
-		return npc.getDialogue("default");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		String playerInput;
+		StringBuilder conversation = new StringBuilder();
+
+		while (true) {
+			// Display NPC's current dialogue
+			String dialogue = npc.interact("greeting");
+			conversation.append(npc.getName()+": ").append(dialogue).append("\n");
+			showMessage(npc.getName()+": " + dialogue);
+
+			// Get player input
+			showMessage("You: ");
+			playerInput = reader.readLine();
+			conversation.append("You: ").append(playerInput).append("\n");
+
+			// Process player input and update NPC state
+			npc.interact(playerInput);
+
+			// Check if the conversation should end
+			if (playerInput.equalsIgnoreCase("bye")) {
+				conversation.append("Conversation ended.\n");
+				break;
+			}
+		}
+
+		return conversation.toString();
 	}
 }
