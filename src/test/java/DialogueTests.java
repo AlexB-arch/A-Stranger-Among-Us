@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.json.*;
 import org.junit.Test;
@@ -23,8 +22,8 @@ public class DialogueTests {
     // Initialize dialogue map
     private HashMap<String, String> dialogue = new HashMap<String, String>();
 
-    // Get the path to the dialogue JSON file
-    private File file = new File("src/main/java/text_adventure/resources/dialogue.json");;
+    // Get the path to the resource JSON file
+    private File file = new File("src/main/java/text_adventure/resources/npcresources.json");;
 
     // Initialize player
     private Player player = new Player();
@@ -40,9 +39,6 @@ public class DialogueTests {
 
     @Test
     public void findDialogueFile() {
-        // Create a test file
-        file = new File("src/main/java/text_adventure/resources/dialogue.json");
-
         // Check that the file exists
         assertTrue(file.exists());
     }
@@ -50,17 +46,17 @@ public class DialogueTests {
     @Test
     public void printDialogueFromJson() {
         // Load the dialogue map
-        JSONObject dialogue = ResourceManager.retrieveDialogue("src/main/java/text_adventure/resources/dialogue.json");
+        JSONObject dialogue = ResourceManager.retrieveDialogue(file.toString());
 
         // Test that the dialogue file is not null
         assertTrue(dialogue != null);
     }
 
     @Test
-    public void testDialogueMap() throws IOException {
+    public void testJsonValues() throws IOException {
         String expected = "Hello, I'm Alice.";
 
-        String content = new String(Files.readAllBytes(Paths.get("src/main/java/text_adventure/resources/dialogue.json")));
+        String content = new String(Files.readAllBytes(Paths.get(file.toString())));
 
         // Get alice's dialogue
         JSONObject dialogue = new JSONObject(content);
@@ -68,5 +64,20 @@ public class DialogueTests {
         String aliceDialogue = alice.getJSONObject("dialogue").optString("default"); // Get the default dialogue
        
         assertEquals(aliceDialogue, expected);
+    }
+
+    @Test
+    public void testLoadDialogueMap() {
+        String currentState = "default";
+        String expected = "Hello, I'm Alice.";
+        // Load the dialogue map
+        JSONObject content = ResourceManager.retrieveDialogue(file.toString());
+
+        // Load the dialogue map
+        ResourceManager.loadDialogueMap(content, npc);
+
+        // Test that the dialogue map is not empty
+       assertEquals(npc.getDialogue(currentState), expected);
+       System.out.println(npc.getDialogue(currentState));
     }
 }

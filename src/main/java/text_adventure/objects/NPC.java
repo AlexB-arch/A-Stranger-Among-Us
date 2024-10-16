@@ -49,8 +49,8 @@ public class NPC {
         return name;
     }
 
-    public String getDialogue(String state) {
-        return dialogueMap.get(state);
+    public String getDialogue(String currentState) {
+        return dialogueMap.get(currentState);
     }
 
     public Room getLocation() {
@@ -73,12 +73,5 @@ public class NPC {
     // Stop following the player
     public void stopFollowingPlayer() {
         followPlayer = false;
-    }
-
-    // Get the NPC's dialogue   
-    public void loadDialogueMap() {
-        JSONObject dialogueMap = ResourceManager.retrieveDialogue(ResourceManager.getFilePath());
-        ResourceManager.loadDialogueMap(dialogueMap, this);
-
     }
 }
