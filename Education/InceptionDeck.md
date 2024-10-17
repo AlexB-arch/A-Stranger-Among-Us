@@ -8,7 +8,7 @@
     Unlike modern graphical games,our product relies on the user's imagination to make the world come alive to make an epic adventure.
 
 ## 3. Design a product box.
-    ![Game Box Art](A%20Stranger%20Among%20Us.png)
+    ![Game Box Art](./AStrangerAmongUs.png)
 
 ## 4. Create a NOT list.
     - In
