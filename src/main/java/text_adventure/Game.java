@@ -59,7 +59,7 @@ public class Game implements java.io.Serializable {
 	}
 
   // Call the parser to tokenize the input
-  public String runCommands(String inputString) throws IOException{
+  public String runCommands(String inputString) {
 	List<String> inputList;
 	String string = "";
 	String lowerCaseInput;
@@ -122,39 +122,5 @@ public class Game implements java.io.Serializable {
 	// Use look method to display the player's current location
 	public void look() {
 		showMessage(player.getCurrentLocation().getDescription());
-	}
-
-	public String talkToNpc(String npcName) throws IOException {
-		NPC npc = player.getCurrentLocation().getCurrentRoomNpc(npcName);
-		if (npc == null) {
-			return "There is no NPC with that name here.";
-		}
-
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		String playerInput;
-		StringBuilder conversation = new StringBuilder();
-
-		while (true) {
-			// Display NPC's current dialogue
-			String dialogue = npc.interact("greeting");
-			conversation.append(npc.getName()+": ").append(dialogue).append("\n");
-			showMessage(npc.getName()+": " + dialogue);
-
-			// Get player input
-			showMessage("You: ");
-			playerInput = reader.readLine();
-			conversation.append("You: ").append(playerInput).append("\n");
-
-			// Process player input and update NPC state
-			npc.interact(playerInput);
-
-			// Check if the conversation should end
-			if (playerInput.equalsIgnoreCase("bye")) {
-				conversation.append("Conversation ended.\n");
-				break;
-			}
-		}
-
-		return conversation.toString();
 	}
 }
