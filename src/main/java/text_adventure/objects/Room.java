@@ -80,7 +80,7 @@ public class Room implements java.io.Serializable{
             case EAST:
                 return getEast().getName();
             default:
-                return null;
+                return "Invalid Direction";
         }
     }
 
@@ -96,7 +96,7 @@ public class Room implements java.io.Serializable{
             case EAST:
                 return getEast().getDescription();
             default:
-                return null;
+                return "Invalid Direction";
         }
     }
 

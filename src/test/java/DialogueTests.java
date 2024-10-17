@@ -54,7 +54,7 @@ public class DialogueTests {
 
     @Test
     public void testJsonValues() throws IOException {
-        String expected = "Hello, I'm Alice.";
+        String expected = "Who's there?";
 
         String content = new String(Files.readAllBytes(Paths.get(file.toString())));
 
@@ -69,7 +69,7 @@ public class DialogueTests {
     @Test
     public void testLoadDialogueMap() {
         String currentState = "default";
-        String expected = "Hello, I'm Alice.";
+        String expected = "Who's there?";
         // Load the dialogue map
         JSONObject content = ResourceManager.retrieveDialogue(file.toString());
 
