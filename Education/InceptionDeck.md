@@ -26,6 +26,7 @@
         - No audio.
         
 ## 5. Meet your neighbor.
+    - Already done.
 
 ## 6. Show the solution.
     - High level diagram.
@@ -50,4 +51,4 @@
 ## 10. Show what it's going to take.
     - 3 programmers.
     - 8 weeks.
-    - workk for no money.
+    - Work for no money.
