@@ -64,7 +64,7 @@ public class GameTests {
     }
 
     @Test
-    public void testUnknownWord() throws IOException {
+    public void testUnknownWord() {
         String input = "ff";
         String expectedOutput = "I don't know the word '" + input + "'";
         String output = game.runCommands(input);
@@ -74,7 +74,7 @@ public class GameTests {
     }
 
     @Test
-    public void testNoInput() throws IOException {
+    public void testNoInput() {
         String input = "";
         String expectedOutput = "Please enter a command.\n";
         String output = game.runCommands(input);
@@ -101,7 +101,7 @@ public class GameTests {
     }
 
     @Test
-    public void testMoveToSleepingQuarters() throws IOException {
+    public void testMoveToSleepingQuarters() {
         // Move east to Sleeping Quarters using runCommands
         String input = "go east";
         game.runCommands(input);
@@ -112,7 +112,7 @@ public class GameTests {
     }
 
     @Test
-    public void testSleepingQuartersExits() throws IOException {
+    public void testSleepingQuartersExits() {
         // Move east to Sleeping Quarters
         game.runCommands("go east");
         Room currentRoom = player.getCurrentLocation();
@@ -124,7 +124,7 @@ public class GameTests {
     }
 
     @Test
-    public void testMoveSouthFromSleepingQuarters() throws IOException {
+    public void testMoveSouthFromSleepingQuarters() {
         // Move east to Sleeping Quarters
         game.runCommands("go east");
         // Move south to Hallway A1
@@ -136,7 +136,7 @@ public class GameTests {
     }
 
     @Test
-    public void testHallwayA1Exits() throws IOException {
+    public void testHallwayA1Exits() {
         // Move to Hallway A1
         game.runCommands("go east"); // Sleeping Quarters
         game.runCommands("go south"); // Hallway A1
@@ -147,7 +147,7 @@ public class GameTests {
     }
 
     @Test
-    public void testMoveToMessHall() throws IOException {
+    public void testMoveToMessHall() {
         // Move to Mess Hall
         game.runCommands("go east"); // Sleeping Quarters
         game.runCommands("go south"); // Hallway A1
