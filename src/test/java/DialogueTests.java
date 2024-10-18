@@ -55,7 +55,7 @@ public class DialogueTests {
     @Test
     public void testJsonValues() throws IOException {
         String expected = "Who's there?";
-
+        
         String content = new String(Files.readAllBytes(Paths.get(file.toString())));
 
         // Get alice's dialogue
