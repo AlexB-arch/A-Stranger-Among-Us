@@ -35,6 +35,8 @@ public class Game implements java.io.Serializable {
 		Room hallwayA2 = new Room("Hallway A2", "This is the hallway between the Generator Room and the Mess Hall.\n\nTo the North is the Mess Hall and to the South is the Generator Room.",null);
 		Room GeneratorRoom = new Room("Generator Room", "This is the generator. It appears to be offline. Douglass should be in here somewhere...\n\nTo the west is the Generator tool closet\nTo the north is the hallway to the Mess Hall.",null);
 		Room GeneratorCloset = new Room("Generator Utility Closet", "*You enter the room to see Douglass's body lying motionless on the floor*\n\n'Douglass... Douglass!' You shout to no avail. He appears to have a stab wound through his space suit.\n\nDouglass is dead.\n\n'",null);
+    Room hallwayA2B = new Room("Hallway A2", "This is the hallway between the Generator Room and the Mess Hall.\n\nTo the North is the Mess Hall and to the South is the Generator Room.",null);
+    Room MessHallB = new Room("Mess Hall", "This is the main hall of the space station.\nTo the north is the Bridge. The door appears to have emergency locked.\nTo the east is the greenhouse. The door appears to have emergency locked.\nTo the west is the Sleeping Quarters.\nTo the south is the Generator Room.\n\n\u001B[33mAlice\u001B[0m is here.\n'Alice... Douglass is dead. It looks like murder.\n\u001B[33mAlice: That's not possible. No it can't be possible. No one on this ship would kill someone else. We need to get the generator back on so we can radio the rest of the team. Come on, lets go!\u001B[0m\n",null);
 
 		// Set the directions for each room
 		hallwayA1.setExits(null, null, MessHall, sleepingQuartersCloset);
@@ -42,8 +44,10 @@ public class Game implements java.io.Serializable {
 		sleepingQuartersCloset.setExits(null, sleepingQuarters, null ,null);
 		MessHall.setExits(null, hallwayA2, null, hallwayA1);
 		hallwayA2.setExits(MessHall, GeneratorRoom, null, null);
-		GeneratorRoom.setExits( hallwayA2, null,null ,GeneratorCloset );
+		GeneratorRoom.setExits( hallwayA2B, null,null ,GeneratorCloset );
 		GeneratorCloset.setExits(null, null, GeneratorRoom, null);
+    hallwayA2B.setExits(MessHallB, GeneratorRoom, null, null);
+    MessHallB.setExits(null, hallwayA2, null, hallwayA1);
 
 		// Players starts in the sleeping quarters
 		player.setCurrentLocation(sleepingQuartersCloset);
