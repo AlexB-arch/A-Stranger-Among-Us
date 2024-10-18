@@ -1,6 +1,5 @@
 package text_adventure.objects;
 
-
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class MessageQueue {
