@@ -8,7 +8,7 @@
     Unlike modern graphical games,our product relies on the user's imagination to make the world come alive to make an epic adventure.
 
 ## 3. Design a product box.
-    ![Game Box Art](./AStrangerAmongUs.png)
+![AStrangerAmongUs](AStrangerAmongUs.png)
 
 ## 4. Create a NOT list.
     - In
@@ -25,12 +25,12 @@
         - No combat.
         - No graphics.
         - No audio.
-        
+
 ## 5. Meet your neighbor.
     - Already done.
 
 ## 6. Show the solution.
-    - High level diagram.
+![FlowDiagram](ASAUchart.png)
 
 ## 7. Who keeps us up at night?
     - Reeves changing requirements.
