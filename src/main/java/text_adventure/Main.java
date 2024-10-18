@@ -30,7 +30,7 @@ public class Main {
 			}
 
 			if (!output.trim().isEmpty()){
-				game.showMessage(output);
+				Game.showMessage(output);
 			}
 			
 		} while (game.getShouldExit() != true);

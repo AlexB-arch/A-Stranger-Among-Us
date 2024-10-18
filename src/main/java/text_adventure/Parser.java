@@ -9,6 +9,7 @@ import text_adventure.resources.WordType;
 import text_adventure.resources.Articles;
 import text_adventure.resources.Directions;
 import text_adventure.resources.Nouns;
+import text_adventure.resources.Prepositions;
 import text_adventure.resources.Verbs;
 
 public class Parser {
@@ -24,6 +25,7 @@ public class Parser {
 	Verbs.insertVerbs(dictionary);
 	Nouns.insertNouns(dictionary);
 	Articles.insertArticles(dictionary);
+	Prepositions.insertPrepositions(dictionary);
   }
 
   // Processes the Verb-Noun-Preposition-Noun input structure
@@ -77,6 +79,9 @@ public class Parser {
 				case "lookin":
 					//response = Main.game.lookInObject(input3.getWord());
 					break;
+				case "talkto":
+					response = "Not yet implemented";
+					break;
 				default:
 					response = "I don't know how to '" + input1.getWord() + " " + input2.getWord() + " " + input3.getWord() + "'";
 					break;
@@ -128,6 +133,9 @@ public class Parser {
 					break;
 				case "look":
 					Main.game.look();
+					break;
+				case "talk":
+					response = "Talk to who?";
 					break;
 				case "inventory":
 					//response = Main.game.showInventory();

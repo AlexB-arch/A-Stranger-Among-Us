@@ -3,25 +3,24 @@ package text_adventure.objects;
 import text_adventure.resources.Directions;
 
 public class Player {
-  private Room currentLocation;
-  public Inventory playerInventory;
-  // what kind of attributes are needed for the player?
+	private Room currentLocation;
+	public Inventory playerInventory;
+	// what kind of attributes are needed for the player?
 
-  public Player() {
+	public Player() {
     // Initialize the player
     // Do we want to have names for the player?
     // Player starts with a description, location, and inventory
-    Inventory playerInventory = new Inventory(); 
+	Inventory playerInventory = new Inventory();
+	}
 
-  }
-
-  // public void openInventory(){
-  //   return playerInventory.strinFormatedItems();
-  // }
+	// public void openInventory(){
+	//   return playerInventory.strinFormatedItems();
+	// }
 
   // getters and setters, if any
   public Room getCurrentLocation() {
-    return currentLocation;
+	return currentLocation;
   }
 
   
@@ -32,26 +31,26 @@ public class Player {
   public void move(Directions direction) {
 
 		if (currentLocation.getExit(direction) == null) {
-      System.out.println("You can't go that way.");
+      		System.out.println("You can't go that way.");
 		} else {
 			switch (direction) {
 				case NORTH:
-         currentLocation = currentLocation.getExit(direction);
+         			currentLocation = currentLocation.getExit(direction);
 					break;
 				case SOUTH:
-          currentLocation = currentLocation.getExit(direction);
+          			currentLocation = currentLocation.getExit(direction);
 					break;
 				case EAST:
-          currentLocation = currentLocation.getExit(direction);
+          			currentLocation = currentLocation.getExit(direction);
 					break;
 				case WEST:
-          currentLocation = currentLocation.getExit(direction);
+          			currentLocation = currentLocation.getExit(direction);
 					break;
 				default:
 					break;
 			}
 
-      System.out.println(currentLocation.displayRoom());
+      		System.out.println(currentLocation.displayRoom());
 		}
 	}
   // Inventory?
