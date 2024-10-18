@@ -5,9 +5,8 @@ import text_adventure.resources.Directions;
 public class Room implements java.io.Serializable{
 
     private String name, description;
-    private Room north, south, west, east;
+    private Door north, south, west, east;
     public Inventory roomInventory;
-		public Trigger roomTriggers;
 
     // Constructor
     public Room(String name, String description, Inventory inventory) {

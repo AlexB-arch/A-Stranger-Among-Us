@@ -14,7 +14,8 @@ public class Door{
 	{
 		setColor(color);
 		setID(id);
-		set
+		setLock(locked);
+		setdest(destination);
 	}
 
 	public void setColor(String color){
@@ -29,6 +30,14 @@ public class Door{
 	}
 	public setdest(Room destination){
 			this.destination = destination;
+	}
+
+	public unlock(string color)
+	{
+		if this.color == color
+		{
+			
+		}
 	}
 
 }
