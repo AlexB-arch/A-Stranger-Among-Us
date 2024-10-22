@@ -71,5 +71,9 @@ public class Player {
 		party.remove(npc.getName());
 	}
 
+	public HashMap<String, NPC> getParty() {
+		return party;
+	}
+
   // Combat?
 }
