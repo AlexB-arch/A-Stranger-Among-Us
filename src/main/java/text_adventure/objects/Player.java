@@ -11,7 +11,7 @@ public class Player {
     // Initialize the player
     // Do we want to have names for the player?
     // Player starts with a description, location, and inventory
-	Inventory playerInventory = new Inventory();
+	//Inventory playerInventory = new Inventory();
 	}
 
 	// public void openInventory(){
