@@ -1,8 +1,9 @@
 package text_adventure.objects;
 
+
 import text_adventure.resources.Directions;
 
-public class Player {
+public class Player implements Subscriber {
 	private Room currentLocation;
 	public Inventory playerInventory;
 	// what kind of attributes are needed for the player?
@@ -58,5 +59,17 @@ public class Player {
     // public void removeItem(Item item){}
     // public void showInventory(){}
 
-  // Combat?
+@Override
+public void onMessage(Message message) {
+	if(message.getHeader() == "PLAYER"){
+		switch (message.getType()) {
+			case "PLAYER-ACTION":
+				System.out.println(message.getMessage());
+				break;
+			default:
+				break;
+			}
+  		}
+	}
+
 }

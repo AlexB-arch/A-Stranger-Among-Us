@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.nio.Buffer;
 import java.util.List;
 
+import text_adventure.objects.MessageBus;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
@@ -14,19 +15,27 @@ public class Game implements java.io.Serializable {
 
   public static Player player;
 
+  public static MessageBus globalEventBus;
+
   private boolean shouldexit;
 
   public Game() {
     Parser.initDictionary();
+	globalEventBus = new MessageBus(10,1);
+
 	shouldexit = false;
     start();
 
   }
 
 	public void start() {
+
+		// Initalize the Message Bus
+		globalEventBus.startMessageProcessing();
 		// Initialize the player
 		player = new Player();
-
+		globalEventBus.registerSubscriber("PLAYER", player);
+		
 		// Create the rooms
 		Room sleepingQuarters = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The room is empty. The rest of the crew must be in other parts of the ship.\n\nThe door to the east leads to the Mess Hall, which you locked open when you came in. ",null);
 		Room sleepingQuartersCloset = new Room("Sleeping Quarters Closet", "This is a storage room for the sleeping quarters you were working in when the power went out. There are all sorts of blankets and pillows in here.",null);
@@ -84,6 +93,7 @@ public class Game implements java.io.Serializable {
 	String message;
 
     message = "To be continued...";
+	globalEventBus.shutdown();
     setShouldExit(true);
 	return message;
   }
