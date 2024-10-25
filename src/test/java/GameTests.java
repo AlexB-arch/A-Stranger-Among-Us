@@ -1,12 +1,9 @@
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.HashMap;
 
 import org.junit.Test;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.junit.After;
 import org.junit.Before;
 
 import text_adventure.Parser;
@@ -91,9 +88,6 @@ public class GameTests {
     @Test
     public void testSleepingQuartersClosetExits() {
         Room currentRoom = player.getCurrentLocation();
-
-        // Check east exit (should be Sleeping Quarters)
-        Room eastExit = currentRoom.getExit(Directions.EAST);
 
         // Check other exits (should be null)
         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
