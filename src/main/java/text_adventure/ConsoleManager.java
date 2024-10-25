@@ -5,7 +5,6 @@ import text_adventure.Subscriber;
 
 public class ConsoleManager implements Subscriber{
 
-
     @Override
     public void onMessage(Message message) {
         if (message.getHeader().equals("CONSOLE")) {
@@ -13,6 +12,10 @@ public class ConsoleManager implements Subscriber{
                 case "OUT":
                     showMessage(message.getMessage());
                     break;
+                case "DEBUG":
+                    if (Game.DEBUG){
+                        showMessage("DEBUG: "+message.getMessage());
+                    }
                 default:
                     break;
             }
@@ -30,5 +33,5 @@ public class ConsoleManager implements Subscriber{
 			System.out.println(message);
 		}
   	}
-
 }
+

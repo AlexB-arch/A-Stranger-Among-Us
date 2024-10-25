@@ -16,6 +16,7 @@ import text_adventure.ConsoleManager;
 public class Game implements java.io.Serializable {
 
   public static Player player;
+  public static boolean DEBUG;
 
   public static MessageBus globalEventBus;
 
@@ -97,9 +98,9 @@ public class Game implements java.io.Serializable {
 
   public String endGame(){
 	String message;
+	globalEventBus.shutdown();
 
     message = "To be continued...";
-	globalEventBus.shutdown();
     setShouldExit(true);
 	return message;
   }
