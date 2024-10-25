@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import text_adventure.ResourceManager;
 import text_adventure.objects.NPC;
-import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 
 public class DialogueTests {
@@ -24,10 +23,6 @@ public class DialogueTests {
 
     // Get the path to the resource JSON file
     private File file = new File("src/main/java/text_adventure/resources/npcresources.json");;
-
-    // Initialize player
-    private Player player = new Player();
-
 
     @Test
     public void testEmptyMap() {

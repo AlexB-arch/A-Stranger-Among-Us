@@ -1,17 +1,23 @@
 package text_adventure.objects;
 
+import java.util.HashMap;
+
 import text_adventure.resources.Directions;
 
 public class Player {
 	private Room currentLocation;
 	public Inventory playerInventory;
-	// what kind of attributes are needed for the player?
+
+	// Party. Consists of the NPC name as the key and the NPC object as the value
+	private HashMap<String, NPC> party;
 
 	public Player() {
-    // Initialize the player
-    // Do we want to have names for the player?
-    // Player starts with a description, location, and inventory
-	Inventory playerInventory = new Inventory();
+    	// Initialize the player
+    	// Do we want to have names for the player?
+    	// Player starts with a description, location, and inventory
+		playerInventory = new Inventory();
+		// Party
+		party = new HashMap<String, NPC>();
 	}
 
 	// public void openInventory(){
@@ -57,6 +63,17 @@ public class Player {
     // public void addItem(Item item){}
     // public void removeItem(Item item){}
     // public void showInventory(){}
+	public void addPartyMember(NPC npc) {
+		party.put(npc.getName(), npc);
+	}
+
+	public void removePartyMember(NPC npc) {
+		party.remove(npc.getName());
+	}
+
+	public HashMap<String, NPC> getParty() {
+		return party;
+	}
 
   // Combat?
 }
