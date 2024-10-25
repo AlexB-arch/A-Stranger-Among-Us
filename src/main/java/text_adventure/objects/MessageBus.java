@@ -31,8 +31,6 @@ public class MessageBus {
 
     // Method for producers to publish messages
     public void publish(Message message) {
-        System.out.println("Publishing message: " + message.getType());
-        System.out.println(subscribersMap.size());
         try {
             messageQueue.put(message); // Blocks if the queue is full
         } catch (InterruptedException e) {
@@ -54,6 +52,7 @@ public class MessageBus {
                         List<Subscriber> subscribers = subscribersMap.getOrDefault(messageHeader, new ArrayList<>());
 
                         for (Subscriber subscriber : subscribers) {
+                            
                             subscriber.onMessage(message); // Notify all subscribers
                         }
                     }

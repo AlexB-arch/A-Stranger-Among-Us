@@ -1,18 +1,17 @@
 package text_adventure;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.HashMap;
 
-import text_adventure.resources.WordType;
-import text_adventure.objects.MessageBus;
 import text_adventure.objects.TextMessage;
 import text_adventure.resources.Articles;
 import text_adventure.resources.Directions;
 import text_adventure.resources.Nouns;
 import text_adventure.resources.Prepositions;
 import text_adventure.resources.Verbs;
+import text_adventure.resources.WordType;
 
 public class Parser {
 
@@ -37,6 +36,7 @@ public class Parser {
     WordProcessor input3 = input.get(2);
     WordProcessor input4 = input.get(3);
     String response = "";
+
 
     // Check if the first word is a valid action
     if ((input1.getWordType() != WordType.VERB) || (input3.getWordType() != WordType.PREPOSITION)) {
@@ -104,7 +104,7 @@ public class Parser {
 		if (input1.getWordType() != WordType.VERB) {
 			response = "Can't do that. " + input1.getWord() + " is not a valid action!";
 		} else if (input2.getWordType() != WordType.NOUN) {
-			response = "Can't do that. " + input2.getWord() + " is not a valid object!";
+			response = "Can't do that. " + input2.getWord() + " is not a valid object! (not noun)";
 		} else {
 			switch (input1.getWord()) {
 				//TODO: Implement the cases
@@ -145,6 +145,9 @@ public class Parser {
 					break;
 				case "quit", "exit":
 					response = Main.game.endGame();
+					break;
+				case "debug":
+					Game.globalEventBus.publish(new TextMessage("CONSOLE","DEBUG_TOGGLE", ""));
 					break;
 				default:
 					break;

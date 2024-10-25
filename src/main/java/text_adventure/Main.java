@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+import text_adventure.objects.TextMessage;
+
 
 public class Main {
 
@@ -20,17 +22,12 @@ public class Main {
 		in = new BufferedReader(new InputStreamReader(System.in));
 
 		do {
-			System.out.print(">> ");
 			input = in.readLine();
-			
 			switch (input) {
 				default:
 					output = game.runCommands(input);
+					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",output));
 					break;
-			}
-
-			if (!output.trim().isEmpty()){
-				Game.showMessage(output);
 			}
 			
 		} while (game.getShouldExit() != true);
