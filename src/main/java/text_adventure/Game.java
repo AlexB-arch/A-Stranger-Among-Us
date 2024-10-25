@@ -10,6 +10,8 @@ import text_adventure.objects.MessageBus;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
+import text_adventure.objects.TextMessage;
+import text_adventure.ConsoleManager;
 
 public class Game implements java.io.Serializable {
 
@@ -17,11 +19,13 @@ public class Game implements java.io.Serializable {
 
   public static MessageBus globalEventBus;
 
+  private ConsoleManager consoleManager;
+
   private boolean shouldexit;
 
   public Game() {
     Parser.initDictionary();
-	globalEventBus = new MessageBus(10,1);
+	globalEventBus = new MessageBus(10,3);
 
 	shouldexit = false;
     start();
@@ -34,7 +38,9 @@ public class Game implements java.io.Serializable {
 		globalEventBus.startMessageProcessing();
 		// Initialize the player
 		player = new Player();
+		consoleManager = new ConsoleManager();
 		globalEventBus.registerSubscriber("PLAYER", player);
+		globalEventBus.registerSubscriber("CONSOLE", consoleManager);
 		
 		// Create the rooms
 		Room sleepingQuarters = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The room is empty. The rest of the crew must be in other parts of the ship.\n\nThe door to the east leads to the Mess Hall, which you locked open when you came in. ",null);
@@ -108,7 +114,7 @@ public class Game implements java.io.Serializable {
 		message += "Enter 'go' and north, south, west, or east to move. \n";
 		message += "Or type 'quit' or 'exit' to stop the game.\n";
 
-		showMessage(message);
+		globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
   }
   public boolean getShouldExit(){
 	return shouldexit;
@@ -118,19 +124,16 @@ public class Game implements java.io.Serializable {
 	shouldexit = bool;
   }
 
-  // Display messages to the console
-  	public static void showMessage(String message){
-		if (message.endsWith("\n")) { // stripping any trailing newlines
-			message = message.substring(0, message.length() - 1);
-		}
 
-		if (!message.isEmpty()) {
-			System.out.println(message);
-		}
-  	}
 
-	// Use look method to display the player's current location
-	public void look() {
-		showMessage(player.getCurrentLocation().getDescription());
+  public static void showMessage(String message){
+	if (message.endsWith("\n")) { // stripping any trailing newlines
+		message = message.substring(0, message.length() - 1);
 	}
+
+	if (!message.isEmpty()) {
+		System.out.println(message);
+	}
+  }
+
 }

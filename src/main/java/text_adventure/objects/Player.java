@@ -1,6 +1,7 @@
 package text_adventure.objects;
 
-
+import text_adventure.Game;
+import text_adventure.Subscriber;
 import text_adventure.resources.Directions;
 
 public class Player implements Subscriber {
@@ -63,13 +64,12 @@ public class Player implements Subscriber {
 public void onMessage(Message message) {
 	if(message.getHeader() == "PLAYER"){
 		switch (message.getType()) {
-			case "PLAYER-ACTION":
-				System.out.println(message.getMessage());
+			case "LOOK":
+				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().getDescription()));
 				break;
 			default:
 				break;
 			}
   		}
 	}
-
 }

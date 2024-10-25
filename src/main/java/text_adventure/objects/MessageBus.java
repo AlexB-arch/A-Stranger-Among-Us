@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import text_adventure.Game;
+import text_adventure.Subscriber;
 
 public class MessageBus {
     private BlockingQueue<Message> messageQueue;
@@ -44,7 +45,7 @@ public class MessageBus {
     // Start message processing (consumers)
     public void startMessageProcessing() {
         // start with one Thread update to add more threads.
-        for (int i = 0; i < 1; i++) { // Start multiple consumers, adjust the count as needed
+        for (int i = 0; i < 3; i++) { // Start multiple consumers, adjust the count as needed
             threadPool.execute(() -> {
                 try {
                     while (true) {

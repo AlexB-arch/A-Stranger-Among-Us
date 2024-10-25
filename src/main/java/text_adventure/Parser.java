@@ -135,8 +135,7 @@ public class Parser {
 					response = "Go where?";
 					break;
 				case "look":
-					Main.game.look();
-					Game.globalEventBus.publish(new TextMessage("PLAYER","PLAYER-ACTION", "Hey There's nothing here .. huh"));
+					Game.globalEventBus.publish(new TextMessage("PLAYER","LOOK", "There's nothing here..."));
 					break;
 				case "talk":
 					response = "Talk to who?";
