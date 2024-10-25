@@ -22,6 +22,7 @@ public class Main {
 		in = new BufferedReader(new InputStreamReader(System.in));
 
 		do {
+
 			input = in.readLine();
 			switch (input) {
 				default:
@@ -31,5 +32,8 @@ public class Main {
 			}
 			
 		} while (game.getShouldExit() != true);
+
+		Game.globalEventBus.shutdown();
+
 	}
 }

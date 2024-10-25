@@ -9,6 +9,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 
 import text_adventure.Game;
 import text_adventure.Subscriber;
@@ -29,12 +31,13 @@ public class MessageBus {
 
     }
 
+
     // Method for producers to publish messages
     public void publish(Message message) {
         try {
             messageQueue.put(message); // Blocks if the queue is full
         } catch (InterruptedException e) {
-			e.printStackTrace();
+			Thread.currentThread().interrupt();
 		}
     }
 
@@ -52,13 +55,11 @@ public class MessageBus {
                         List<Subscriber> subscribers = subscribersMap.getOrDefault(messageHeader, new ArrayList<>());
 
                         for (Subscriber subscriber : subscribers) {
-                            
                             subscriber.onMessage(message); // Notify all subscribers
                         }
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    System.out.println("Message processing interrupted.");
                 }
             });
         }
@@ -66,6 +67,19 @@ public class MessageBus {
 
     // Shutdown the thread pool when no longer needed
     public void shutdown() {
-        threadPool.shutdownNow();
-    }
+        threadPool.shutdown();
+
+        try {
+            if (!threadPool.awaitTermination(1, TimeUnit.SECONDS)) {
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        // If the executor is still running after the specified time, force shutdown
+        if (!threadPool.isTerminated()) {
+            threadPool.shutdownNow();
+        }
+    }    
 }
+

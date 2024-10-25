@@ -76,6 +76,7 @@ public class Game implements java.io.Serializable {
 	String string = "";
 	String lowerCaseInput;
 
+
 	// Cleans up the input and converts it to lowercase
 	lowerCaseInput = inputString.trim().toLowerCase();
 
@@ -94,8 +95,6 @@ public class Game implements java.io.Serializable {
 
   public String endGame(){
 	String message;
-	globalEventBus.shutdown();
-
     message = "To be continued...";
     setShouldExit(true);
 	return message;

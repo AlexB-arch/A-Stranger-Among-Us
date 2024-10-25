@@ -6,6 +6,7 @@ import text_adventure.Subscriber;
 
 public class ConsoleManager implements Subscriber{
     private boolean isDebug = false;
+    private boolean lockPromptInput = false;
 
     @Override
     public void onMessage(Message message) {
@@ -24,10 +25,23 @@ public class ConsoleManager implements Subscriber{
                     isDebug = !isDebug;
                     showMessage("Debug messages: " + isDebug);
                     break;
-
+                case "LOCK_INPUT":
+                         switch (message.getMessage()) {
+                             case "LOCK":
+                                 lockPromptInput = true;
+                                 break;
+                            case "UNLOCK":
+                                 lockPromptInput = false;
+                            case "TOGGLE":
+                                lockPromptInput = !lockPromptInput;
+                            default:
+                                break;
+                }
+            
                 case "INPUT":
-                    Game.globalEventBus.publish(new TextMessage("CONSOLE", "DEBUG", "Doing the console"));
-                    System.out.print(">>");
+                    if(lockPromptInput == false){
+                        System.out.print(">>");
+                    }
                     break;
                 
                 default:
