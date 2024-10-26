@@ -14,7 +14,6 @@ public class ConsoleManager implements Subscriber{
             switch (message.getType()) {
                 case "OUT":
                     showMessage(message.getMessage());
-                    Game.globalEventBus.publish(new TextMessage("CONSOLE", "INPUT", ""));
                     break;
                 case "DEBUG":
                     if (isDebug){

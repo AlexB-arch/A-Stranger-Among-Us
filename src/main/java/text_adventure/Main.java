@@ -22,14 +22,10 @@ public class Main {
 		in = new BufferedReader(new InputStreamReader(System.in));
 
 		do {
-
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "INPUT",""));
 			input = in.readLine();
-			switch (input) {
-				default:
-					output = game.runCommands(input);
-					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",output));
-					break;
-			}
+			output = game.runCommands(input);
+			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",output));
 			
 		} while (game.getShouldExit() != true);
 
