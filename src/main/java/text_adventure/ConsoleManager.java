@@ -36,7 +36,6 @@ public class ConsoleManager implements Subscriber{
                             default:
                                 break;
                 }
-            
                 case "INPUT":
                     if(lockPromptInput == false){
                         System.out.print(">>");

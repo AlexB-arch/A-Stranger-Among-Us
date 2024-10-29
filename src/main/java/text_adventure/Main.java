@@ -22,7 +22,7 @@ public class Main {
 		in = new BufferedReader(new InputStreamReader(System.in));
 
 		do {
-			Game.globalEventBus.publish(new TextMessage("CONSOLE", "INPUT",""));
+			// Game.globalEventBus.publish(new TextMessage("CONSOLE", "INPUT",""));
 			input = in.readLine();
 			output = game.runCommands(input);
 			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",output));
