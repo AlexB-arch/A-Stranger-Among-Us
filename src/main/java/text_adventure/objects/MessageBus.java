@@ -31,7 +31,6 @@ public class MessageBus {
 
     }
 
-
     // Method for producers to publish messages
     public void publish(Message message) {
         try {
@@ -40,8 +39,6 @@ public class MessageBus {
 			Thread.currentThread().interrupt();
 		}
     }
-
-
 
     // Start message processing (consumers)
     public void startMessageProcessing() {
@@ -81,5 +78,10 @@ public class MessageBus {
             threadPool.shutdownNow();
         }
     }    
+
+    // Get the ampunt of subscribers
+    public int getSubscriberCount() {
+        return subscribersMap.size();
+    }
 }
 
