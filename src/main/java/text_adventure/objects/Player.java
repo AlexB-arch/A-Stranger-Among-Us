@@ -1,10 +1,12 @@
 package text_adventure.objects;
 
+import text_adventure.Game;
+import text_adventure.Subscriber;
 import java.util.HashMap;
 
 import text_adventure.resources.Directions;
 
-public class Player {
+public class Player implements Subscriber {
 	private Room currentLocation;
 	public Inventory playerInventory;
 
@@ -67,6 +69,18 @@ public class Player {
 		party.put(npc.getName(), npc);
 	}
 
+@Override
+public void onMessage(Message message) {
+	if(message.getHeader() == "PLAYER"){
+		switch (message.getType()) {
+			case "LOOK":
+				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().getDescription()));
+				break;
+			default:
+				break;
+			}
+  		}
+	}
 	public void removePartyMember(NPC npc) {
 		party.remove(npc.getName());
 	}

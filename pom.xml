@@ -46,7 +46,6 @@
             </plugin>
         </plugins>
     </build>
-
     <reporting>
         <plugins>
             <!-- Surefire Report Plugin to generate HTML reports -->

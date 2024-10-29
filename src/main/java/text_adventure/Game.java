@@ -2,27 +2,43 @@ package text_adventure;
 
 import java.util.List;
 
+import text_adventure.objects.MessageBus;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
+import text_adventure.objects.TextMessage;
+import text_adventure.ConsoleManager;
 
 public class Game implements java.io.Serializable {
 
   public static Player player;
+  public static boolean DEBUG;
+
+  public static MessageBus globalEventBus;
+
+  private ConsoleManager consoleManager;
 
   private boolean shouldexit;
 
   public Game() {
     Parser.initDictionary();
+	globalEventBus = new MessageBus(10,3);
+
 	shouldexit = false;
     start();
 
   }
 
 	public void start() {
+
+		// Initalize the Message Bus
+		globalEventBus.startMessageProcessing();
 		// Initialize the player
 		player = new Player();
-
+		consoleManager = new ConsoleManager();
+		globalEventBus.registerSubscriber("PLAYER", player);
+		globalEventBus.registerSubscriber("CONSOLE", consoleManager);
+		
 		// Create the rooms
 		Room sleepingQuarters = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The room is empty. The rest of the crew must be in other parts of the ship.\n\nThe door to the east leads to the Mess Hall, which you locked open when you came in. ",null);
 		Room sleepingQuartersCloset = new Room("Sleeping Quarters Closet", "This is a storage room for the sleeping quarters you were working in when the power went out. There are all sorts of blankets and pillows in here.",null);
@@ -60,6 +76,7 @@ public class Game implements java.io.Serializable {
 	String string = "";
 	String lowerCaseInput;
 
+
 	// Cleans up the input and converts it to lowercase
 	lowerCaseInput = inputString.trim().toLowerCase();
 
@@ -78,7 +95,6 @@ public class Game implements java.io.Serializable {
 
   public String endGame(){
 	String message;
-
     message = "To be continued...";
     setShouldExit(true);
 	return message;
@@ -94,7 +110,7 @@ public class Game implements java.io.Serializable {
 		message += "Enter 'go' and north, south, west, or east to move. \n";
 		message += "Or type 'quit' or 'exit' to stop the game.\n";
 
-		showMessage(message);
+		globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
   }
   public boolean getShouldExit(){
 	return shouldexit;
@@ -104,19 +120,16 @@ public class Game implements java.io.Serializable {
 	shouldexit = bool;
   }
 
-  // Display messages to the console
-  	public static void showMessage(String message){
-		if (message.endsWith("\n")) { // stripping any trailing newlines
-			message = message.substring(0, message.length() - 1);
-		}
 
-		if (!message.isEmpty()) {
-			System.out.println(message);
-		}
-  	}
 
-	// Use look method to display the player's current location
-	public void look() {
-		showMessage(player.getCurrentLocation().getDescription());
+  public static void showMessage(String message){
+	if (message.endsWith("\n")) { // stripping any trailing newlines
+		message = message.substring(0, message.length() - 1);
 	}
+
+	if (!message.isEmpty()) {
+		System.out.println(message);
+	}
+  }
+
 }
