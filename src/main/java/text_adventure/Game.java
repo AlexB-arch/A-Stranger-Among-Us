@@ -7,7 +7,6 @@ import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 import text_adventure.objects.TextMessage;
-import text_adventure.ConsoleManager;
 
 public class Game implements java.io.Serializable {
 
@@ -62,6 +61,7 @@ public class Game implements java.io.Serializable {
 
 		// Initialize NPCs
 		NPC alice = new NPC("Alice", MessHall);
+		globalEventBus.registerSubscriber("NPC", alice);
 
 		// Add NPCs to rooms
 		MessHall.addNpc(alice);
@@ -119,8 +119,6 @@ public class Game implements java.io.Serializable {
   private void setShouldExit(boolean bool){
 	shouldexit = bool;
   }
-
-
 
   public static void showMessage(String message){
 	if (message.endsWith("\n")) { // stripping any trailing newlines

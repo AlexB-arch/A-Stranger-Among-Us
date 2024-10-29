@@ -11,8 +11,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-
-import text_adventure.Game;
 import text_adventure.Subscriber;
 
 public class MessageBus {
@@ -31,7 +29,6 @@ public class MessageBus {
 
     }
 
-
     // Method for producers to publish messages
     public void publish(Message message) {
         try {
@@ -40,8 +37,6 @@ public class MessageBus {
 			Thread.currentThread().interrupt();
 		}
     }
-
-
 
     // Start message processing (consumers)
     public void startMessageProcessing() {

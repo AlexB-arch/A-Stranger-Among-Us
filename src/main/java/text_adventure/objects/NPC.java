@@ -3,8 +3,9 @@ package text_adventure.objects;
 import java.util.HashMap;
 
 import text_adventure.Game;
+import text_adventure.Subscriber;
 
-public class NPC {
+public class NPC implements Subscriber {
     private String name;
     private Room location;
 
@@ -22,6 +23,7 @@ public class NPC {
     public NPC(String name, Room location) {
         this.name = name;
         this.location = location;
+        
     }
 
     // Setters
@@ -110,5 +112,11 @@ public class NPC {
         }
 
         return response;
+    }
+
+    @Override
+    public void onMessage(Message message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'onMessage'");
     }
 }
