@@ -76,5 +76,10 @@ public class MessageBus {
             threadPool.shutdownNow();
         }
     }    
+
+    // Get the ampunt of subscribers
+    public int getSubscriberCount() {
+        return subscribersMap.size();
+    }
 }
 
