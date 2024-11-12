@@ -157,4 +157,9 @@ public class Room implements java.io.Serializable{
         }
         return null;
     }
+
+    // Remove the NPC from the room once in the party
+    public void removeNpc(NPC npc){
+        this.npc = null;
+    }
 }

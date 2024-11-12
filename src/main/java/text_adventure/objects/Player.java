@@ -61,33 +61,33 @@ public class Player implements Subscriber {
       		System.out.println(currentLocation.displayRoom());
 		}
 	}
-  // Inventory?
-    // public void addItem(Item item){}
-    // public void removeItem(Item item){}
-    // public void showInventory(){}
-	public void addPartyMember(NPC npc) {
-		party.put(npc.getName(), npc);
+
+	@Override
+	public void onMessage(Message message) {
+		if(message.getHeader() == "PLAYER"){
+			switch (message.getType()) {
+				case "LOOK":
+					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().getDescription()));
+					break;
+				default:
+					break;
+			}
+		}
 	}
 
-@Override
-public void onMessage(Message message) {
-	if(message.getHeader() == "PLAYER"){
-		switch (message.getType()) {
-			case "LOOK":
-				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().getDescription()));
-				break;
-			default:
-				break;
-			}
-  		}
+	public void addPartyMember(NPC npc) {
+		party.put(npc.getName(), npc);
+		npc.getLocation().removeNpc(npc);
 	}
+
 	public void removePartyMember(NPC npc) {
 		party.remove(npc.getName());
+
+		// Set the NPC's location to the player's location
+		npc.setLocation(currentLocation);
 	}
 
 	public HashMap<String, NPC> getParty() {
 		return party;
 	}
-
-  // Combat?
 }
