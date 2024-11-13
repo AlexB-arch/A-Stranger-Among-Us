@@ -6,17 +6,17 @@ public class Room implements java.io.Serializable{
 
     private String name, description;
     private Room north, south, west, east;
-    public Inventory roomInventory;
+    public Inventory loot;
     public NPC npc;
 
     // Constructor
-    public Room(String name, String description, Inventory inventory) {
+    public Room(String name, String description, Inventory loot) {
         setName(name);
         setDescription(description);
-        if (inventory != null){
-            roomInventory = inventory;
+        if (loot != null){
+            this.loot = loot;
         }else{
-            roomInventory = new Inventory();
+            loot = new Inventory();
         }
     }
 
@@ -161,5 +161,20 @@ public class Room implements java.io.Serializable{
     // Remove the NPC from the room once in the party
     public void removeNpc(NPC npc){
         this.npc = null;
+    }
+
+    // Add an item to the room
+    public void addItem(Item item){
+        loot.addItem(item);
+    }
+
+    // Remove an item from the room
+    public void removeItem(Item item){
+        loot.takeItem(item.getName());
+    }
+
+    // Get the item in the room by name
+    public Item getCurrentRoomItem(String itemName){
+        return loot.takeItem(itemName).orElse(null);
     }
 }
