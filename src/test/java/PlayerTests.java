@@ -28,7 +28,7 @@ public class PlayerTests {
     public void testRemovePartyMember() {
         Room room = new Room("Sleeping Quarters", "A room with beds", null);
         NPC npc = new NPC("Bob", room);
-        
+
         player.addPartyMember(npc);
         player.removePartyMember(npc);
         assertFalse(player.getParty().containsKey(npc.getName()));
@@ -51,12 +51,13 @@ public class PlayerTests {
         assertFalse(player.contains(item));
     }
     
-    
     @Test
     public void testInventorySize() {
+        int expected = 1;
+
         Item item = new LaserPistol();
         player.addItem(item);
-        assertEquals(1, player.size());
+        assertEquals(expected, player.size());
     }
     
     @Test

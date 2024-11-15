@@ -5,9 +5,9 @@ import text_adventure.Subscriber;
 import java.util.HashMap;
 
 import text_adventure.resources.Directions;
-import text_adventure.interfaces.INVENTORY;
+import text_adventure.interfaces.InventoryManagement;
 
-public class Player implements Subscriber, INVENTORY {
+public class Player implements Subscriber, InventoryManagement {
 	private Room currentLocation;
 	public Inventory inventory;
 

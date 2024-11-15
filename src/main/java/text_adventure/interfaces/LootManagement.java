@@ -4,7 +4,7 @@ import java.util.List;
 
 import text_adventure.objects.Item;
 
-public interface LOOT {
+public interface LootManagement {
     List<Item> getAvailableItems();
     void collectItem(Item item);
 }
