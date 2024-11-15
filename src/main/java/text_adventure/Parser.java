@@ -51,7 +51,7 @@ public class Parser {
 		case "putinto":
 			//response = Main.game.putObjectIn(input2.getWord(), input4.getWord());
 			break;
-		
+
 		default:
 			response = "I don't know how to '" + input1.getWord() + " " + input2.getWord() + " " + input3.getWord() + " " + input4.getWord() + "'";
 			break;
@@ -197,8 +197,8 @@ public class Parser {
 		for (String word : input) {
 			if (dictionary.containsKey(word)){
 				type = dictionary.get(word);
-				
-				if (type != WordType.ARTICLE) { 
+
+				if (type != WordType.ARTICLE) {
 					// Skip articles
 					processedInput.add(new WordProcessor(word, type));
 				}
