@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import text_adventure.interfaces.Item;
-import text_adventure.objects.LaserPistol;
+import text_adventure.items.LaserPistol;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;

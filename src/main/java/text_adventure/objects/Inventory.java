@@ -1,8 +1,6 @@
 package text_adventure.objects;
 
 import java.util.ArrayList;
-import java.util.Optional;
-
 import text_adventure.interfaces.Item;
 
 public class Inventory {
@@ -19,7 +17,9 @@ public class Inventory {
     public int size(){
         return inventoryItems.size();
     }
-    public boolean contains(Item item){
+    
+    // method to check if an item is in the inventory
+    public boolean inInventory(Item item){
         return inventoryItems.contains(item);
     }
 

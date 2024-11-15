@@ -1,4 +1,4 @@
-package text_adventure.objects;
+package text_adventure.items;
 
 import java.util.ArrayList;
 
@@ -8,8 +8,6 @@ import text_adventure.interfaces.Item;
 public class LaserPistol implements Item {
     private String name = "Laser Pistol";
     private String description = "A high-powered laser pistol for close combat.";
-    private double value = 500.0;
-    private double weight = 5.0;
     private ArrayList<String> actions = new ArrayList<>();
     
     public LaserPistol() {
@@ -28,17 +26,6 @@ public class LaserPistol implements Item {
         return description;
     }
 
-    @Override
-    public double getValue() {
-        return value;
-    }
-
-    @Override
-    public double getWeight() {
-        return weight;
-    }
-
-    @Override
     public ArrayList<String> getActions() {
         return actions;
     }
@@ -47,12 +34,9 @@ public class LaserPistol implements Item {
     public String toString(){
         return "Name: " + getName() + 
         "\nDescription: " + getDescription() +
-        "\nValue: $"+ getValue() +
-        "\nWeight: " + getWeight() +
         "\nActions: " + getActions(); 
     }
 
-    @Override
     public boolean performAction(String action) {
         if (action.equals("Fire")) {
             System.out.println("You fire the laser pistol at an enemy target.");

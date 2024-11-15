@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import text_adventure.objects.Message;
 import text_adventure.objects.MessageBus;
-import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 
 public class MessageBusTests {

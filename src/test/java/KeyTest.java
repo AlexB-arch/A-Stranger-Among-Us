@@ -1,9 +1,10 @@
 import org.junit.Test;
+
+import text_adventure.items.Key;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
-import text_adventure.objects.Key;
 
 
 public class KeyTest {
@@ -18,18 +19,6 @@ public class KeyTest {
     public void testGetDescription() {
         Key key = new Key();
         assertEquals("A small, rusty key.", key.getDescription());
-    }
-
-    @Test
-    public void testGetValue() {
-        Key key = new Key();
-        assertEquals(10.0, key.getValue(), 0.01);
-    }
-
-    @Test
-    public void testGetWeight() {
-        Key key = new Key();
-        assertEquals(1.0, key.getWeight(), 0.01);
     }
 
     @Test
