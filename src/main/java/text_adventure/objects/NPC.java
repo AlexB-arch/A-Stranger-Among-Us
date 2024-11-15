@@ -8,6 +8,7 @@ import text_adventure.Subscriber;
 public class NPC implements Subscriber {
     private String name;
     private Room location;
+    private Inventory inventory;
 
     // Dialogue map
     private HashMap<String, String> dialogueMap = new HashMap<String, String>();
@@ -15,7 +16,6 @@ public class NPC implements Subscriber {
     // States
     private String currentState = "default";
     private boolean isAlive = true;
-    private boolean followPlayer = false;
 
     //TODO: Add states as enum
 
@@ -23,7 +23,7 @@ public class NPC implements Subscriber {
     public NPC(String name, Room location) {
         this.name = name;
         this.location = location;
-        
+        inventory = new Inventory();
     }
 
     // Setters
@@ -65,26 +65,6 @@ public class NPC implements Subscriber {
 
     public boolean getIsAlive() {
         return isAlive;
-    }
-
-    // Follow the player
-    public void followPlayer() {
-        followPlayer = true;
-    }
-
-    public void updateLocation() {
-        // Get the player's location
-        location = Game.player.getCurrentLocation();
-
-        // Keep updating the location to the player's location
-        while (followPlayer) {
-            location = Game.player.getCurrentLocation();
-        }
-    }
-
-    // Stop following the player
-    public void stopFollowingPlayer() {
-        followPlayer = false;
     }
 
     public String interact(String playerInput) {

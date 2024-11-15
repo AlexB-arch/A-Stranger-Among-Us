@@ -5,28 +5,20 @@ import text_adventure.Subscriber;
 import java.util.HashMap;
 
 import text_adventure.resources.Directions;
+import text_adventure.interfaces.INVENTORY;
 
-public class Player implements Subscriber {
+public class Player implements Subscriber, INVENTORY {
 	private Room currentLocation;
-	public Inventory playerInventory;
+	public Inventory inventory;
 
 	// Party. Consists of the NPC name as the key and the NPC object as the value
 	private HashMap<String, NPC> party;
 
 	public Player() {
-    	// Initialize the player
-    	// Do we want to have names for the player?
-    	// Player starts with a description, location, and inventory
-		playerInventory = new Inventory();
-		// Party
+		inventory = new Inventory();
 		party = new HashMap<String, NPC>();
 	}
 
-	// public void openInventory(){
-	//   return playerInventory.strinFormatedItems();
-	// }
-
-  // getters and setters, if any
   public Room getCurrentLocation() {
 	return currentLocation;
   }
@@ -89,5 +81,34 @@ public class Player implements Subscriber {
 
 	public HashMap<String, NPC> getParty() {
 		return party;
+	}
+
+	@Override
+	public void addItem(Item item) {
+		inventory.addItem(item);
+	}
+
+	@Override
+	public void removeItem(Item item) {
+		inventory.removeItem(item);
+	}
+
+	@Override
+	public void useItem(Item item) {
+	}
+
+	@Override
+	public int size() {
+		return inventory.size();
+	}
+
+	@Override
+	public boolean contains(Item item) {
+		return inventory.contains(item);
+	}
+
+	@Override
+	public void printItems() {
+		inventory.printItems();
 	}
 }
