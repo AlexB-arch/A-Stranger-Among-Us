@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import text_adventure.resources.Directions;
 import text_adventure.interfaces.InventoryManagement;
+import text_adventure.interfaces.Item;
 
 public class Player implements Subscriber, InventoryManagement {
 	private Room currentLocation;

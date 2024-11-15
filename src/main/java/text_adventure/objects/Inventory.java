@@ -3,6 +3,8 @@ package text_adventure.objects;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import text_adventure.interfaces.Item;
+
 public class Inventory {
     private ArrayList<Item> inventoryItems = new ArrayList<>();
 
@@ -19,18 +21,6 @@ public class Inventory {
     }
     public boolean contains(Item item){
         return inventoryItems.contains(item);
-    }
-    
-// better ways to do this I think
-    public Optional<Item> takeItem(String Name){
-        for (int i = 0; i < inventoryItems.size(); i++){
-            if (inventoryItems.get(i).getName().equals(Name)){
-                Item copyItem =  inventoryItems.get(i);
-                inventoryItems.remove(i);
-                return Optional.of(copyItem);
-            }
-        }
-        return Optional.empty();
     }
 
     public String toString(){

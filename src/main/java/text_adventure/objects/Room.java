@@ -1,5 +1,6 @@
 package text_adventure.objects;
 
+import text_adventure.interfaces.Item;
 import text_adventure.resources.Directions;
 
 public class Room implements java.io.Serializable{
@@ -168,13 +169,5 @@ public class Room implements java.io.Serializable{
         loot.addItem(item);
     }
 
-    // Remove an item from the room
-    public void removeItem(Item item){
-        loot.takeItem(item.getName());
-    }
-
-    // Get the item in the room by name
-    public Item getCurrentRoomItem(String itemName){
-        return loot.takeItem(itemName).orElse(null);
-    }
+    // TODO: Add and Remove items from Rooms
 }
