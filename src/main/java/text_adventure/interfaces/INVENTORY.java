@@ -1,7 +1,5 @@
 package text_adventure.interfaces;
 
-import java.util.Optional;
-
 import text_adventure.objects.Item;
 
 public interface INVENTORY {

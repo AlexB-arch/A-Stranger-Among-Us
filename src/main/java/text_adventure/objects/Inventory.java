@@ -19,8 +19,8 @@ public class Inventory {
     }
     public boolean contains(Item item){
         return inventoryItems.contains(item);
-
     }
+    
 // better ways to do this I think
     public Optional<Item> takeItem(String Name){
         for (int i = 0; i < inventoryItems.size(); i++){
