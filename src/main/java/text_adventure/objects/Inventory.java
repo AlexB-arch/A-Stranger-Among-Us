@@ -3,7 +3,6 @@ package text_adventure.objects;
 import java.util.ArrayList;
 import java.util.Optional;
 
-
 public class Inventory {
     private ArrayList<Item> inventoryItems = new ArrayList<>();
 

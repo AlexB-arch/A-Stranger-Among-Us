@@ -5,8 +5,9 @@ import text_adventure.Subscriber;
 import java.util.HashMap;
 
 import text_adventure.resources.Directions;
+import text_adventure.interfaces.INVENTORY;
 
-public class Player implements Subscriber {
+public class Player implements Subscriber, INVENTORY {
 	private Room currentLocation;
 	public Inventory inventory;
 
@@ -82,11 +83,32 @@ public class Player implements Subscriber {
 		return party;
 	}
 
+	@Override
 	public void addItem(Item item) {
 		inventory.addItem(item);
 	}
 
+	@Override
 	public void removeItem(Item item) {
-		inventory.removeItem(item);;
+		inventory.removeItem(item);
+	}
+
+	@Override
+	public void useItem(Item item) {
+	}
+
+	@Override
+	public int size() {
+		return inventory.size();
+	}
+
+	@Override
+	public boolean contains(Item item) {
+		return inventory.contains(item);
+	}
+
+	@Override
+	public void printItems() {
+		inventory.printItems();
 	}
 }
