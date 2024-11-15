@@ -2,6 +2,8 @@ package text_adventure.objects;
 
 import text_adventure.resources.Directions;
 
+import text_adventure.objects.Doors;
+
 public class Room implements java.io.Serializable{
 
     private String name, description;
@@ -9,10 +11,10 @@ public class Room implements java.io.Serializable{
     public Inventory loot;
     public NPC npc;
 		private String roomId;
-		private Door Ndoor;
-		private Door Edoor;
-		private Door Wdoor;
-		private Door Sdoor;
+		private Doors Ndoor;
+		private Doors Edoor;
+		private Doors Wdoor;
+		private Doors Sdoor;
 
     // Constructor
     public Room(String name, String description, Inventory loot) {
@@ -106,23 +108,24 @@ public class Room implements java.io.Serializable{
         }
     }
 
-    public void setExits(Room north, Room south, Room east, Room west) {
-        this.north = north;
-        this.south = south;
-        this.east = east;
-        this.west = west;
+    //Room doorout, bool open, string color, int doorId
+    public void setExits(Room north, Room south, Room east, Room west, boolean canexitN, boolean canexitS, boolean canexitE, boolean canexitW, String keyN, String keyS, String keyE, String keyW) {
+        this.Ndoor = new Doors (north, canexitN, keyN);
+        this.Sdoor = new Doors (south, canexitS, keyS);
+        this.Edoor = new Doors (east, canexitE, keyE);
+        this.Wdoor = new Doors (west, canexitW, keyW);
     }
 
     public Room getExit(Directions direction) {
         switch (direction) {
             case NORTH:
-                return north;
+                return Ndoor.travel();
             case SOUTH:
-                return south;
+                return Sdoor.travel();
             case EAST:
-                return east;
+                return Edoor.travel();
             case WEST:
-                return west;
+                return Wdoor.travel();
             default:
                 return null;
         }

@@ -31,7 +31,7 @@ public class Player implements Subscriber {
 	return currentLocation;
   }
 
-  
+
   public void setCurrentLocation(Room currentLocation) {
     this.currentLocation = currentLocation;
   }

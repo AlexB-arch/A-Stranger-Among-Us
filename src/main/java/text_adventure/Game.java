@@ -39,27 +39,25 @@ public class Game implements java.io.Serializable {
 		globalEventBus.registerSubscriber("CONSOLE", consoleManager);
 
 		// Create the rooms
-		Room Test1 = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The room is empty. The rest of the crew must be in other parts of the ship.\n\nThe door to the east leads to the Mess Hall, which you locked open when you came in. ",null);
+		Room Test1 = new Room("Test Room 1", "This is the first test room.",null);
+    Room Test2 = new Room("Test Room 2", "This is the second test room.",null);
+    Room Test3 = new Room("Test Room 3", "This is the third test room.",null);
 
 
 		// Set the directions for each room
-		hallwayA1.setExits(null, null, MessHall, sleepingQuartersCloset);
-		sleepingQuarters.setExits(sleepingQuartersCloset, null, hallwayA1, null );
-		sleepingQuartersCloset.setExits(null, sleepingQuarters, null ,null);
-		MessHall.setExits(null, hallwayA2, null, hallwayA1);
-		hallwayA2.setExits(MessHall, GeneratorRoom, null, null);
-		GeneratorRoom.setExits( hallwayA2, null,null ,GeneratorCloset );
-		GeneratorCloset.setExits(null, null, GeneratorRoom, null);
+		Test1.setExits(Test2, null, null, null, true, false, false, false, "null", "null", "null", "null"); //I'm like 80% sure there's a better way to do this, I'm just not awake enought to figure it out rn.
+    Test2.setExits(Test3, Test1, null, null, true, false, false, false, "null", "Red", "null", "null");
+    Test3.setExits(null, Test2, null, null, true, false, false, false, "null", "Red", "null", "null");
 
 		// Players starts in the sleeping quarters
-		player.setCurrentLocation(sleepingQuartersCloset);
+		player.setCurrentLocation(Test1);
 
 		// Initialize NPCs
-		NPC alice = new NPC("Alice", MessHall);
+		NPC alice = new NPC("Alice", Test2);
 		globalEventBus.registerSubscriber("NPC", alice);
 
 		// Add NPCs to rooms
-		MessHall.addNpc(alice);
+		Test1.addNpc(alice);
 
 		// Display the intro message
 		showIntro();
