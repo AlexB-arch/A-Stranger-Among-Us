@@ -5,6 +5,6 @@ public interface InventoryManagement {
     public void removeItem(Item item);
     public void useItem(Item item);
     public int size();
-    public boolean contains(Item item);
+    public boolean inInventory(Item item);
     public void printItems();
 }

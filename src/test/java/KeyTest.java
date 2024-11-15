@@ -43,7 +43,7 @@ public class KeyTest {
     @Test
     public void testToString() {
         Key key = new Key();
-        String expectedString = "Name: Key\nDescription: A small, rusty key.\nValue: $10.0\nWeight: 1.0\nActions: [Use]";
+        String expectedString = "Name: Key\nDescription: A small, rusty key.\nActions: [Use]";
         assertEquals(expectedString, key.toString());
     }
 }

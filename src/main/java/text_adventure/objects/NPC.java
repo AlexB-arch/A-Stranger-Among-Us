@@ -126,14 +126,13 @@ public class NPC implements Subscriber, InventoryManagement {
     }
 
     @Override
-    public boolean contains(Item item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
-    }
-
-    @Override
     public void printItems() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'printItems'");
+    }
+
+    @Override
+    public boolean inInventory(Item item) {
+        return inventory.inInventory(item);
     }
 }

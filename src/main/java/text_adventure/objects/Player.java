@@ -104,12 +104,13 @@ public class Player implements Subscriber, InventoryManagement {
 	}
 
 	@Override
-	public boolean contains(Item item) {
-		return inventory.contains(item);
+	public boolean inInventory(Item item) {
+		return inventory.inInventory(item);
 	}
 
 	@Override
 	public void printItems() {
 		inventory.printItems();
 	}
+
 }

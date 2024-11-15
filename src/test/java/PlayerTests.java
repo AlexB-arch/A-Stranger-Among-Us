@@ -39,7 +39,7 @@ public class PlayerTests {
         
         Item item = new LaserPistol();
         player.addItem(item);
-        assertTrue(player.contains(item));
+        assertTrue(player.inInventory(item));
     }
     
     @Test
@@ -48,7 +48,7 @@ public class PlayerTests {
         Item item = new LaserPistol();
         player.addItem(item);
         player.removeItem(item);
-        assertFalse(player.contains(item));
+        assertFalse(player.inInventory(item));
     }
     
     @Test
@@ -64,7 +64,7 @@ public class PlayerTests {
     public void testContains() {
         Item item = new LaserPistol();
         player.addItem(item);
-        assertTrue(player.contains(item));
+        assertTrue(player.inInventory(item));
     }
     
     @Test
