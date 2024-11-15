@@ -8,6 +8,11 @@ public class Room implements java.io.Serializable{
     private Room north, south, west, east;
     public Inventory loot;
     public NPC npc;
+		private String roomId;
+		private Door Ndoor;
+		private Door Edoor;
+		private Door Wdoor;
+		private Door Sdoor;
 
     // Constructor
     public Room(String name, String description, Inventory loot) {
@@ -19,6 +24,7 @@ public class Room implements java.io.Serializable{
             loot = new Inventory();
         }
     }
+
 
     public Room getNorth(){
         return north;

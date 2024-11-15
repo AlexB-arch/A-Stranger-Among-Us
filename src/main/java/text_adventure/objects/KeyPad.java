@@ -15,12 +15,10 @@ public class KeyPad{
         globalEventBus.startMessageProcessing();
     }
 
-    public void Activate(int input) {
-      if(input == code) {
-        ;
-      }
-    }
-
-
-
+		public void enterCode(String code1) {
+		        if (code1.equals(code)) {
+		            MessageBus.getInstance().sendMessage(new TextMessage("open", roomId));
+		        } else {
+		            System.out.println("Incorrect code entered.");
+		        }
 }
