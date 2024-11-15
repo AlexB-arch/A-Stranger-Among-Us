@@ -8,25 +8,16 @@ import text_adventure.resources.Directions;
 
 public class Player implements Subscriber {
 	private Room currentLocation;
-	public Inventory playerInventory;
+	public Inventory inventory;
 
 	// Party. Consists of the NPC name as the key and the NPC object as the value
 	private HashMap<String, NPC> party;
 
 	public Player() {
-    	// Initialize the player
-    	// Do we want to have names for the player?
-    	// Player starts with a description, location, and inventory
-		playerInventory = new Inventory();
-		// Party
+		inventory = new Inventory();
 		party = new HashMap<String, NPC>();
 	}
 
-	// public void openInventory(){
-	//   return playerInventory.strinFormatedItems();
-	// }
-
-  // getters and setters, if any
   public Room getCurrentLocation() {
 	return currentLocation;
   }
@@ -89,5 +80,13 @@ public class Player implements Subscriber {
 
 	public HashMap<String, NPC> getParty() {
 		return party;
+	}
+
+	public void addItem(Item item) {
+		inventory.addItem(item);
+	}
+
+	public void removeItem(Item item) {
+		inventory.removeItem(item);;
 	}
 }

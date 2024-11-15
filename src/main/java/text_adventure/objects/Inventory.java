@@ -10,6 +10,11 @@ public class Inventory {
     public void addItem(Item item) {
         inventoryItems.add(item);
     }
+
+    public void removeItem(Item item) {
+        inventoryItems.remove(item);
+    }
+    
     public int size(){
         return inventoryItems.size();
     }
