@@ -2,6 +2,10 @@ package text_adventure;
 
 import java.util.List;
 
+import text_adventure.actions.Fireable;
+import text_adventure.actions.PowerCycleable;
+import text_adventure.actions.Storeable;
+import text_adventure.interfaces.Item;
 import text_adventure.objects.MessageBus;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
@@ -134,4 +138,15 @@ public class Game implements java.io.Serializable {
 	}
   }
 
+  public void interactWithItem(Item item, String action){
+	if (item instanceof Fireable && action.equalsIgnoreCase("fire")) {
+		((Fireable) item).fire();
+	} else if (item instanceof PowerCycleable && action.equalsIgnoreCase("powercycle")) {
+		((PowerCycleable) item).powerCycle();
+	} else if (item instanceof Storeable && action.equalsIgnoreCase("store")) {
+		((Storeable) item).store();
+	} else {
+		System.out.println("Action not available for this item.");
+	}
+	}
 }

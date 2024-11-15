@@ -1,6 +1,6 @@
 package text_adventure.actions;
 
-public interface Storable {
+public interface Storeable {
     void store();
     void retrieve();
 }

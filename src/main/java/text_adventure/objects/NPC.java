@@ -4,8 +4,10 @@ import java.util.HashMap;
 
 import text_adventure.Game;
 import text_adventure.Subscriber;
+import text_adventure.interfaces.InventoryManagement;
+import text_adventure.interfaces.Item;
 
-public class NPC implements Subscriber {
+public class NPC implements Subscriber, InventoryManagement {
     private String name;
     private Room location;
     private Inventory inventory;
@@ -98,5 +100,40 @@ public class NPC implements Subscriber {
     public void onMessage(Message message) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'onMessage'");
+    }
+
+    // Inventory Management
+    @Override
+    public void addItem(Item item) {
+        inventory.addItem(item);
+    }
+
+    @Override
+    public void removeItem(Item item) {
+        inventory.removeItem(item);
+    }
+
+    @Override
+    public void useItem(Item item) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'useItem'");
+    }
+
+    @Override
+    public int size() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'size'");
+    }
+
+    @Override
+    public boolean contains(Item item) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+    }
+
+    @Override
+    public void printItems() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'printItems'");
     }
 }
