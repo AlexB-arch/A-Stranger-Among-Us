@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import text_adventure.interfaces.Item;
+import text_adventure.interfaces.Items;
 import text_adventure.items.LaserPistol;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
@@ -37,7 +37,7 @@ public class PlayerTests {
     @Test
     public void testAddItem() {
         
-        Item item = new LaserPistol();
+        Items item = new LaserPistol();
         player.addItem(item);
         assertTrue(player.inInventory(item));
     }
@@ -45,7 +45,7 @@ public class PlayerTests {
     @Test
     public void testRemoveItem() {
        
-        Item item = new LaserPistol();
+        Items item = new LaserPistol();
         player.addItem(item);
         player.removeItem(item);
         assertFalse(player.inInventory(item));
@@ -55,21 +55,21 @@ public class PlayerTests {
     public void testInventorySize() {
         int expected = 1;
 
-        Item item = new LaserPistol();
+        Items item = new LaserPistol();
         player.addItem(item);
         assertEquals(expected, player.size());
     }
     
     @Test
     public void testContains() {
-        Item item = new LaserPistol();
+        Items item = new LaserPistol();
         player.addItem(item);
         assertTrue(player.inInventory(item));
     }
     
     @Test
     public void testPrintItems() {
-        Item item = new LaserPistol();
+        Items item = new LaserPistol();
         player.addItem(item);
         player.printItems();
     }

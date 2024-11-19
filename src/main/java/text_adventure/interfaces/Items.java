@@ -1,6 +1,6 @@
 package text_adventure.interfaces;
 
-public interface Item {
+public interface Items {
     String getName();
     String getDescription();
 }

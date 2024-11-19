@@ -1,6 +1,5 @@
 package text_adventure.objects;
 
-import text_adventure.interfaces.Item;
 import text_adventure.resources.Directions;
 
 public class Room implements java.io.Serializable{
@@ -162,11 +161,6 @@ public class Room implements java.io.Serializable{
     // Remove the NPC from the room once in the party
     public void removeNpc(NPC npc){
         this.npc = null;
-    }
-
-    // Add an item to the room
-    public void addItem(Item item){
-        loot.addItem(item);
     }
 
     // TODO: Add and Remove items from Rooms

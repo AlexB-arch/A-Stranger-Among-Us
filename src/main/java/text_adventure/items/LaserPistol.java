@@ -2,10 +2,10 @@ package text_adventure.items;
 
 import java.util.ArrayList;
 
-import text_adventure.interfaces.Item;
+import text_adventure.interfaces.Items;
 
 
-public class LaserPistol implements Item {
+public class LaserPistol implements Items {
     private String name = "Laser Pistol";
     private String description = "A high-powered laser pistol for close combat.";
     private ArrayList<String> actions = new ArrayList<>();

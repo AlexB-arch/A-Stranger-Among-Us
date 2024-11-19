@@ -3,9 +3,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import text_adventure.interfaces.Item;
 import text_adventure.items.LaserPistol;
 import text_adventure.objects.Inventory;
+import text_adventure.objects.Item;
 
 public class InventoryTest {
     
@@ -29,7 +29,7 @@ public class InventoryTest {
         @Test
         public void testInInventory() {
             Inventory inventory = new Inventory();
-            Item item = new LaserPistol();
+            Items item = new LaserPistol();
             inventory.addItem(item);
             assertTrue(inventory.inInventory(item));
         }
@@ -37,7 +37,7 @@ public class InventoryTest {
         @Test
         public void testToString() {
             Inventory inventory = new Inventory();
-            Item item = new LaserPistol();
+            Items item = new LaserPistol();
             inventory.addItem(item);
             String expected = "------------------\nName: Laser Pistol\nDescription: A high-powered laser pistol for close combat.\nActions: [Fire, Power Cycle, Safely Store]";
             assertEquals(expected, inventory.toString());
@@ -46,6 +46,6 @@ public class InventoryTest {
         @Test
         public void testPrintItems() {
             Inventory inventory = new Inventory();
-            Item item = new LaserPistol();
+            Items item = new LaserPistol();
             inventory.addItem(item);        }
     }

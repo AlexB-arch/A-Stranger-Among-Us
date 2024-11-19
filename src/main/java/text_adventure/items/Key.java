@@ -2,9 +2,9 @@ package text_adventure.items;
 
 import java.util.ArrayList;
 
-import text_adventure.interfaces.Item;
+import text_adventure.interfaces.Items;
 
-public class Key implements Item {
+public class Key implements Items {
     private String name = "Key";
     private String description = "A small, rusty key.";
     private ArrayList<String> actions = new ArrayList<>();

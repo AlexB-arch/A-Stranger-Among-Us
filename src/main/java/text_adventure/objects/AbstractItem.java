@@ -3,9 +3,9 @@ package text_adventure.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import text_adventure.interfaces.Item;
+import text_adventure.interfaces.Items;
 
-public abstract class AbstractItem implements Item {
+public abstract class AbstractItem implements Items {
 
     protected String name;
     protected String description;
