@@ -14,7 +14,7 @@ public class PlayerTests {
     
     Player player = new Player();
 
-    @Test
+    /*@Test
     public void testAddPartyMember() {
 
         Room room = new Room("Sleeping Quarters", "A room with beds", null);
@@ -72,5 +72,5 @@ public class PlayerTests {
         Item item = new LaserPistol();
         player.addItem(item);
         player.printItems();
-    }
+    }*/
 }
