@@ -37,7 +37,7 @@ public class PlayerTests {
     @Test
     public void testAddItem() {
         
-        Items item = new LaserPistol();
+        Item item = new LaserPistol();
         player.addItem(item);
         assertTrue(player.inInventory(item));
     }
@@ -45,7 +45,7 @@ public class PlayerTests {
     @Test
     public void testRemoveItem() {
        
-        Items item = new LaserPistol();
+        Item item = new LaserPistol();
         player.addItem(item);
         player.removeItem(item);
         assertFalse(player.inInventory(item));
@@ -55,21 +55,21 @@ public class PlayerTests {
     public void testInventorySize() {
         int expected = 1;
 
-        Items item = new LaserPistol();
+        Item item = new LaserPistol();
         player.addItem(item);
         assertEquals(expected, player.size());
     }
     
     @Test
     public void testContains() {
-        Items item = new LaserPistol();
+        Item item = new LaserPistol();
         player.addItem(item);
         assertTrue(player.inInventory(item));
     }
     
     @Test
     public void testPrintItems() {
-        Items item = new LaserPistol();
+        Item item = new LaserPistol();
         player.addItem(item);
         player.printItems();
     }

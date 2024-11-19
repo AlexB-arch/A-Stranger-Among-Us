@@ -55,6 +55,11 @@ public class ItemHolder extends Item {
         boolean found = false;
         Container container;
 
-        
+        for (Item item : itemHolder.getItems()) {
+            if (item.getName().equals(objectName)) {
+                
+                found = true;
+            }
+        }
     }
 }
