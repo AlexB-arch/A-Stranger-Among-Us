@@ -1,7 +1,9 @@
 package text_adventure.objects;
-
 import java.util.ArrayList;
 import java.util.Optional;
+
+import text_adventure.interfaces.Item;
+
 
 public class Inventory {
     private ArrayList<Item> inventoryItems = new ArrayList<>();

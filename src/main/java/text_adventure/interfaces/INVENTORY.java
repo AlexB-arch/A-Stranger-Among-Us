@@ -1,7 +1,5 @@
 package text_adventure.interfaces;
 
-import text_adventure.objects.Item;
-
 public interface INVENTORY {
     public void addItem(Item item);
     public void removeItem(Item item);

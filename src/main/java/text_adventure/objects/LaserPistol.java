@@ -2,6 +2,8 @@ package text_adventure.objects;
 
 import java.util.ArrayList;
 
+import text_adventure.interfaces.Item;
+
 
 public class LaserPistol implements Item {
     private String name = "Laser Pistol";
