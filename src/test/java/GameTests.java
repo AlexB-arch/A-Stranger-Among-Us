@@ -78,213 +78,738 @@ public class GameTests {
         assertEquals(formatTestOutput("Test No Input", input, output), expectedOutput, output);
     }
 
-    @Test
-    public void testStartingLocation() {
-        // The player should start in the Sleeping Quarters Closet
-        Room currentRoom = player.getCurrentLocation();
-        assertEquals("Sleeping Quarters Closet", currentRoom.getName());
-    }
+		//Brendans Great Room Tests (I'm going insane)
+		@Test
+     public void testStartingLocation() {
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Barracks Storage", currentRoom.getName());
+     }
 
-    @Test
-    public void testSleepingQuartersClosetExits() {
-        Room currentRoom = player.getCurrentLocation();
+     // 2. Test Moving to Barracks
+     @Test
+     public void testMoveSouthFromBarracksStorage() {
+         // Move south to Barracks
+         game.runCommands("go south");
 
-        // Check other exits (should be null)
-        assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
-        assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
-    }
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Barracks", currentRoom.getName());
+     }
 
-    @Test
-    public void testMoveToSleepingQuarters() {
-        // Move east to Sleeping Quarters using runCommands
-        String input = "go east";
-        game.runCommands(input);
+     // 3. Test Moving to Barracks Hallway
+     @Test
+     public void testMoveEastFromBarracks() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
 
-        // Check current room
-        Room currentRoom = player.getCurrentLocation();
-        assertEquals("Sleeping Quarters Closet", currentRoom.getName());
-    }
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Barracks Hallway", currentRoom.getName());
+     }
 
-    @Test
-    public void testSleepingQuartersExits() {
-        // Move east to Sleeping Quarters
-        game.runCommands("go east");
-        Room currentRoom = player.getCurrentLocation();
+     // 4. Test Moving to Mess Hall
+     @Test
+     public void testMoveWestFromHallwayBarracks() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
 
-        // Check exits
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Mess Hall", currentRoom.getName());
+     }
 
-        assertNull("East exit should be null", currentRoom.getExit(Directions.EAST));
-        assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
-    }
+     // 5. Test Moving to Bridge
+     @Test
+     public void testMoveNorthFromMessHall() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move north to Bridge
+         game.runCommands("go north");
 
-    @Test
-    public void testMoveSouthFromSleepingQuarters() {
-        // Move east to Sleeping Quarters
-        game.runCommands("go east");
-        // Move south to Hallway A1
-        game.runCommands("go south");
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Bridge", currentRoom.getName());
+     }
 
-        // Check current room
-        Room currentRoom = player.getCurrentLocation();
-        assertEquals("Sleeping Quarters", currentRoom.getName());
-    }
+     // 6. Test Moving to Engine Room Hallway
+     @Test
+     public void testMoveSouthFromMessHallToHallwayEngine() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
 
-    @Test
-    public void testHallwayA1Exits() {
-        // Move to Hallway A1
-        game.runCommands("go east"); // Sleeping Quarters
-       // game.runCommands("go south"); // Hallway A1
-        Room currentRoom = player.getCurrentLocation();
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Engine Room Hallway", currentRoom.getName());
+     }
 
-        System.out.println("HALLWAY A1 EXITS");
-        System.out.println(currentRoom.getName());
-        // Check exits
-        assertEquals("Sleeping Quarters", currentRoom.getExit(Directions.SOUTH).getName());
-    }
+     // 7. Test Moving to Engine Room
+     @Test
+     public void testMoveSouthFromHallwayEngineToEngineRoom() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move south to Engine Room
+         game.runCommands("go south");
 
-    @Test
-    public void testMoveToMessHall() {
-        // Move to Mess Hall
-        game.runCommands("go east"); // Sleeping Quarters
-        game.runCommands("go south"); // Hallway A1
-        game.runCommands("go south"); // Mess Hall
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Engine Room", currentRoom.getName());
+     }
 
-        // Check current room
-        Room currentRoom = player.getCurrentLocation();
-        assertEquals("Sleeping Quarters", currentRoom.getName());
-    }
+     // 8. Test Moving to Engine Storage
+     @Test
+     public void testMoveEastFromEngineRoomToEngineStorage() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move south to Engine Room
+         game.runCommands("go south");
+         // Move east to Engine Room Storage
+         game.runCommands("go east");
 
-    @Test
-    public void testMessHallExits() throws IOException {
-        // Move to Mess Hall
-        game.runCommands("go east"); // Sleeping Quarters
-        game.runCommands("go south"); // Hallway A1
-        game.runCommands("go south"); // Mess Hall
-        Room currentRoom = player.getCurrentLocation();
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Engine Room Storage", currentRoom.getName());
+     }
 
-        // Check exits
-        assertEquals("Hallway A1", currentRoom.getExit(Directions.EAST).getName());
-        assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
-    }
+     // 9. Test Moving to Hallway Weapons
+     @Test
+     public void testMoveWestFromHallwayEngineToHallwayWeapons() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move west to Hallway Weapons
+         game.runCommands("go west");
 
-    @Test
-    public void testMoveToHallwayA2() throws IOException {
-        // Move to Hallway A2
-        game.runCommands("go east"); // Sleeping Quarters
-        game.runCommands("go south"); // Hallway A1
-        game.runCommands("go south"); // Mess Hall
-        game.runCommands("go east");  // Hallway A2
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Engine Room Hallway", currentRoom.getName());
+     }
 
-        // Check current room
-        Room currentRoom = player.getCurrentLocation();
-        assertEquals("Hallway A1", currentRoom.getName());
-    }
+     // 10. Test Moving to Weapons Bay
+     @Test
+     public void testMoveEastFromHallwayWeaponsToWeaponsBay() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move west to Hallway Weapons
+         game.runCommands("go west");
+         // Move east to Weapons Bay
+         game.runCommands("go east");
 
-    @Test
-    public void testHallwayA2Exits() throws IOException {
-        // Move to Hallway A2
-        game.runCommands("go east"); // Sleeping Quarters
-        game.runCommands("go south"); // Hallway A1
-        game.runCommands("go south"); // Mess Hall
-        game.runCommands("go east");  // Hallway A2
-        Room currentRoom = player.getCurrentLocation();
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Engine Room Hallway", currentRoom.getName());
+     }
 
-        // Check exits
-        assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
-    }
+     // 11. Test Moving to Botany Hallway
+     @Test
+     public void testMoveEastFromMessHallToHallwayBotany() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move east to Botany Hallway
+         game.runCommands("go east");
 
-    @Test
-    public void testMoveToGeneratorRoom() throws IOException {
-        // Move to Generator Room
-        game.runCommands("go east"); // Sleeping Quarters
-        game.runCommands("go south"); // Hallway A1
-        game.runCommands("go south"); // Mess Hall
-        game.runCommands("go east");  // Hallway A2
-        game.runCommands("go east");  // Generator Room
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Botany Hallway", currentRoom.getName());
+     }
 
-        // Check current room
-        Room currentRoom = player.getCurrentLocation();
-        assertEquals("Mess Hall", currentRoom.getName());
-    }
+     // 12. Test Moving to Botany Bay
+     @Test
+     public void testMoveWestFromHallwayBotanyToBotanyBay() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move east to Botany Hallway
+         game.runCommands("go east");
+         // Move west to Botany Bay
+         game.runCommands("go west");
 
-    @Test
-    public void testGeneratorRoomExits() throws IOException {
-        // Move to Generator Room
-        game.runCommands("go east"); // Sleeping Quarters
-        game.runCommands("go south"); // Hallway A1
-        game.runCommands("go south"); // Mess Hall
-        game.runCommands("go east");  // Hallway A2
-        game.runCommands("go east");  // Generator Room
-        Room currentRoom = player.getCurrentLocation();
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Botany Bay", currentRoom.getName());
+     }
 
-        // Check exits
-        assertNull("East exit should be null", currentRoom.getExit(Directions.EAST));
-    }
+     // 13. Test Moving to Botany Storage
+     @Test
+     public void testMoveWestFromBotanyBayToBotanyStorage() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move east to Botany Hallway
+         game.runCommands("go east");
+         // Move west to Botany Bay
+         game.runCommands("go west");
+         // Move west to Botany Storage
+         game.runCommands("go west");
 
-    @Test
-    public void testMoveToGeneratorCloset() throws IOException {
-        // Move to Generator Utility Closet
-        game.runCommands("go east");  // Sleeping Quarters
-        game.runCommands("go south");  // Hallway A1
-        game.runCommands("go south");  // Mess Hall
-        game.runCommands("go east");   // Hallway A2
-        game.runCommands("go east");   // Generator Room
-        game.runCommands("go west");   // Generator Utility Closet
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Botany Storage", currentRoom.getName());
+     }
 
-        // Check current room
-        Room currentRoom = player.getCurrentLocation();
-        assertEquals("Hallway A1", currentRoom.getName());
-    }
+     // ---------------------
+     // Exit Tests
+     // ---------------------
 
-    @Test
-    public void testGeneratorClosetExits() throws IOException {
-        // Move to Generator Utility Closet
-        game.runCommands("go east");  // Sleeping Quarters
-        game.runCommands("go south");  // Hallway A1
-        game.runCommands("go south");  // Mess Hall
-        game.runCommands("go east");   // Hallway A2
-        game.runCommands("go east");   // Generator Room
-        game.runCommands("go west");   // Generator Utility Closet
-        Room currentRoom = player.getCurrentLocation();
+     // 1. Test Exits of Barracks Storage
+     @Test
+     public void testBarracksStorageExits() throws IOException {
+         Room currentRoom = player.getCurrentLocation();
 
-        // Check exits
-        assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
-    }
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertEquals("Barracks", currentRoom.getExit(Directions.SOUTH).getName());
+         assertNull("East exit should be null", currentRoom.getExit(Directions.EAST));
+         assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
+     }
 
-    @Test
-    public void testInvalidExits() {
-        // Starting in Sleeping Quarters Closet
-        Room currentRoom = player.getCurrentLocation();
+     // 2. Test Exits of Barracks
+     @Test
+     public void testBarracksExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         Room currentRoom = player.getCurrentLocation();
 
-        // Attempt to move north (should be invalid)
-        assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         // Check exits
+         assertEquals("Barracks Storage", currentRoom.getExit(Directions.NORTH).getName());
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+         assertEquals("Barracks Hallway", currentRoom.getExit(Directions.EAST).getName());
+         assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
+     }
 
-        // Attempt to move west (should be invalid)
-        assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
-    }
+     // 3. Test Exits of Barracks Hallway
+     @Test
+     public void testHallwayBarracksExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         Room currentRoom = player.getCurrentLocation();
 
-    @Test
-    public void testRoomDescriptions() throws IOException {
-        Room currentRoom = player.getCurrentLocation();
-        assertNotNull("Description should not be null", currentRoom.getDescription());
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+         assertEquals("Barracks", currentRoom.getExit(Directions.EAST).getName());
+         assertEquals("Mess Hall", currentRoom.getExit(Directions.WEST).getName());
+     }
 
-        // Move through each room and check descriptions
-        game.runCommands("go east"); // Sleeping Quarters
-        assertNotNull("Description should not be null", player.getCurrentLocation().getDescription());
+     // 4. Test Exits of Mess Hall
+     @Test
+     public void testMessHallExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         Room currentRoom = player.getCurrentLocation();
 
-        game.runCommands("go south"); // Hallway A1
-        assertNotNull("Description should not be null", player.getCurrentLocation().getDescription());
+         // Check exits
+         assertEquals("Bridge", currentRoom.getExit(Directions.NORTH).getName());
+         assertEquals("Engine Room Hallway", currentRoom.getExit(Directions.SOUTH).getName());
+         assertEquals("Botany Hallway", currentRoom.getExit(Directions.EAST).getName());
+         assertEquals("Barracks Hallway", currentRoom.getExit(Directions.WEST).getName());
+     }
 
-        game.runCommands("go south"); // Mess Hall
-        assertNotNull("Description should not be null", player.getCurrentLocation().getDescription());
+     // 5. Test Exits of Bridge
+     @Test
+     public void testBridgeExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move north to Bridge
+         game.runCommands("go north");
+         Room currentRoom = player.getCurrentLocation();
 
-        game.runCommands("go east"); // Hallway A2
-        assertNotNull("Description should not be null", player.getCurrentLocation().getDescription());
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertEquals("Mess Hall", currentRoom.getExit(Directions.SOUTH).getName());
+         assertNull("East exit should be null", currentRoom.getExit(Directions.EAST));
+         assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
+     }
 
-        game.runCommands("go east"); // Generator Room
-        assertNotNull("Description should not be null", player.getCurrentLocation().getDescription());
+     // 6. Test Exits of Engine Room Hallway
+     @Test
+     public void testHallwayEngineExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         Room currentRoom = player.getCurrentLocation();
 
-        game.runCommands("go west"); // Generator Utility Closet
-        assertNotNull("Description should not be null", player.getCurrentLocation().getDescription());
-    }
-}
+         // Check exits
+         assertEquals("Mess Hall", currentRoom.getExit(Directions.NORTH).getName());
+         assertEquals("Engine Room", currentRoom.getExit(Directions.SOUTH).getName());
+         assertNull("East exit should be null", currentRoom.getExit(Directions.EAST));
+         assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
+     }
+
+     // 7. Test Exits of Engine Room
+     @Test
+     public void testEngineRoomExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move south to Engine Room
+         game.runCommands("go south");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+         assertEquals("Engine Room Hallway", currentRoom.getExit(Directions.NORTH).getName());
+         assertEquals("Engine Room Storage", currentRoom.getExit(Directions.EAST).getName());
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+         assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
+     }
+
+     // 8. Test Exits of Engine Room Storage
+     @Test
+     public void testEngineRoomStorageExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move south to Engine Room
+         game.runCommands("go south");
+         // Move east to Engine Room Storage
+         game.runCommands("go east");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+         assertNull("East exit should be null", currentRoom.getExit(Directions.EAST));
+         assertEquals("Engine Room", currentRoom.getExit(Directions.WEST).getName());
+     }
+
+     // 9. Test Exits of Hallway Weapons
+     @Test
+     public void testHallwayWeaponsExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move west to Hallway Weapons
+         game.runCommands("go west");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+
+         assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
+     }
+
+     // 10. Test Exits of Weapons Bay
+     @Test
+     public void testWeaponsBayExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move west to Hallway Weapons
+         game.runCommands("go west");
+         // Move east to Weapons Bay
+         game.runCommands("go east");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+
+
+         assertNull("East exit should be null", currentRoom.getExit(Directions.EAST));
+     }
+
+     // 11. Test Exits of Botany Hallway
+     @Test
+     public void testHallwayBotanyExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move east to Botany Hallway
+         game.runCommands("go east");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+         assertEquals("Mess Hall", currentRoom.getExit(Directions.EAST).getName());
+         assertEquals("Botany Bay", currentRoom.getExit(Directions.WEST).getName());
+     }
+
+     // 12. Test Exits of Botany Bay
+     @Test
+     public void testBotanyBayExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move east to Botany Hallway
+         game.runCommands("go east");
+         // Move west to Botany Bay
+         game.runCommands("go west");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+         assertEquals("Botany Hallway", currentRoom.getExit(Directions.EAST).getName());
+         assertEquals("Botany Storage", currentRoom.getExit(Directions.WEST).getName());
+     }
+
+     // 13. Test Exits of Botany Storage
+     @Test
+     public void testBotanyStorageExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move east to Botany Hallway
+         game.runCommands("go east");
+         // Move west to Botany Bay
+         game.runCommands("go west");
+         // Move west to Botany Storage
+         game.runCommands("go west");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+     }
+
+     // ---------------------
+     // Additional Navigation Tests
+     // ---------------------
+
+     // 14. Test Moving Back to Barracks Storage from Barracks
+     @Test
+     public void testMoveBackToBarracksStorageFromBarracks() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move north back to Barracks Storage
+         game.runCommands("go north");
+
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Barracks Storage", currentRoom.getName());
+     }
+
+     // 15. Test Moving Back to Barracks Storage from Barracks Hallway
+     @Test
+     public void testMoveBackToBarracksStorageFromHallwayBarracks() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west back to Barracks
+         game.runCommands("go west");
+         // Move north back to Barracks Storage
+         game.runCommands("go north");
+
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Bridge", currentRoom.getName());
+     }
+
+     // 16. Test Moving Back to Barracks Storage from Mess Hall
+     @Test
+     public void testMoveBackToBarracksStorageFromMessHall() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move west back to Barracks Hallway
+         game.runCommands("go west");
+         // Move north back to Barracks Storage
+         game.runCommands("go north");
+
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Barracks Hallway", currentRoom.getName());
+     }
+
+     // 17. Test Moving Back to Barracks Storage from Bridge
+     @Test
+     public void testMoveBackToBarracksStorageFromBridge() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move north to Bridge
+         game.runCommands("go north");
+         // Move south back to Mess Hall
+         game.runCommands("go south");
+         // Move west to Barracks Hallway
+         game.runCommands("go west");
+         // Move north back to Barracks Storage
+         game.runCommands("go north");
+
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Barracks Hallway", currentRoom.getName());
+     }
+
+     // ---------------------
+     // Additional Exit Tests
+     // ---------------------
+
+     // 14. Test Exits of Botany Hallway
+     @Test
+     public void testHallwayBotanyExits2() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move east to Botany Hallway
+         game.runCommands("go east");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+         assertEquals("Mess Hall", currentRoom.getExit(Directions.EAST).getName());
+         assertEquals("Botany Bay", currentRoom.getExit(Directions.WEST).getName());
+     }
+
+     // 15. Test Exits of Bridge
+     @Test
+     public void testBridgeExits2() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move north to Bridge
+         game.runCommands("go north");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertEquals("Mess Hall", currentRoom.getExit(Directions.SOUTH).getName());
+         assertNull("East exit should be null", currentRoom.getExit(Directions.EAST));
+         assertNull("West exit should be null", currentRoom.getExit(Directions.WEST));
+     }
+
+     // 16. Test Exits of Weapons Bay Hallway
+     @Test
+     public void testWeaponsBayHallwayExits() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move west to Hallway Weapons
+         game.runCommands("go west");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+
+     }
+
+     // 17. Test Exits of Hallway Weapons
+     @Test
+     public void testHallwayWeaponsExits2() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move west to Hallway Weapons
+         game.runCommands("go west");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+     }
+
+     // 18. Test Exits of Botany Bay
+     @Test
+     public void testBotanyBayExits2() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move east to Botany Hallway
+         game.runCommands("go east");
+         // Move west to Botany Bay
+         game.runCommands("go west");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+         assertEquals("Botany Hallway", currentRoom.getExit(Directions.EAST).getName());
+         assertEquals("Botany Storage", currentRoom.getExit(Directions.WEST).getName());
+     }
+
+     // 19. Test Exits of Botany Storage
+     @Test
+     public void testBotanyStorageExits2() throws IOException {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move east to Botany Hallway
+         game.runCommands("go east");
+         // Move west to Botany Bay
+         game.runCommands("go west");
+         // Move west to Botany Storage
+         game.runCommands("go west");
+         Room currentRoom = player.getCurrentLocation();
+
+         // Check exits
+         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
+     }
+
+     // ---------------------
+     // Additional Navigation and Exit Tests for Completeness
+     // ---------------------
+
+     // 20. Test Moving to Engine Room Storage and Back
+     @Test
+     public void testMoveToEngineStorageAndBack() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move south to Engine Room
+         game.runCommands("go south");
+         // Move east to Engine Room Storage
+         game.runCommands("go east");
+
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Engine Room Storage", currentRoom.getName());
+
+         // Move west back to Engine Room
+         game.runCommands("go west");
+
+         // Check current room
+         currentRoom = player.getCurrentLocation();
+         assertEquals("Engine Room", currentRoom.getName());
+     }
+
+     // 21. Test Moving to Weapons Bay and Back
+     @Test
+     public void testMoveToWeaponsBayAndBack() {
+         // Move south to Barracks
+         game.runCommands("go south");
+         // Move east to Barracks Hallway
+         game.runCommands("go east");
+         // Move west to Mess Hall
+         game.runCommands("go west");
+         // Move south to Engine Room Hallway
+         game.runCommands("go south");
+         // Move west to Hallway Weapons
+         game.runCommands("go west");
+         // Move east to Weapons Bay
+         game.runCommands("go east");
+
+         // Check current room
+         Room currentRoom = player.getCurrentLocation();
+         assertEquals("Engine Room Hallway", currentRoom.getName());
+
+         // Move west back to Hallway Weapons
+         game.runCommands("go west");
+
+         // Check current room
+         currentRoom = player.getCurrentLocation();
+         assertEquals("Engine Room Hallway", currentRoom.getName());
+     }
+ }

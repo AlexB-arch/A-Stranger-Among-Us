@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import text_adventure.resources.Directions;
 import text_adventure.interfaces.INVENTORY;
+import text_adventure.interfaces.Item;
 
 public class Player implements Subscriber, INVENTORY {
 	private Room currentLocation;
@@ -31,7 +32,7 @@ public class Player implements Subscriber, INVENTORY {
   public void move(Directions direction) {
 
 		if (currentLocation.getExit(direction) == null) {
-      		System.out.println("You can't go that way.");
+			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You can't go that way."));
 		} else {
 			switch (direction) {
 				case NORTH:
@@ -50,7 +51,7 @@ public class Player implements Subscriber, INVENTORY {
 					break;
 			}
 
-      		System.out.println(currentLocation.displayRoom());
+			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",currentLocation.displayRoom()));;
 		}
 	}
 

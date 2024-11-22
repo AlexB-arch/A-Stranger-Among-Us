@@ -2,6 +2,8 @@ package text_adventure.objects;
 
 import java.util.ArrayList;
 
+import text_adventure.interfaces.Item;
+
 public class Key implements Item {
     private String name = "Key";
     private String description = "A small, rusty key.";

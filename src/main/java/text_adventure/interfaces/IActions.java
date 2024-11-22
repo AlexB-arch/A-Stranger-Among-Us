@@ -1,4 +1,4 @@
-package text_adventure.objects;
+package text_adventure.interfaces;
 
 
 // Un implemented action interface

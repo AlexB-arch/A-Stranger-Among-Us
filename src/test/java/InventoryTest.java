@@ -4,8 +4,9 @@ import static org.junit.Assert.*;
 import java.util.Optional;
 
 import org.junit.Test;
-import text_adventure.objects.Item;
+
 import text_adventure.objects.LaserPistol;
+import text_adventure.interfaces.Item;
 import text_adventure.objects.Inventory;
 
 public class InventoryTest {
