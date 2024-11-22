@@ -3,8 +3,8 @@ package text_adventure.objects;
 public class Item {
     private String name;
     private String description;
-    private boolean takable;
-    private boolean movable;
+    boolean takable;
+    boolean movable;
 
     private ItemHolder container;
 
