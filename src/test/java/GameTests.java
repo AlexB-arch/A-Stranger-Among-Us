@@ -78,6 +78,7 @@ public class GameTests {
         assertEquals(formatTestOutput("Test No Input", input, output), expectedOutput, output);
     }
 
+		//Brendans Great Room Tests (I'm going insane)
 		@Test
      public void testStartingLocation() {
          Room currentRoom = player.getCurrentLocation();
