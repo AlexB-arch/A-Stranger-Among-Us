@@ -1,4 +1,4 @@
-package text_adventure;
+package text_adventure.interfaces;
 
 import text_adventure.objects.Message;
 

@@ -12,6 +12,9 @@ import text_adventure.resources.Nouns;
 import text_adventure.resources.Prepositions;
 import text_adventure.resources.Verbs;
 import text_adventure.resources.WordType;
+import text_adventure.objects.Ping;
+import text_adventure.objects.Pong;
+
 
 public class Parser {
 
@@ -149,6 +152,12 @@ public class Parser {
 				case "debug":
 					Game.globalEventBus.publish(new TextMessage("CONSOLE","DEBUG_TOGGLE", ""));
 					break;
+				case "ping":
+				    Ping pinger = new Ping();
+					Pong ponger = new Pong();
+					pinger.sendPing();
+					break;
+
 				default:
 					break;
 			}

@@ -1,12 +1,13 @@
 package text_adventure.objects;
 
 import text_adventure.Game;
-import text_adventure.Subscriber;
+
 import java.util.HashMap;
 
 import text_adventure.resources.Directions;
 import text_adventure.interfaces.INVENTORY;
 import text_adventure.interfaces.Item;
+import text_adventure.interfaces.Subscriber;
 
 public class Player implements Subscriber, INVENTORY {
 	private Room currentLocation;
@@ -57,7 +58,7 @@ public class Player implements Subscriber, INVENTORY {
 
 	@Override
 	public void onMessage(Message message) {
-		if(message.getHeader() == "PLAYER"){
+		if(message.getChannel() == "PLAYER"){
 			switch (message.getType()) {
 				case "LOOK":
 					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().getDescription()));

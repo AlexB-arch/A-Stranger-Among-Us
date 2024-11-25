@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import text_adventure.Subscriber;
+import text_adventure.interfaces.Subscriber;
 
 public class MessageBus {
     private BlockingQueue<Message> messageQueue;
@@ -46,7 +46,7 @@ public class MessageBus {
                 try {
                     while (true) {
                         Message message = messageQueue.take(); // Blocks if queue is empty
-                        String messageHeader = message.getHeader();
+                        String messageHeader = message.getChannel();
                         List<Subscriber> subscribers = subscribersMap.getOrDefault(messageHeader, new ArrayList<>());
 
                         for (Subscriber subscriber : subscribers) {

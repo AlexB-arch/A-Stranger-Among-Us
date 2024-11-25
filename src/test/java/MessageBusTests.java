@@ -44,7 +44,7 @@ public class MessageBusTests {
         // Create a new message
         Message message = new Message() {
             @Override
-            public String getHeader() {
+            public String getChannel() {
                 return "PLAYER";
             }
 

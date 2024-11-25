@@ -1,7 +1,7 @@
 package text_adventure.objects;
 
 public interface Message {
-    String getHeader();
+    String getChannel();
     String getType();
     String getMessage();
 }

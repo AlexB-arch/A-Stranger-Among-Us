@@ -6,19 +6,19 @@ import org.json.JSONObject;
 
 // Implementation of the Message interface for timer operations
 public class TimerMessage implements Message {
-    private final String header;
+    private final String channel;
     private final String type;
     private final String message;
 
-    public TimerMessage(String header, String type, String message) {
-        this.header = header;
+    public TimerMessage(String channel, String type, String message) {
+        this.channel = channel;
         this.type = type;
         this.message = message;
     }
 
     @Override
-    public String getHeader() {
-        return header;
+    public String getChannel() {
+        return channel;
     }
 
     @Override

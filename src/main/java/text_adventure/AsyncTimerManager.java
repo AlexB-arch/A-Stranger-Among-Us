@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import org.json.JSONObject;
 
+import text_adventure.interfaces.Subscriber;
 import text_adventure.objects.AsyncTimer;
 import text_adventure.objects.Message;
 import text_adventure.objects.TimerMessage;
@@ -67,7 +68,7 @@ public class AsyncTimerManager implements Subscriber {
 
     @Override
     public void onMessage(Message message) {
-        if (!"TIMER".equals(message.getHeader())) {
+        if (!"TIMER".equals(message.getChannel())) {
             return; // Ignore non-timer messages
         }
 

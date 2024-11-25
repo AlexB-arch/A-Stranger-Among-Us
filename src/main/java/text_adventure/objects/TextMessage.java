@@ -2,11 +2,11 @@ package text_adventure.objects;
 
 public class TextMessage implements Message {
     private final String type;
-    private final String header;
+    private final String channel;
     private final String content;
 
-    public TextMessage(String header, String type, String content) {
-        this.header = header;
+    public TextMessage(String channel, String type, String content) {
+        this.channel = channel;
         this.type = type;
         this.content = content;
     }
@@ -21,7 +21,7 @@ public class TextMessage implements Message {
     }
 
     @Override
-    public String getHeader() {
-        return header;
+    public String getChannel() {
+        return channel;
     }
 }

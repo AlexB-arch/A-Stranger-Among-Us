@@ -31,7 +31,7 @@ manager.onMessage(new TimerMessage(
 
 // Subscribe to timer events
 manager.addSubscriber(message -> {
-    if ("TIMER".equals(message.getHeader())) {
+    if ("TIMER".equals(message.getChannel())) {
         JSONObject messageData = new JSONObject(message.getMessage());
         switch (message.getType()) {
             case "TIMER_TICK":

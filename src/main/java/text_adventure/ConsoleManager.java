@@ -1,8 +1,8 @@
 package text_adventure;
 
+import text_adventure.interfaces.Subscriber;
+
 import text_adventure.objects.Message;
-import text_adventure.objects.TextMessage;
-import text_adventure.Subscriber;
 
 public class ConsoleManager implements Subscriber{
     private boolean isDebug = false;
@@ -10,7 +10,7 @@ public class ConsoleManager implements Subscriber{
 
     @Override
     public void onMessage(Message message) {
-        if (message.getHeader().equals("CONSOLE")) {
+        if (message.getChannel().equals("CONSOLE")) {
             switch (message.getType()) {
                 case "OUT":
                     showMessage(message.getMessage());
