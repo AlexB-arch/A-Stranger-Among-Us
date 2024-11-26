@@ -18,9 +18,9 @@ public class GameTests {
     private Game game;
     private Player player;
 
-    public String formatTestOutput(String testName, String input, String output) {
+   /* public String formatTestOutput(String testName, String input, String output) {
         return "-------\n" + testName + "\n" + "Input:" + input + "\nOutput:" + output + "\n------";
-    }
+    }*/
 
     @Before
     public void setUp() {
@@ -56,8 +56,7 @@ public class GameTests {
         assertTrue(Parser.dictionary.get("sword") == WordType.VERB);
 
         // Check that the dictionary size increased by one
-        assertTrue(formatTestOutput("Test parser", Integer.toString(parserSize),
-                Integer.toString(Parser.dictionary.size())), Parser.dictionary.size() > parserSize);
+        assertTrue(Parser.dictionary.size() == parserSize + 1);
     }
 
     @Test
@@ -67,7 +66,7 @@ public class GameTests {
         String output = game.runCommands(input);
         // Adjusting the expected output to match the actual output from runCommands
         // You may need to adjust this based on your actual implementation
-        assertEquals(formatTestOutput("Test Unknown Word", input, output), expectedOutput.trim(), output.trim());
+        assertEquals(expectedOutput.trim(), output.trim());
     }
 
     @Test
@@ -75,7 +74,7 @@ public class GameTests {
         String input = "";
         String expectedOutput = "Please enter a command.\n";
         String output = game.runCommands(input);
-        assertEquals(formatTestOutput("Test No Input", input, output), expectedOutput, output);
+        assertEquals(expectedOutput, output);
     }
 
 		//Brendans Great Room Tests (I'm going insane)
