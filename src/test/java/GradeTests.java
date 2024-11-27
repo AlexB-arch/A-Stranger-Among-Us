@@ -1,0 +1,61 @@
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+import text_adventure.Game;
+
+public class GradeTests {
+    Game game = new Game();
+
+    @Test
+    public void testMinimumRoomsForC() {
+        int expected = 20;
+        assertTrue(game.getRooms() >= expected);
+    }
+
+    @Test
+    public void testMinimumItemsForC() {
+        int expected = 10;
+        assertTrue(game.getItems() >= expected);
+    }
+
+    @Test
+    public void testMinimumLinksForC() {
+        int expected = 30;
+        assertTrue(game.getLinks() >= expected);
+    }
+
+    @Test
+    public void testTriggersForC() {
+       
+        assertNotNull(game.getTriggers());
+    }
+
+    @Test
+    public void testMinimumRoomsForB() {
+        int expected = 30;
+        assertTrue(game.getRooms() >= expected);
+    }
+
+    @Test
+    public void testMinimumItemsForB() {
+        int expected = 15;
+        assertTrue(game.getItems() >= expected);
+    }
+
+    @Test
+    public void testMinimumLinksForB() {
+        int expected = 40;
+        assertTrue(game.getLinks() >= expected);
+    }
+
+    @Test
+    public void testTimersForB() {
+        assertNotNull(game.getTimers());
+    }
+
+    @Test
+    public void testDynamicLinksForB() {
+        assertTrue(game.hasDynamicLinks());
+    }
+}

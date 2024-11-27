@@ -1,6 +1,9 @@
 package text_adventure.objects;
 
 public class Item {
+    // Static variable to keep track of the number of items created
+    private static int itemCount = 0;
+
     private String name;
     private String description;
     boolean takable;
@@ -9,6 +12,9 @@ public class Item {
     private ItemHolder container;
 
     public Item(String name, String description, ItemHolder container) {
+        // Increment the item count each time an item is created
+        itemCount++;
+
         this.name = name;
         this.description = description;
         this.container = container;
@@ -17,6 +23,9 @@ public class Item {
     }
 
     public Item(String name, String description, boolean takable, boolean movable, ItemHolder container) {
+        // Increment the item count each time an item is created
+        itemCount++;
+
         this.name = name;
         this.description = description;
         this.takable = takable;
@@ -28,8 +37,8 @@ public class Item {
         return name;
     }
 
-    public void setName(String aName) {
-        this.name = aName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -94,5 +103,10 @@ public class Item {
 
     public Boolean is(Item item) {
         return (item instanceof Container) && (this.isInside((Container) item));
+    }
+
+    // Static method to get the number of items created
+    public static int getItemCount() {
+        return Item.itemCount;
     }
 }

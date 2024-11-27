@@ -4,6 +4,9 @@ import text_adventure.resources.Directions;
 
 public class Room implements java.io.Serializable{
 
+    // Static variable to keep track of the number of rooms created
+    private static int roomCount = 0;
+
     private String name, description;
     private Room north, south, west, east;
     public Inventory loot;
@@ -11,6 +14,9 @@ public class Room implements java.io.Serializable{
 
     // Constructor
     public Room(String name, String description, Inventory loot) {
+        // Increment the room count each time a room is created
+        roomCount++;
+
         setName(name);
         setDescription(description);
         if (loot != null){
@@ -164,4 +170,9 @@ public class Room implements java.io.Serializable{
     }
 
     // TODO: Add and Remove items from Rooms
+
+    // Get the number of rooms created
+    public static int getRoomCount(){
+        return roomCount;
+    }
 }
