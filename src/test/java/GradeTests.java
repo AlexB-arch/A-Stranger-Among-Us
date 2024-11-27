@@ -58,4 +58,23 @@ public class GradeTests {
     public void testDynamicLinksForB() {
         assertTrue(game.hasDynamicLinks());
     }
+
+    @Test
+    public void testMinimumRoomsForA() {
+        int expected = 40;
+        assertTrue(game.getRooms() >= expected);
+    }
+
+    @Test
+    public void testMinimumItemsForA() {
+        int expected = 20;
+        assertTrue(game.getItems() >= expected);
+    }
+
+    @Test
+    public void testMinimumLinksForA() {
+        int expected = 50;
+        assertTrue(game.getLinks() >= expected);
+    }
+
 }
