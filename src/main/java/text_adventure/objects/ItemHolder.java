@@ -30,10 +30,6 @@ public class ItemHolder extends Item {
         return items.size();
     }
 
-    public ItemList getItems() {
-        return items;
-    }
-
     private ItemList itemsToFlatList(ItemHolder itemHolder) {
 
         for (Item item : itemHolder.getItems()) {
@@ -60,6 +56,73 @@ public class ItemHolder extends Item {
                 
                 found = true;
             }
+            if (!found) {
+                container = toContainer(item);
+                if (container != null && (container.isOpen())) {
+                    findItemInAnyList(container, objectName);
+                }
+            }
         }
+    }
+
+    public void doDescribeItems(ItemHolder itemHolder) {
+        ItemList itemList = itemHolder.getItems();
+        Container container;
+
+        for (Item item : itemList) {
+            String containerName = "";
+            if (item.getContainer() instanceof Container) {
+                containerName = " in " + item.getContainer().getName();
+            }
+
+            itemName += item.getName() + containerName + "\n";
+            container = toContainer(item);
+
+            if (container != null && (container.isOpen())) {
+                if (container.getItemCount() > 0) {
+                    doDescribeItems(container);
+                }
+            }
+        }
+    }
+
+    public String describeItems() {
+        itemName = "";
+        doDescribeItems(this);
+        return itemName;
+    }
+
+    public boolean containsItem(Item item) {
+        return getItems().contains(item);
+    }
+
+    public LootManager findItem(String objectName) {
+        lootManager = null;
+
+        findItemInAnyList(this, objectName);
+
+        return lootManager;
+    }
+
+    public ItemList getItems() {
+        return items;
+    }
+
+    public void setItems(ItemList items) {
+        this.items = items;
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
+    protected void transferObject(Item item, ItemHolder from, ItemHolder to) {
+        from.removeItem(item);
+        to.addItem(item);
+        item.setContainer(to);
     }
 }
