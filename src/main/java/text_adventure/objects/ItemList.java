@@ -19,7 +19,7 @@ public class ItemList extends ArrayList<Item> {
         return name;
     }
 
-    public void setName(String aName) {
-        this.name = aName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

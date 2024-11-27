@@ -6,8 +6,8 @@ public class Item {
 
     private String name;
     private String description;
-    boolean takable;
-    boolean movable;
+    private boolean takable;
+    private boolean movable;
 
     private ItemHolder container;
 
@@ -106,7 +106,7 @@ public class Item {
     }
 
     // Static method to get the number of items created
-    public static int getItemCount() {
+    public static int getInstancedItemCount() {
         return Item.itemCount;
     }
 }

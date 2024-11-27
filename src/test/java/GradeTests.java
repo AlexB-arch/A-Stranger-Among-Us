@@ -10,13 +10,13 @@ public class GradeTests {
     @Test
     public void testMinimumRoomsForC() {
         int expected = 20;
-        assertTrue(game.getRooms() >= expected);
+        assertTrue(game.getInstancedRooms() >= expected);
     }
 
     @Test
     public void testMinimumItemsForC() {
         int expected = 10;
-        assertTrue(game.getItems() >= expected);
+        assertTrue(game.getInstancedItems() >= expected);
     }
 
     @Test
@@ -34,13 +34,13 @@ public class GradeTests {
     @Test
     public void testMinimumRoomsForB() {
         int expected = 30;
-        assertTrue(game.getRooms() >= expected);
+        assertTrue(game.getInstancedRooms() >= expected);
     }
 
     @Test
     public void testMinimumItemsForB() {
         int expected = 15;
-        assertTrue(game.getItems() >= expected);
+        assertTrue(game.getInstancedItems() >= expected);
     }
 
     @Test
@@ -62,13 +62,13 @@ public class GradeTests {
     @Test
     public void testMinimumRoomsForA() {
         int expected = 40;
-        assertTrue(game.getRooms() >= expected);
+        assertTrue(game.getInstancedRooms() >= expected);
     }
 
     @Test
     public void testMinimumItemsForA() {
         int expected = 20;
-        assertTrue(game.getItems() >= expected);
+        assertTrue(game.getInstancedItems() >= expected);
     }
 
     @Test

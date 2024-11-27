@@ -5,7 +5,6 @@ import java.util.HashMap;
 import text_adventure.Game;
 import text_adventure.Subscriber;
 import text_adventure.interfaces.InventoryManagement;
-import text_adventure.interfaces.Items;
 
 public class NPC implements Subscriber, InventoryManagement {
     private String name;

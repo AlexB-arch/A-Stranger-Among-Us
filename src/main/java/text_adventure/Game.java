@@ -5,7 +5,6 @@ import java.util.List;
 import text_adventure.actions.Fireable;
 import text_adventure.actions.PowerCycleable;
 import text_adventure.actions.Storeable;
-import text_adventure.interfaces.Items;
 import text_adventure.objects.Item;
 import text_adventure.objects.MessageBus;
 import text_adventure.objects.NPC;
@@ -15,23 +14,23 @@ import text_adventure.objects.TextMessage;
 
 public class Game implements java.io.Serializable {
 
-  public static Player player;
-  public static boolean DEBUG;
+	public static Player player;
+	public static boolean DEBUG;
 
-  public static MessageBus globalEventBus;
+	public static MessageBus globalEventBus;
 
-  private ConsoleManager consoleManager;
+	private ConsoleManager consoleManager;
 
-  private boolean shouldexit;
+	private boolean shouldexit;
 
-  public Game() {
-    Parser.initDictionary();
-	globalEventBus = new MessageBus(10,3);
+	public Game() {
+		Parser.initDictionary();
+		globalEventBus = new MessageBus(10,3);
 
-	shouldexit = false;
-    start();
+		shouldexit = false;
 
-  }
+		start();
+	}
 
 	public void start() {
 
@@ -79,35 +78,34 @@ public class Game implements java.io.Serializable {
 		showIntro();
 	}
 
-  // Call the parser to tokenize the input
-  public String runCommands(String inputString) {
-	List<String> inputList;
-	String string = "";
-	String lowerCaseInput;
+	// Call the parser to tokenize the input
+	public String runCommands(String inputString) {
+		List<String> inputList;
+		String string = "";
+		String lowerCaseInput;
 
+		// Cleans up the input and converts it to lowercase
+		lowerCaseInput = inputString.trim().toLowerCase();
 
-	// Cleans up the input and converts it to lowercase
-	lowerCaseInput = inputString.trim().toLowerCase();
-
-	if (!lowerCaseInput.equals("quit") || !lowerCaseInput.equals("exit")) {
-		if(lowerCaseInput.equals("")){
-			string = "Please enter a command.\n";
-		} else {
-			inputList = Parser.tokenizedInput(lowerCaseInput);
-			string = Parser.parseInput(inputList);
+		if (!lowerCaseInput.equals("quit") || !lowerCaseInput.equals("exit")) {
+			if(lowerCaseInput.equals("")){
+				string = "Please enter a command.\n";
+			} else {
+				inputList = Parser.tokenizedInput(lowerCaseInput);
+				string = Parser.parseInput(inputList);
+			}
+		}else{
+			string = endGame();
 		}
-	}else{
-		string = endGame();
-	}
-		return string;
+			return string;
 	}
 
-  public String endGame(){
-	String message;
-    message = "To be continued...";
-    setShouldExit(true);
-	return message;
-  }
+	public String endGame(){
+		String message;
+		message = "To be continued...";
+		setShouldExit(true);
+		return message;
+	}
 
   	public void showIntro(){
 		String message;
@@ -120,24 +118,25 @@ public class Game implements java.io.Serializable {
 		message += "Or type 'quit' or 'exit' to stop the game.\n";
 
 		globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
-  }
-  public boolean getShouldExit(){
-	return shouldexit;
-  }
-
-  private void setShouldExit(boolean bool){
-	shouldexit = bool;
-  }
-
-  public static void showMessage(String message){
-	if (message.endsWith("\n")) { // stripping any trailing newlines
-		message = message.substring(0, message.length() - 1);
 	}
 
-	if (!message.isEmpty()) {
-		System.out.println(message);
+	public boolean getShouldExit(){
+		return shouldexit;
 	}
-  }
+
+	private void setShouldExit(boolean bool){
+		shouldexit = bool;
+	}
+
+	public static void showMessage(String message){
+		if (message.endsWith("\n")) { // stripping any trailing newlines
+			message = message.substring(0, message.length() - 1);
+		}
+
+		if (!message.isEmpty()) {
+			System.out.println(message);
+		}
+	}
 
   public void interactWithItem(Item item, String action){
 		if (item instanceof Fireable && action.equalsIgnoreCase("fire")) {
@@ -152,11 +151,11 @@ public class Game implements java.io.Serializable {
 	}
 
 	// Gets Game Stats for testing
-	public int getRooms(){
+	public int getInstancedRooms(){
 		return Room.getRoomCount();
 	}
 
-	public int getItems(){
-		return Item.getItemCount();
+	public int getInstancedItems(){
+		return Item.getInstancedItemCount();
 	}
 }

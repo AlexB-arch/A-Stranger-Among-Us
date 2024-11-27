@@ -4,7 +4,6 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import text_adventure.objects.Item;
-import text_adventure.interfaces.Items;
 import text_adventure.objects.ItemHolder;
 import text_adventure.objects.ItemList;
 import text_adventure.objects.LootManager;
