@@ -24,7 +24,6 @@ public class RoomVisualizerTest {
         kitchen = new Room("Kitchen","A test Kitchen", new Inventory());
         hall = new Room("Hall", "A test Hall", new Inventory());
         backRoom = new Room("BackRoom", "A test backroom", new Inventory());
-
         testFilePath = "test_map.dot";
     }
     
