@@ -1,0 +1,23 @@
+digraph GameMap {
+    node [shape=box, style=filled, fillcolor=lightgray];
+    edge [dir=both];
+    Waste_Ejection [label="Waste Ejection"];
+    Waste_Ejection -> Waste_Ejection_Hallway [label="south"];
+    Waste_Ejection -> Ejection_Control [label="east"];
+    Ejection_Control [label="Ejection Control"];
+    Ejection_Control -> Waste_Ejection [label="west"];
+    Waste_Ejection_Hallway [label="Waste Ejection Hallway"];
+    Waste_Ejection_Hallway -> Waste_Ejection [label="north"];
+    Waste_Ejection_Hallway -> Main_Corridor [label="south"];
+    Fuel_Storage [label="Fuel Storage"];
+    Fuel_Storage -> Fuel_Control [label="north"];
+    Fuel_Storage -> Fuel_Storage_Hallway [label="south"];
+    Fuel_Control [label="Fuel Control"];
+    Fuel_Control -> Fuel_Storage [label="south"];
+    Fuel_Storage_Hallway [label="Fuel Storage Hallway"];
+    Fuel_Storage_Hallway -> Fuel_Storage [label="north"];
+    Fuel_Storage_Hallway -> Main_Corridor [label="south"];
+    Main_Corridor [label="Main Corridor"];
+    Main_Corridor -> Waste_Ejection_Hallway [label="north"];
+    Main_Corridor -> Fuel_Storage_Hallway [label="east"];
+}
