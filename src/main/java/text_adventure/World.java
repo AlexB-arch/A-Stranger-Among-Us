@@ -276,7 +276,8 @@ public class World {
     }
 
     private void visualizeWorld() {
-        try( RoomVisualizer viz = new RoomVisualizer()){
+        try{
+            RoomVisualizer viz = new RoomVisualizer();
             // Add all rooms in your game
             rooms.keySet().forEach(x -> viz.addRoom(rooms.get(x)));
             viz.saveToFile("Map.dot");

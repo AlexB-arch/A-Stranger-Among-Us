@@ -10,7 +10,7 @@ import java.io.IOException;
  * Currently it only supports the standard type of room. Will add support to add Elevators 
  * when elevators are in.
  */
-public class RoomVisualizer implements AutoCloseable{
+public class RoomVisualizer {
     private StringBuilder dot;
     private FileWriter writer;
 
@@ -43,17 +43,15 @@ public class RoomVisualizer implements AutoCloseable{
     
     public void saveToFile(String filename) throws IOException {
         dot.append("}");
+        try {
         writer = new FileWriter(filename);
         writer.write(dot.toString());
-        
-        
-    }
-
-    @Override
-    public void close() throws IOException {
-        if (writer != null){
-            System.
-            writer.close();
+        writer.close();
+        } catch (IOException e){
+            throw e;
         }
+        
     }
 }
+
+    
