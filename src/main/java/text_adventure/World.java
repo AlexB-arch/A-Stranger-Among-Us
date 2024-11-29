@@ -255,7 +255,6 @@ public class World {
         fuelStorage.setExits(fuelControl, hallwayFuel, null, null);
         fuelControl.setExits(null, fuelStorage, null, null);
         hallwayFuel.setExits(fuelStorage, mainCorridor, null, null);
-
         mainCorridor.setExits(hallwayEjection, null, hallwayFuel, null);
 
         

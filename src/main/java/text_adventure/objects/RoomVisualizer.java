@@ -46,11 +46,13 @@ public class RoomVisualizer implements AutoCloseable{
         writer = new FileWriter(filename);
         writer.write(dot.toString());
         
+        
     }
 
     @Override
     public void close() throws IOException {
         if (writer != null){
+            System.
             writer.close();
         }
     }

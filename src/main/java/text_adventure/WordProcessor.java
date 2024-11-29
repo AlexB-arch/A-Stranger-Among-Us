@@ -2,6 +2,8 @@ package text_adventure;
 
 import text_adventure.resources.*;
 
+
+
 public class WordProcessor {
     
     private String word;
