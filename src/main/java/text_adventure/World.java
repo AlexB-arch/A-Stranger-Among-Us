@@ -85,22 +85,6 @@ public class World {
             "A hallway leading to the Engine Room. Warning signs line the walls.",
             null);
 
-        // Floor 1 connections (N, S, E, W)
-        messHall.setExits(bridge, hallwayEngine, hallwayBotany, hallwayBarracks);
-        barracks.setExits(barracksStorage, null, hallwayBarracks, null);
-        barracksStorage.setExits(null, barracks, null, null);
-        hallwayBarracks.setExits(null, null, barracks, messHall);
-        weaponsBay.setExits(null, null, hallwayWeapons, null);
-        hallwayWeapons.setExits(null, null, weaponsBay, hallwayEngine);
-        bridge.setExits(null, messHall, null, null);
-        botanyBay.setExits(null, null, hallwayBotany, botanyStorage);
-        botanyStorage.setExits(null, null, botanyBay, null);
-        hallwayBotany.setExits(null, null, messHall, botanyBay);
-        engineRoom.setExits(hallwayEngine, null, engineStorage, null);
-        engineStorage.setExits(null, null, null, engineRoom);
-        hallwayEngine.setExits(messHall, engineRoom, null, null);
-        
-
         // Central Storage Bay Area
         Room storageBay = createRoom("Storage Bay",
             "The Storage Bay is a large area for storing various supplies, equipment, and cargo.",
@@ -120,7 +104,8 @@ public class World {
 						null);
 
 		Room dockingBay = createRoom("Dock Bay",
-						"The Docking Bay is where spacecraft dock to load and unload passengers and cargo.", new String[]{"Oxygen", "Fuel", "Batteries", "Yellow Keycard"});
+						"The Docking Bay is where spacecraft dock to load and unload passengers and cargo.",
+                         new String[]{"Oxygen", "Fuel", "Batteries", "Yellow Keycard"});
 
         // Data Center Area
         Room dataCenter = createRoom("Data Center",
@@ -183,38 +168,7 @@ public class World {
             "A sealed hallway leading to the Quarantine Room. Decontamination equipment lines the walls.",
             null);
 
-        // Floor 2 connections (N, S, E, W)
-        storageBay.setExits(hallwayCommunication, hallwayStorage, hallwayWaste, hallwayDocks);
-		hallwayStorage.setExits(storageBay, thrusterBay, hallwayMedical, hallwayQuarantine);
-
-        communicationHub.setExits(null, null , hallwayCommunication, null);
-        hallwayCommunication.setExits(null, storageBay, hallwayData, communicationHub);
-
-        dataCenter.setExits(null, null, null , hallwayData);
-        hallwayData.setExits(null, null, dataCenter, hallwayCommunication);
-
-        medicalBay.setExits(null, null, medicalCloset, hallwayMedical);
-        medicalCloset.setExits(null, null, null, medicalBay);
-        hallwayMedical.setExits(null, null, medicalBay , hallwayStorage);
-
-        thrusterBay.setExits(hallwayStorage, null, thruster2, thruster1);
-        thruster1.setExits(null, null, thrusterBay, null);
-        thruster2.setExits(null, null, null, thrusterBay);
-
-        wasteControl.setExits(wasteControlRoom, null, null, hallwayWaste);
-        wasteControlRoom.setExits(null, wasteControl, null, null);
-        hallwayWaste.setExits(null, null, wasteControl , storageBay);
-
-        quarantineRoom.setExits(null, null, hallwayQuarantine, null);
-        hallwayQuarantine.setExits(null, null, hallwayStorage, quarantineRoom);
-
-        hallwayDocks.setExits(storageBay, null, dockingBay, null);
-        dockingBay.setExits(null, null,null,hallwayDocks);
-
-
-
-
-        // Waste Ejection Area
+                // Waste Ejection Area
         Room wasteEjection = createRoom("Waste Ejection",
             "Waste Ejection is the system that disposes of non-recyclable waste into space.",
             new String[]{"Batteries"});
@@ -245,14 +199,79 @@ public class World {
             "The main corridor of Floor 3 connecting the Fuel and Waste Ejection areas.",
             null);
 
+        // Turbo lifts 
+
+        Room turboLiftDeck1hallwayBotany = createRoom("TurboLift Deck 1: Botany", null, null);
+        Room turboLiftDeck2hallwayWaste = createRoom("TurboLift Deck 2: Storage", null, null);
+        Room turboLiftDeck2ThrusterBay = createRoom("TurboLift Deck 2: ThrusterBay", null, null);
+        Room turboLiftDeck2WasteControl = createRoom("TurboLift Deck 2: Waste Control", null, null);
+        Room turboLiftDeck3FuelStorage = createRoom("TurboLift Deck3: Fuel Storage", null, null);
+        Room turboLiftDeck3WasteEjection = createRoom("TurboLift Deck3: Waste Ejection", null, null);
+
+
+        // Floor 1 connections (N, S, E, W)
+        messHall.setExits(bridge, hallwayEngine, hallwayBotany, hallwayBarracks);
+        barracks.setExits(barracksStorage, null, hallwayBarracks, null);
+        barracksStorage.setExits(null, barracks, null, null);
+        hallwayBarracks.setExits(null, null, barracks, messHall);
+        weaponsBay.setExits(null, null, hallwayWeapons, null);
+        hallwayWeapons.setExits(null, null, weaponsBay, hallwayEngine);
+        bridge.setExits(null, messHall, null, null);
+        botanyBay.setExits(null, null, hallwayBotany, botanyStorage);
+        botanyStorage.setExits(null, null, botanyBay, null);
+        hallwayBotany.setExits(turboLiftDeck1hallwayBotany, null, messHall, botanyBay);
+        engineRoom.setExits(hallwayEngine, null, engineStorage, null);
+        engineStorage.setExits(null, null, null, engineRoom);
+        hallwayEngine.setExits(messHall, engineRoom, null, null);
+
+
+        // Floor 2 connections (N, S, E, W)
+        storageBay.setExits(hallwayCommunication, hallwayStorage, hallwayWaste, hallwayDocks);
+		hallwayStorage.setExits(storageBay, thrusterBay, hallwayMedical, hallwayQuarantine);
+
+        communicationHub.setExits(null, null , hallwayCommunication, null);
+        hallwayCommunication.setExits(null, storageBay, hallwayData, communicationHub);
+
+        dataCenter.setExits(null, null, null , hallwayData);
+        hallwayData.setExits(null, null, dataCenter, hallwayCommunication);
+
+        medicalBay.setExits(null, null, medicalCloset, hallwayMedical);
+        medicalCloset.setExits(null, null, null, medicalBay);
+        hallwayMedical.setExits(null, null, medicalBay , hallwayStorage);
+
+        thrusterBay.setExits(hallwayStorage, turboLiftDeck2ThrusterBay, thruster2, thruster1);
+        thruster1.setExits(null, null, thrusterBay, null);
+        thruster2.setExits(null, null, null, thrusterBay);
+
+        wasteControl.setExits(wasteControlRoom, turboLiftDeck2WasteControl, null, hallwayWaste);
+        wasteControlRoom.setExits(null, wasteControl, null, null);
+        hallwayWaste.setExits(turboLiftDeck2hallwayWaste, null, wasteControl , storageBay);
+
+        quarantineRoom.setExits(null, null, hallwayQuarantine, null);
+        hallwayQuarantine.setExits(null, null, hallwayStorage, quarantineRoom);
+
+        hallwayDocks.setExits(storageBay, null, dockingBay, null);
+        dockingBay.setExits(null, null,null,hallwayDocks);
+        
+
+
         // Floor 3 connections
         wasteEjection.setExits(null, hallwayEjection, ejectionControl, null);
         ejectionControl.setExits(null, null, null, wasteEjection);
-        hallwayEjection.setExits(wasteEjection, mainCorridor, null, null);
+        hallwayEjection.setExits(wasteEjection, mainCorridor, turboLiftDeck3WasteEjection, null);
         fuelStorage.setExits(fuelControl, hallwayFuel, null, null);
         fuelControl.setExits(null, fuelStorage, null, null);
-        hallwayFuel.setExits(fuelStorage, mainCorridor, null, null);
+        hallwayFuel.setExits(fuelStorage, mainCorridor, turboLiftDeck3FuelStorage, null);
         mainCorridor.setExits(hallwayEjection, null, hallwayFuel, null);
+
+
+        // Turbo Lift Connections
+        turboLiftDeck1hallwayBotany.setExits(null,hallwayBotany,null,null,null,turboLiftDeck2hallwayWaste);
+        turboLiftDeck2hallwayWaste.setExits(null,hallwayWaste,null,null,turboLiftDeck1hallwayBotany,null);
+        turboLiftDeck2ThrusterBay.setExits(thrusterBay,null,null,null,null,turboLiftDeck3FuelStorage);
+        turboLiftDeck2WasteControl.setExits(wasteControl,null,null,null,null,turboLiftDeck3WasteEjection);
+        turboLiftDeck3FuelStorage.setExits(null,fuelStorage,null,hallwayFuel,turboLiftDeck2ThrusterBay,null);
+        turboLiftDeck3WasteEjection.setExits(null,null,hallwayEjection,null, turboLiftDeck2WasteControl,null);
 
         
     }

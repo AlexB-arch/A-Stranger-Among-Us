@@ -501,7 +501,7 @@ public class GameTests {
          Room currentRoom = player.getCurrentLocation();
 
          // Check exits
-         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertEquals("TurboLift Deck 1: Botany", currentRoom.getExit(Directions.NORTH).getName());
          assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
          assertEquals("Mess Hall", currentRoom.getExit(Directions.EAST).getName());
          assertEquals("Botany Bay", currentRoom.getExit(Directions.WEST).getName());
@@ -521,6 +521,7 @@ public class GameTests {
          // Move west to Botany Bay
          game.runCommands("go west");
          Room currentRoom = player.getCurrentLocation();
+         assertEquals("Botany Bay",currentRoom.getName());
 
          // Check exits
          assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
@@ -645,7 +646,7 @@ public class GameTests {
          Room currentRoom = player.getCurrentLocation();
 
          // Check exits
-         assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
+         assertEquals("TurboLift Deck 1: Botany", currentRoom.getExit(Directions.NORTH).getName());
          assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
          assertEquals("Mess Hall", currentRoom.getExit(Directions.EAST).getName());
          assertEquals("Botany Bay", currentRoom.getExit(Directions.WEST).getName());
