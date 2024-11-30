@@ -6,7 +6,7 @@ import text_adventure.resources.Directions;
 public class Room implements java.io.Serializable{
 
     private String name, description;
-    private Room north, south, west, east;
+    private Room north, south, west, east,up,down;
     public Inventory loot;
     public NPC npc;
 
@@ -53,6 +53,20 @@ public class Room implements java.io.Serializable{
         this.east = east;
     }
 
+    public void setUp(Room up){
+        this.up = up;
+    }
+    public Room getUp(){
+        return up;
+    }
+
+    public void setDown(Room down){
+        this.down = down;
+    }
+    public Room getDown(){
+        return down;
+    }
+
     public String getName(){
         return name;
     }
@@ -80,6 +94,10 @@ public class Room implements java.io.Serializable{
                 return getWest().getName();
             case EAST:
                 return getEast().getName();
+            case UP:
+                return getUp().getName();
+            case DOWN: 
+                return getDown().getName();
             default:
                 return "Invalid Direction";
         }
@@ -96,6 +114,10 @@ public class Room implements java.io.Serializable{
                 return getWest().getDescription();
             case EAST:
                 return getEast().getDescription();
+            case UP:
+                return getUp().getDescription();
+            case DOWN:
+                return getDown().getDescription();
             default:
                 return "Invalid Direction";
         }
@@ -107,6 +129,15 @@ public class Room implements java.io.Serializable{
         this.east = east;
         this.west = west;
     }
+    public void setExits(Room north, Room south, Room east, Room west,Room up, Room down){
+        this.north = north;
+        this.south = south;
+        this.east = east;
+        this.west = west;
+        this.up = up;
+        this.down = down;
+    }
+
 
     public Room getExit(Directions direction) {
         switch (direction) {
@@ -118,6 +149,10 @@ public class Room implements java.io.Serializable{
                 return east;
             case WEST:
                 return west;
+            case UP:
+                return up;
+            case DOWN:
+                return down;
             default:
                 return null;
         }
@@ -140,6 +175,12 @@ public class Room implements java.io.Serializable{
         }
         if (west != null) {
             message += "west ";
+        }
+        if (up != null){
+            message += "up ";
+        }
+        if (down != null){
+            message += "down ";
         }
         message += "\n";
         return message;
