@@ -1,4 +1,4 @@
-package text_adventure.interfaces;
+package text_adventure.objects;
 
 public class Item {
     // Static variable to keep track of the number of items created
@@ -101,7 +101,7 @@ public class Item {
         return inContainer;
     }
 
-    public Boolean is(Item item) {
+    public Boolean isIn(Item item) {
         return (item instanceof Container) && (this.isInside((Container) item));
     }
 

@@ -4,12 +4,15 @@ import java.util.HashMap;
 
 import text_adventure.Game;
 import text_adventure.Subscriber;
-import text_adventure.interfaces.InventoryManagement;
 
-public class NPC implements Subscriber, InventoryManagement {
+public class NPC implements Subscriber {
     private String name;
     private Room location;
     private Inventory inventory;
+
+    // Required item for puzzle
+    private String requiredItem;
+    private boolean puzzleSolved = false;
 
     // Dialogue map
     private HashMap<String, String> dialogueMap = new HashMap<String, String>();
@@ -25,6 +28,13 @@ public class NPC implements Subscriber, InventoryManagement {
         this.name = name;
         this.location = location;
         inventory = new Inventory();
+    }
+
+    public NPC(String name, Room location, String requiredItem) {
+        this.name = name;
+        this.location = location;
+        this.inventory = new Inventory();
+        this.requiredItem = requiredItem;
     }
 
     // Setters
@@ -46,6 +56,10 @@ public class NPC implements Subscriber, InventoryManagement {
 
     public void setIsAlive(boolean isAlive) {
         this.isAlive = isAlive;
+    }
+
+    public void setRequiredItemName(String itemName) {
+        requiredItem = itemName;
     }
     // Getters
     public String getName() {
@@ -95,42 +109,25 @@ public class NPC implements Subscriber, InventoryManagement {
         return response;
     }
 
+    public void receiveItem(Item item) {
+        if(item.getName().equalsIgnoreCase(requiredItem)) {
+            inventory.addItem(item);
+            puzzleSolved = true;
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", name + " received the " + item.getName() + ". Puzzle solved!"));
+            // Notify Puzzle system if applicable
+            // Puzzle.markAsSolved(this);
+        } else {
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", name + " does not need the " + item.getName() + "."));
+        }
+    }
+
+    public boolean isPuzzleSolved() {
+        return puzzleSolved;
+    }
+
     @Override
     public void onMessage(Message message) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'onMessage'");
-    }
-
-    // Inventory Management
-    @Override
-    public void addItem(Item item) {
-        inventory.addItem(item);
-    }
-
-    @Override
-    public void removeItem(Item item) {
-        inventory.removeItem(item);
-    }
-
-    @Override
-    public void useItem(Item item) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'useItem'");
-    }
-
-    @Override
-    public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
-    }
-
-    @Override
-    public void printItems() {
-        inventory.printItems();
-    }
-
-    @Override
-    public boolean inInventory(Item item) {
-        return inventory.inInventory(item);
     }
 }

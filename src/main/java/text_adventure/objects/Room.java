@@ -1,6 +1,5 @@
 package text_adventure.objects;
 
-import text_adventure.interfaces.Item;
 import text_adventure.resources.Directions;
 
 public class Room implements java.io.Serializable{
@@ -171,6 +170,9 @@ public class Room implements java.io.Serializable{
     }
 
     // TODO: Add and Remove items from Rooms
+    public Inventory getLoot() {
+        return loot;
+    }
 
     // Get the number of rooms created
     public static int getRoomCount(){

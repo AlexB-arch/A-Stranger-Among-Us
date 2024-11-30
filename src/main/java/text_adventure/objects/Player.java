@@ -5,10 +5,8 @@ import text_adventure.Subscriber;
 import java.util.HashMap;
 
 import text_adventure.resources.Directions;
-import text_adventure.interfaces.INVENTORY;
-import text_adventure.interfaces.Item;
 
-public class Player implements Subscriber, InventoryManagement {
+public class Player implements Subscriber {
 	private Room currentLocation;
 	public Inventory inventory;
 
@@ -84,32 +82,30 @@ public class Player implements Subscriber, InventoryManagement {
 		return party;
 	}
 
-	@Override
-	public void addItem(Item item) {
-		inventory.addItem(item);
-	}
+	public void lootItem(String itemName) {
+        Room currentRoom = getCurrentLocation();
+        Inventory roomInventory = currentRoom.getLoot();
+        Item item = roomInventory.getItemByName(itemName);
+        
+        if (item != null) {
+            roomInventory.removeItem(itemName);
+            inventory.addItem(item);
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have looted: " + itemName));
+        } else {
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "Item not found in the room."));
+        }
+    }
 
-	@Override
-	public void removeItem(Item item) {
-		inventory.removeItem(item);
-	}
+	// Method to give Items to NPC
+	public void giveItemToNPC(String itemName, NPC npc) {
+        Item item = inventory.getItemByName(itemName);
+        if (item != null) {
+            inventory.removeItem(itemName);
+            npc.receiveItem(item);
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have given " + itemName + " to " + npc.getName() + "."));
+        } else {
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You do not have " + itemName + " in your inventory."));
+        }
+    }
 
-	@Override
-	public void useItem(Item item) {
-	}
-
-	@Override
-	public int size() {
-		return inventory.size();
-	}
-
-	@Override
-	public boolean inInventory(Item item) {
-		return inventory.inInventory(item);
-	}
-
-	@Override
-	public void printItems() {
-		inventory.printItems();
-	}
 }

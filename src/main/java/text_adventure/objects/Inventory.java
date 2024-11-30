@@ -1,38 +1,33 @@
 package text_adventure.objects;
-import java.util.ArrayList;
-
-import text_adventure.interfaces.Item;
+import java.util.HashMap;
 
 
 public class Inventory {
-    private ArrayList<Item> inventoryItems = new ArrayList<>();
+    private HashMap<String, Item> items;
 
-    public void addItem(Item item) {
-        inventoryItems.add((Item) item);
+    public Inventory() {
+        items = new HashMap<String, Item>();
     }
 
-    public void removeItem(Item item) {
-        inventoryItems.remove(item);
+    public void addItem(Item item) {
+        items.put(item.getName().toLowerCase(), item);
+    }
+
+    public void removeItem(String itemName) {
+        items.remove(itemName.toLowerCase());
+    }
+
+    public Item getItemByName(String itemName) {
+        return items.remove(itemName.toLowerCase());
     }
     
     public int size(){
-        return inventoryItems.size();
+        return items.size();
     }
     
     // method to check if an item is in the inventory
     public boolean inInventory(Item item){
-        return inventoryItems.contains(item);
-    }
-
-    public String toString(){
-        String inventoryPP = "------------------";
-        for (Item item: inventoryItems){
-            inventoryPP += "\n" + item.toString();  
-        }
-        return inventoryPP;
-    }
-    public void printItems() {
-        System.out.print(toString());
+        return items.containsValue(item);
     }
 }
     
