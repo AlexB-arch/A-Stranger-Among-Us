@@ -47,10 +47,13 @@ public class Player implements Subscriber, INVENTORY {
 				case WEST:
           			currentLocation = currentLocation.getExit(direction);
 					break;
+				case DOWN:
+					currentLocation = currentLocation.getExit(direction);
+				case UP:
+					currentLocation = currentLocation.getExit(direction);
 				default:
 					break;
 			}
-
 			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",currentLocation.displayRoom()));;
 		}
 	}

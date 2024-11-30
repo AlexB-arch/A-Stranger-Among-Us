@@ -6,7 +6,7 @@ import text_adventure.resources.Directions;
 public class Room implements java.io.Serializable{
 
     private String name, description;
-    private Room north, south, west, east,up,down;
+    private Room north, south, west, east, up, down;
     public Inventory loot;
     public NPC npc;
 
