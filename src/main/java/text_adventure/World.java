@@ -1,9 +1,20 @@
 package text_adventure;
 
 import text_adventure.objects.*;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * World
+ * This class defines our world and all the connections and rooms in it. 
+ * It stores all of these rooms in a Map for easy lookup and traversal for other 
+ * systems. 
+ * 
+ * Importantly it also populates the items in the world, builds the graphviz maps among other things.
+ */
 public class World {
     private Map<String, Room> rooms;
 
@@ -104,11 +115,11 @@ public class World {
             "A hallway leading to the Communication Hub. Network cables line the ceiling.",
             null);
 
-				Room hallwayDocks = createRoom("Dock Hallway",
+		Room hallwayDocks = createRoom("Dock Hallway",
 						"A hallway leading to the Docking bay.",
 						null);
 
-				Room dockingBay = createRoom("Dock Bay",
+		Room dockingBay = createRoom("Dock Bay",
 						"The Docking Bay is where spacecraft dock to load and unload passengers and cargo.", new String[]{"Oxygen", "Fuel", "Batteries", "Yellow Keycard"});
 
         // Data Center Area
@@ -174,7 +185,7 @@ public class World {
 
         // Floor 2 connections (N, S, E, W)
         storageBay.setExits(hallwayCommunication, hallwayStorage, hallwayWaste, hallwayDocks);
-				hallwayStorage.setExits(storageBay, thrusterBay, hallwayMedical, hallwayQuarantine);
+		hallwayStorage.setExits(storageBay, thrusterBay, hallwayMedical, hallwayQuarantine);
 
         communicationHub.setExits(null, null , hallwayCommunication, null);
         hallwayCommunication.setExits(null, storageBay, hallwayData, communicationHub);
@@ -238,24 +249,39 @@ public class World {
         wasteEjection.setExits(null, hallwayEjection, ejectionControl, null);
         ejectionControl.setExits(null, null, null, wasteEjection);
         hallwayEjection.setExits(wasteEjection, mainCorridor, null, null);
-
         fuelStorage.setExits(fuelControl, hallwayFuel, null, null);
         fuelControl.setExits(null, fuelStorage, null, null);
         hallwayFuel.setExits(fuelStorage, mainCorridor, null, null);
-
         mainCorridor.setExits(hallwayEjection, null, hallwayFuel, null);
+
+        
     }
+
+        
+    
 
     private Room createRoom(String name, String description, String[] items) {
         Inventory inventory = new Inventory();
-        // if (items != null) {
-        //     for (String itemName : items) {
-        //         inventory.addItem(new Item(itemName));
-        //     }
-        // }
+        //  if (items != null) {
+        //      for (String itemName : items) {
+        //          inventory.addItem(new Item(itemName));
+        //      }
+        //  }
         Room room = new Room(name, description, inventory);
         rooms.put(name, room);
         return room;
+    }
+
+    private void visualizeWorld() {
+        try{
+            RoomVisualizer viz = new RoomVisualizer();
+            // Add all rooms in your game
+            rooms.keySet().forEach(x -> viz.addRoom(rooms.get(x)));
+            viz.saveToFile("Map.dot");
+          
+            } catch (IOException e){
+                System.out.println(e);
+            }
     }
 
     private void addInitialNPCs() {
