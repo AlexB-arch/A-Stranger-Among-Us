@@ -18,7 +18,7 @@ public class Inventory {
     }
 
     public Item getItemByName(String itemName) {
-        return items.remove(itemName.toLowerCase());
+        return items.get(itemName.toLowerCase());
     }
     
     public int size(){

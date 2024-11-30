@@ -109,4 +109,9 @@ public class Item {
     public static int getInstancedItemCount() {
         return Item.itemCount;
     }
+
+    @Override
+    public String toString() {
+        return "Item{name='" + name + "', description='" + description + "', takable=" + takable + ", movable=" + movable + "}";
+    }
 }

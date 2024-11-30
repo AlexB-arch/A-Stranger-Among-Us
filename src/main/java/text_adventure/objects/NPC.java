@@ -125,6 +125,10 @@ public class NPC implements Subscriber {
         return puzzleSolved;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
     @Override
     public void onMessage(Message message) {
         // TODO Auto-generated method stub

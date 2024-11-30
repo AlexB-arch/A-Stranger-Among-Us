@@ -84,7 +84,7 @@ public class Player implements Subscriber {
 
 	public void lootItem(String itemName) {
         Room currentRoom = getCurrentLocation();
-        Inventory roomInventory = currentRoom.getLoot();
+        Inventory roomInventory = currentRoom.getInventory();
         Item item = roomInventory.getItemByName(itemName);
         
         if (item != null) {
@@ -107,5 +107,9 @@ public class Player implements Subscriber {
             Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You do not have " + itemName + " in your inventory."));
         }
     }
+
+	public Inventory getInventory() {
+		return inventory;
+	}
 
 }

@@ -1,7 +1,7 @@
 package text_adventure.objects;
 
 public class ItemHolder extends Item {
-    private ItemList items;
+    protected ItemList items;
     private String itemName;
     ItemList itemList = new ItemList();
     private LootManager lootManager = null;

@@ -170,7 +170,7 @@ public class Room implements java.io.Serializable{
     }
 
     // TODO: Add and Remove items from Rooms
-    public Inventory getLoot() {
+    public Inventory getInventory() {
         return loot;
     }
 

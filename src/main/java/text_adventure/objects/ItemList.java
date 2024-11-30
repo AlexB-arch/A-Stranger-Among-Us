@@ -22,4 +22,13 @@ public class ItemList extends ArrayList<Item> {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Item getItemByName(String name) {
+        for (Item item : this) {
+            if (item.getName().equals(name)) {
+                return item;
+            }
+        }
+        return null;
+    }
 }

@@ -6,6 +6,7 @@ public class Container extends ItemHolder implements java.io.Serializable {
     
     public Container(String name, String description, ItemList itemList, ItemHolder container, boolean openable) {
         super(name, description, itemList, container);
+        this.items = new ItemList();
         this.openable = false;
         this.isOpen = false;
     }
@@ -80,5 +81,13 @@ public class Container extends ItemHolder implements java.io.Serializable {
             }
         }
         return string;
+    }
+
+    public ItemList getInventory() {
+        return getItems();
+    }
+
+    public Item getItemByName(String itemName) {
+        return getItems().getItemByName(itemName);
     }
 }
