@@ -49,8 +49,10 @@ public class Player implements Subscriber, INVENTORY {
 					break;
 				case DOWN:
 					currentLocation = currentLocation.getExit(direction);
+					break;
 				case UP:
 					currentLocation = currentLocation.getExit(direction);
+					break;
 				default:
 					break;
 			}
