@@ -23,14 +23,11 @@ public class World {
     }
 
     public Map<String, Room> initializeRooms() {
-        initializeDeckOne();
-        initializeDeckTwo();
-        initializeDeckThree();
-        visualizeWorld();
+        initializeDecks();
         return rooms;
     }
 
-    private void initializeDeckOne() {
+    private void initializeDecks() {
         // Main Rooms
         Room messHall = createRoom("Mess Hall",
             "This is the main hall of the space station.\n" +
@@ -102,9 +99,8 @@ public class World {
         engineRoom.setExits(hallwayEngine, null, engineStorage, null);
         engineStorage.setExits(null, null, null, engineRoom);
         hallwayEngine.setExits(messHall, engineRoom, null, null);
-    }
+        
 
-    private void initializeDeckTwo() {
         // Central Storage Bay Area
         Room storageBay = createRoom("Storage Bay",
             "The Storage Bay is a large area for storing various supplies, equipment, and cargo.",
@@ -212,11 +208,12 @@ public class World {
         quarantineRoom.setExits(null, null, hallwayQuarantine, null);
         hallwayQuarantine.setExits(null, null, hallwayStorage, quarantineRoom);
 
+        hallwayDocks.setExits(storageBay, null, dockingBay, null);
+        dockingBay.setExits(null, null,null,hallwayDocks);
 
 
-    }
 
-    private void initializeDeckThree() {
+
         // Waste Ejection Area
         Room wasteEjection = createRoom("Waste Ejection",
             "Waste Ejection is the system that disposes of non-recyclable waste into space.",
