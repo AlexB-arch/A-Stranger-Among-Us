@@ -1,4 +1,4 @@
-package text_adventure.objects;
+package text_adventure.interfaces;
 
 public class Item {
     // Static variable to keep track of the number of items created

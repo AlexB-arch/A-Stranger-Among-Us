@@ -1,6 +1,7 @@
 package text_adventure;
 
 import java.util.List;
+import java.util.Map;
 
 import text_adventure.actions.Fireable;
 import text_adventure.actions.PowerCycleable;
@@ -17,7 +18,9 @@ public class Game implements java.io.Serializable {
 	public static Player player;
 	public static boolean DEBUG;
 
-	public static MessageBus globalEventBus;
+  public static MessageBus globalEventBus;
+
+  public static Map<String, Room> gameWorld;
 
 	private ConsoleManager consoleManager;
 
@@ -32,7 +35,7 @@ public class Game implements java.io.Serializable {
 		start();
 	}
 
-	public void start() {
+public void start() {
 
 		// Initalize the Message Bus
 		globalEventBus.startMessageProcessing();
@@ -43,36 +46,20 @@ public class Game implements java.io.Serializable {
 		globalEventBus.registerSubscriber("CONSOLE", consoleManager);
 		
 		// Create the rooms
-		Room sleepingQuarters = new Room("Sleeping Quarters", "The sleeping quarters are dark and quiet. The room is empty. The rest of the crew must be in other parts of the ship.\n\nThe door to the east leads to the Mess Hall, which you locked open when you came in. ",null);
-		Room sleepingQuartersCloset = new Room("Sleeping Quarters Closet", "This is a storage room for the sleeping quarters you were working in when the power went out. There are all sorts of blankets and pillows in here.",null);
-		Room hallwayA1 = new Room("Hallway A1", "This is the hallway between the Sleeping Quarters and the Mess Hall.",null);
-		Room MessHall = new Room("Mess Hall", "This is the main hall of the space station.\nTo the north is the Bridge. The door appears to have emergency locked.\nTo the east is the greenhouse. The door appears to have emergency locked.\nTo the west is the Sleeping Quarters.\nTo the south is the Generator Room.\n\n\u001B[33mAlice\u001B[0m is here.\n\n\u001B[33mAlice: Oh it's you! I thought you were a ghost with how dark it is in here. I'm trying to get into the control room to see what's going on. I think I can use a spare battery to override the door's emergency lock. You should go check on Douglass and the Generator.\u001B[0m",null);
-		Room hallwayA2 = new Room("Hallway A2", "This is the hallway between the Generator Room and the Mess Hall.\n\nTo the North is the Mess Hall and to the South is the Generator Room.",null);
-		Room GeneratorRoom = new Room("Generator Room", "This is the generator. It appears to be offline. Douglass should be in here somewhere...\n\nTo the west is the Generator tool closet\nTo the north is the hallway to the Mess Hall.",null);
-		Room GeneratorCloset = new Room("Generator Utility Closet", "*You enter the room to see Douglass's body lying motionless on the floor*\n\n'Douglass... Douglass!' You shout to no avail. He appears to have a stab wound through his space suit.\n\nDouglass is dead.\n\n'",null);
-    	Room hallwayA2B = new Room("Hallway A2", "This is the hallway between the Generator Room and the Mess Hall.\n\nTo the North is the Mess Hall and to the South is the Generator Room.",null);
-    	Room MessHallB = new Room("Mess Hall", "This is the main hall of the space station.\nTo the north is the Bridge. The door appears to have emergency locked.\nTo the east is the greenhouse. The door appears to have emergency locked.\nTo the west is the Sleeping Quarters.\nTo the south is the Generator Room.\n\n\u001B[33mAlice\u001B[0m is here.\n\n'Alice... Douglass is dead. It looks like murder.'\n\n\u001B[33mAlice: That's not possible. No it can't be possible. No one on this ship would kill someone else. We need to get the generator back on so we can radio the rest of the team. Come on, lets go!\u001B[0m\n",null);
-
-		// Set the directions for each room
-		hallwayA1.setExits(null, null, MessHall, sleepingQuartersCloset);
-		sleepingQuarters.setExits(sleepingQuartersCloset, null, hallwayA1, null );
-		sleepingQuartersCloset.setExits(null, sleepingQuarters, null ,null);
-		MessHall.setExits(null, hallwayA2, null, hallwayA1);
-		hallwayA2.setExits(MessHall, GeneratorRoom, null, null);
-		GeneratorRoom.setExits( hallwayA2B, null,null ,GeneratorCloset );
-		GeneratorCloset.setExits(null, null, GeneratorRoom, null);
-    	hallwayA2B.setExits(MessHallB, GeneratorRoom, null, null);
-    	MessHallB.setExits(null, hallwayA2, null, hallwayA1);
 
 		// Players starts in the sleeping quarters
-		player.setCurrentLocation(sleepingQuartersCloset);
+
+		World worldBuilder = new World();
+		 gameWorld = worldBuilder.initializeRooms();
+
+		player.setCurrentLocation(gameWorld.get("Barracks Storage"));
 
 		// Initialize NPCs
-		NPC alice = new NPC("Alice", MessHall);
+		NPC alice = new NPC("Alice", gameWorld.get("Mess Hall"));
 		globalEventBus.registerSubscriber("NPC", alice);
 
 		// Add NPCs to rooms
-		MessHall.addNpc(alice);
+		gameWorld.get("Mess Hall").addNpc(alice);
 
 		// Display the intro message
 		showIntro();
@@ -99,6 +86,12 @@ public class Game implements java.io.Serializable {
 		}
 			return string;
 	}
+
+
+	public static void showMessage(String msg ){
+		Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",msg));
+	}
+
 
 	public String endGame(){
 		String message;
@@ -128,34 +121,4 @@ public class Game implements java.io.Serializable {
 		shouldexit = bool;
 	}
 
-	public static void showMessage(String message){
-		if (message.endsWith("\n")) { // stripping any trailing newlines
-			message = message.substring(0, message.length() - 1);
-		}
-
-		if (!message.isEmpty()) {
-			System.out.println(message);
-		}
-	}
-
-  public void interactWithItem(Item item, String action){
-		if (item instanceof Fireable && action.equalsIgnoreCase("fire")) {
-			((Fireable) item).fire();
-		} else if (item instanceof PowerCycleable && action.equalsIgnoreCase("powercycle")) {
-			((PowerCycleable) item).powerCycle();
-		} else if (item instanceof Storeable && action.equalsIgnoreCase("store")) {
-			((Storeable) item).store();
-		} else {
-			System.out.println("Action not available for this item.");
-		}
-	}
-
-	// Gets Game Stats for testing
-	public int getInstancedRooms(){
-		return Room.getRoomCount();
-	}
-
-	public int getInstancedItems(){
-		return Item.getInstancedItemCount();
-	}
 }

@@ -1,5 +1,6 @@
 package text_adventure.objects;
 
+import text_adventure.interfaces.Item;
 import text_adventure.resources.Directions;
 
 public class Room implements java.io.Serializable{
