@@ -101,10 +101,15 @@ public class Parser {
 			response = "Can't do that. " + input2.getWord() + " is not a valid object! (not noun)";
 		} else {
 			switch (input1.getWord()) {
-				//TODO: Implement the cases
 				case "go":
 					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
 					break;
+					case "take":
+                    Game.getInstance().takeItem(input2.getWord());
+                    break;
+                case "use":
+                    Game.player.useItem(input2.getWord());
+                    break;
 				default:
 					response = "Not yet implemented";
 					break;

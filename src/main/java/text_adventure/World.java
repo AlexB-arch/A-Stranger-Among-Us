@@ -272,7 +272,7 @@ public class World {
         return room;
     }
 
-    private void visualizeWorld() {
+    void visualizeWorld() {
         try{
             RoomVisualizer viz = new RoomVisualizer();
             // Add all rooms in your game

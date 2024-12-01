@@ -3,9 +3,7 @@ package text_adventure;
 import java.util.List;
 import java.util.Map;
 
-import text_adventure.actions.Fireable;
-import text_adventure.actions.PowerCycleable;
-import text_adventure.actions.Storeable;
+import text_adventure.objects.Container;
 import text_adventure.objects.Item;
 import text_adventure.objects.MessageBus;
 import text_adventure.objects.NPC;
@@ -14,44 +12,43 @@ import text_adventure.objects.Room;
 import text_adventure.objects.TextMessage;
 
 public class Game implements java.io.Serializable {
+	private static Game instance;
+  	public static Player player;
+  	public static boolean DEBUG;
 
-	public static Player player;
-	public static boolean DEBUG;
+ 	public static MessageBus globalEventBus;
 
-  public static MessageBus globalEventBus;
+  	public static Map<String, Room> gameWorld;
 
-  public static Map<String, Room> gameWorld;
+  	private ConsoleManager consoleManager;
 
-	private ConsoleManager consoleManager;
+  	private boolean shouldexit;
 
-	private boolean shouldexit;
-
-	public Game() {
+  	public Game() {
+		instance = this;
 		Parser.initDictionary();
 		globalEventBus = new MessageBus(10,3);
-
 		shouldexit = false;
+    	start();
+  	}
 
-		start();
-	}
-
-public void start() {
+	public void start() {
 
 		// Initalize the Message Bus
 		globalEventBus.startMessageProcessing();
+
 		// Initialize the player
 		player = new Player();
 		consoleManager = new ConsoleManager();
 		globalEventBus.registerSubscriber("PLAYER", player);
 		globalEventBus.registerSubscriber("CONSOLE", consoleManager);
 		
-		// Create the rooms
-
-		// Players starts in the sleeping quarters
-
+		// Initialize the world
 		World worldBuilder = new World();
-		 gameWorld = worldBuilder.initializeRooms();
+		gameWorld = worldBuilder.initializeRooms();
+		worldBuilder.visualizeWorld();
 
+		// Set the player's starting location
 		player.setCurrentLocation(gameWorld.get("Barracks Storage"));
 
 		// Initialize NPCs
@@ -81,10 +78,10 @@ public void start() {
 				inputList = Parser.tokenizedInput(lowerCaseInput);
 				string = Parser.parseInput(inputList);
 			}
-		}else{
+		} else {
 			string = endGame();
 		}
-			return string;
+		return string;
 	}
 
 
@@ -93,7 +90,7 @@ public void start() {
 	}
 
 
-	public String endGame(){
+  	public String endGame(){
 		String message;
 		message = "To be continued...";
 		setShouldExit(true);
@@ -111,7 +108,7 @@ public void start() {
 		message += "Or type 'quit' or 'exit' to stop the game.\n";
 
 		globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
-	}
+  	}
 
 	public boolean getShouldExit(){
 		return shouldexit;
@@ -121,14 +118,71 @@ public void start() {
 		shouldexit = bool;
 	}
 
-    public String lookAtObject(String word) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'lookAtObject'");
+  	public String useItem(String itemName) {
+        Item item = player.getInventory().getItemByName(itemName);
+        if (item != null) {
+            boolean used = item.performAction("use");
+            if (used) {
+                globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have used the " + itemName + "."));
+                return "You have used the " + itemName + ".";
+            } else {
+                globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You can't use the " + itemName + "."));
+                return "You can't use the " + itemName + ".";
+            }
+        } else {
+            globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + itemName + "."));
+            return "You don't have a " + itemName + ".";
+        }
     }
 
-    public String lookInObject(String word) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'lookInObject'");
-    }
+	public static Game getInstance() {
+		return instance;
+	}
 
+	public String takeItem(String itemName) {
+		player.takeItem(itemName);
+		return "You have taken the " + itemName + ".";
+	}
+
+	public String lookAtObject(String itemName) {
+		Room currentRoom = player.getCurrentLocation();
+		Item item = currentRoom.getInventory().getItemByName(itemName);
+		if (item == null) {
+			item = player.getInventory().getItemByName(itemName);
+		}
+
+		if (item != null) {
+			String description = item.getDescription();
+			globalEventBus.publish(new TextMessage("CONSOLE", "OUT", description));
+			return description;
+		} else {
+			String message = "You don't see a " + itemName + " here.";
+			globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
+			return message;
+		}
+	}
+
+    public String lookInObject(String itemName) {
+		Item item = player.getInventory().getItemByName(itemName);
+		if (item == null) {
+			item = player.getCurrentLocation().getInventory().getItemByName(itemName);
+		}
+
+		if (item instanceof Container) {
+			Container container = (Container) item;
+			if (container.isOpen()) {
+				String contents = container.describeItems();
+				globalEventBus.publish(new TextMessage("CONSOLE", "OUT", contents));
+				return contents;
+			} else {
+				String message = "The " + itemName + " is closed.";
+				globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
+				return message;
+			}
+		} else {
+			String message = "You can't look inside the " + itemName + ".";
+			globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
+			return message;
+		}
+    }
 }

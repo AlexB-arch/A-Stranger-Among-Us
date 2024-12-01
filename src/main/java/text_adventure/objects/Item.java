@@ -114,4 +114,8 @@ public class Item {
     public String toString() {
         return "Item{name='" + name + "', description='" + description + "', takable=" + takable + ", movable=" + movable + "}";
     }
+
+    public boolean performAction(String string) {
+        return false;
+    }
 }

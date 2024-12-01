@@ -82,7 +82,7 @@ public class Player implements Subscriber {
 		return party;
 	}
 
-	public void lootItem(String itemName) {
+	public void takeItem(String itemName) {
         Room currentRoom = getCurrentLocation();
         Inventory roomInventory = currentRoom.getInventory();
         Item item = roomInventory.getItemByName(itemName);
@@ -111,5 +111,19 @@ public class Player implements Subscriber {
 	public Inventory getInventory() {
 		return inventory;
 	}
+
+	public void useItem(String itemName) {
+        Item item = inventory.getItemByName(itemName);
+		if (item != null) {
+			boolean used = item.performAction("use");
+			if (used) {
+				Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have used the " + itemName + "."));
+			} else {
+				Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You can't use the " + itemName + "."));
+			}
+		} else {
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + itemName + "."));
+		}
+    }
 
 }
