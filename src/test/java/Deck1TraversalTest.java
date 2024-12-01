@@ -13,7 +13,7 @@ import text_adventure.objects.Room;
 import text_adventure.resources.WordType;
 import text_adventure.resources.Directions;
 
-public class GameTests {
+public class Deck1TraversalTest {
 
     private Game game;
     private Player player;

@@ -205,8 +205,8 @@ public class World {
         Room turboLiftDeck2hallwayWaste = createRoom("TurboLift Deck 2: Storage", "Turbo lift that goes up to the botany hallway on Deck 1", null);
         Room turboLiftDeck2ThrusterBay = createRoom("TurboLift Deck 2: ThrusterBay", "Turbo lift that goes down to Fuel Storage on Deck 3", null);
         Room turboLiftDeck2WasteControl = createRoom("TurboLift Deck 2: Waste Control", "Turbo lift that goes down to Waste Ejection on Deck 3", null);
-        Room turboLiftDeck3FuelStorage = createRoom("TurboLift Deck3: Fuel Storage", "Turbo lift that goes up to the Thruster bay on Deck 2", null);
-        Room turboLiftDeck3WasteEjection = createRoom("TurboLift Deck3: Waste Ejection", "Turbo lift that goes up to Waste Control on Deck 2", null);
+        Room turboLiftDeck3FuelStorage = createRoom("TurboLift Deck 3: Fuel Storage", "Turbo lift that goes up to the Thruster bay on Deck 2", null);
+        Room turboLiftDeck3WasteEjection = createRoom("TurboLift Deck 3: Waste Ejection", "Turbo lift that goes up to Waste Control on Deck 2", null);
 
 
         // Floor 1 connections (N, S, E, W)
@@ -258,20 +258,21 @@ public class World {
         // Floor 3 connections
         wasteEjection.setExits(null, hallwayEjection, ejectionControl, null);
         ejectionControl.setExits(null, null, null, wasteEjection);
-        hallwayEjection.setExits(wasteEjection, mainCorridor, turboLiftDeck3WasteEjection, null);
+        hallwayEjection.setExits(wasteEjection, null, turboLiftDeck3WasteEjection, null);
         fuelStorage.setExits(fuelControl, hallwayFuel, null, null);
         fuelControl.setExits(null, fuelStorage, null, null);
-        hallwayFuel.setExits(fuelStorage, mainCorridor, turboLiftDeck3FuelStorage, null);
-        mainCorridor.setExits(hallwayEjection, null, hallwayFuel, null);
+        hallwayFuel.setExits(fuelStorage, null, turboLiftDeck3FuelStorage, null);
 
 
         // Turbo Lift Connections
         turboLiftDeck1hallwayBotany.setExits(null,hallwayBotany,null,null,null,turboLiftDeck2hallwayWaste);
         turboLiftDeck2hallwayWaste.setExits(null,hallwayWaste,null,null,turboLiftDeck1hallwayBotany,null);
+        
         turboLiftDeck2ThrusterBay.setExits(thrusterBay,null,null,null,null,turboLiftDeck3FuelStorage);
+        turboLiftDeck3FuelStorage.setExits(null,null,null,hallwayFuel,turboLiftDeck2ThrusterBay,null);
+        
         turboLiftDeck2WasteControl.setExits(wasteControl,null,null,null,null,turboLiftDeck3WasteEjection);
-        turboLiftDeck3FuelStorage.setExits(null,fuelStorage,null,hallwayFuel,turboLiftDeck2ThrusterBay,null);
-        turboLiftDeck3WasteEjection.setExits(null,null,hallwayEjection,null, turboLiftDeck2WasteControl,null);
+        turboLiftDeck3WasteEjection.setExits(null,null,null,hallwayEjection, turboLiftDeck2WasteControl,null);
 
         
     }
@@ -291,7 +292,7 @@ public class World {
         return room;
     }
 
-    private void visualizeWorld() {
+    public void visualizeWorld() {
         try{
             RoomVisualizer viz = new RoomVisualizer();
             // Add all rooms in your game
