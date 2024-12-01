@@ -29,11 +29,6 @@ public class AliceDialog implements Subscriber {
 		@Override
 		public void onMessage(Message message) {
 			if(message.getType().equals("DIAL")) {
-				System.out.println("Alice Dialog Triggered");
-				System.out.println("Current Room: " + this.currentRoom);
-				System.out.println("Player Room: " + message.getMessage());
-				System.out.println(currentRoom.equals(message.getMessage()));
-				System.out.println("State: " + genstate);
 				if(message.getMessage() == this.currentRoom && genstate == false && state == 1){
 					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","Hi I'm Alice."));
 					state++;
