@@ -19,7 +19,7 @@ public class PlayerTests {
         
         Player player = new Player();
         player.setCurrentLocation(room);
-        player.lootItem("Flower");
+        player.takeItem("Flower");
         
         assertTrue(player.inventory.getItemByName("Flower") != null);
         assertNull(room.getInventory().getItemByName("Flower"));
@@ -33,7 +33,7 @@ public class PlayerTests {
         
         Player player = new Player();
         player.setCurrentLocation(room);
-        player.lootItem("Book");
+        player.takeItem("Book");
         
         NPC npc = new NPC("Librarian", room, "Book");
         player.giveItemToNPC("Book", npc);
