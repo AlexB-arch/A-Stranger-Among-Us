@@ -812,4 +812,16 @@ public class Deck1TraversalTest {
          currentRoom = player.getCurrentLocation();
          assertEquals("Engine Room Hallway", currentRoom.getName());
      }
+
+         // Test reaching the Turbolift
+    @Test
+    public void testReachTurbolift() {
+        game.runCommands("go south"); // To Barracks
+        game.runCommands("go east"); // To Barracks Hallway
+        game.runCommands("go west"); // To Mess Hall
+        game.runCommands("go east"); // To Botany Hallway
+        game.runCommands("go north"); // To Turbolift
+        Room currentRoom = player.getCurrentLocation();
+        assertEquals("TurboLift Deck 1: Botany", currentRoom.getName());
+    }
  }
