@@ -46,7 +46,8 @@ public void start() {
 		// Players starts in the sleeping quarters
 
 		World worldBuilder = new World();
-		 gameWorld = worldBuilder.initializeRooms();
+		gameWorld = worldBuilder.initializeRooms();
+		worldBuilder.visualizeWorld();
 
 		player.setCurrentLocation(gameWorld.get("Barracks Storage"));
 

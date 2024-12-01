@@ -110,6 +110,8 @@ public class Parser {
 				//TODO: Implement the cases
 				case "go":
 					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
+					System.out.println(input2.getWord().toUpperCase());
+				
 					break;
 				default:
 					response = "Not yet implemented";
