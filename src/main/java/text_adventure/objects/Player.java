@@ -59,7 +59,8 @@ public class Player implements Subscriber, INVENTORY {
 
 public void interact(String interactable) {
     List<String> interactables = currentLocation.getInteractables();
-
+	System.out.println(currentLocation.getInteractables());
+	System.out.println("Doin shit");
     if (interactables.contains(interactable)) {
         switch (interactable.toLowerCase()) {
             case "generator button":

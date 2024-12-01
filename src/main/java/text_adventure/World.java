@@ -100,7 +100,7 @@ public class World {
         hallwayBotany.setExits(null, null, messHall, botanyBay);
         engineRoom.setExits(hallwayEngine, null, engineStorage, null);
         engineStorage.setExits(null, null, null, engineRoom);
-        hallwayEngine.setExits(messHall, engineRoom, null, null);
+        hallwayEngine.setExits(messHall, engineRoom, null, hallwayWeapons);
 
 
         // Central Storage Bay Area
@@ -270,7 +270,7 @@ public class World {
         //          inventory.addItem(new Item(itemName));
         //      }
         //  }
-        Room room = new Room(name, description, inventory, null);
+        Room room = new Room(name, description, inventory, interactables);
         rooms.put(name, room);
         return room;
     }

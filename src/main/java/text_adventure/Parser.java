@@ -110,7 +110,7 @@ public class Parser {
 					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
 					break;
 				case "interact":
-					Game.player.interact(input2.getWord());
+					Game.player.interact("Generator Button");
 					break;
 				// Handle other verbs
 				default:
@@ -149,6 +149,9 @@ public class Parser {
 					break;
 				case "debug":
 					Game.globalEventBus.publish(new TextMessage("CONSOLE","DEBUG_TOGGLE", ""));
+					break;
+				case "interact":
+					Game.player.interact("Generator Button");
 					break;
 				default:
 					break;

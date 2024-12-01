@@ -11,11 +11,9 @@ import text_adventure.Game;
 public class AliceDialog implements Subscriber {
     private String currentRoom;
 		private int state;
-		private boolean genstate;
 
     public AliceDialog(String RoomName) {
 				this.currentRoom = RoomName;
-        		this.genstate = false;
 				this.state = 1;
 				Game.globalEventBus.registerSubscriber("TRIGGER", this);
 				Game.globalEventBus.registerSubscriber("Mess Hall", this);
@@ -29,7 +27,7 @@ public class AliceDialog implements Subscriber {
 	@Override
 	public void onMessage(Message message) {
 		if(message.getType().equals("DIAL")) {
-			if(message.getMessage() == this.currentRoom && genstate == false && state == 1){
+			if(message.getMessage() == this.currentRoom && state == 1){
 				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","Hi I'm Alice."));
 				state++;
 				}
@@ -57,10 +55,7 @@ public class AliceDialog implements Subscriber {
 		else if(message.getType().equals("GEN")) {
 			String[] trigmessage = MessageSplit(message.getMessage());
 			if(trigmessage[0] == "ON") {
-				genstate = true;
-			}
-			else {
-				genstate = false;
+				state++;
 			}
 		}
 	}
