@@ -121,4 +121,14 @@ public void start() {
 		shouldexit = bool;
 	}
 
+    public String lookAtObject(String word) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'lookAtObject'");
+    }
+
+    public String lookInObject(String word) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'lookInObject'");
+    }
+
 }

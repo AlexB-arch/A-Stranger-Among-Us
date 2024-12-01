@@ -47,17 +47,11 @@ public class Parser {
       response = "Can't do that. " + input4.getWord() + " is not a valid object!\r\n";
     } else {
       switch (input1.getWord() + input3.getWord()) { // Concatenates the verb and preposition
-		case "putin":
-		case "putinto":
-			//response = Main.game.putObjectIn(input2.getWord(), input4.getWord());
-			break;
-
 		default:
 			response = "I don't know how to '" + input1.getWord() + " " + input2.getWord() + " " + input3.getWord() + " " + input4.getWord() + "'";
 			break;
       }
     }
-
     return response;
   }
 
@@ -76,10 +70,10 @@ public class Parser {
 		} else {
 			switch (input1.getWord() + input2.getWord()) {
 				case "lookat":
-					//response = Main.game.lootAtObject(input3.getWord());
+					response = Main.game.lookAtObject(input3.getWord());
 					break;
 				case "lookin":
-					//response = Main.game.lookInObject(input3.getWord());
+					response = Main.game.lookInObject(input3.getWord());
 					break;
 				case "talkto":
 					response = "Not yet implemented";
@@ -148,6 +142,27 @@ public class Parser {
 					break;
 				case "debug":
 					Game.globalEventBus.publish(new TextMessage("CONSOLE","DEBUG_TOGGLE", ""));
+					break;
+				case "take":
+					response = "Take what?";
+					break;
+				case "drop":
+					response = "Drop what?";
+					break;
+				case "use":
+					response = "Use what?";
+					break;
+				case "open":
+					response = "Open what?";
+					break;
+				case "close":
+					response = "Close what?";
+					break;
+				case "push":
+					response = "Push what?";
+					break;
+				case "give":
+					response = "Give what?";
 					break;
 				default:
 					break;
