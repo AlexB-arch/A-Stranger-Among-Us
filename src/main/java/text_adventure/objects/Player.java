@@ -52,7 +52,7 @@ public class Player implements Subscriber, INVENTORY {
 			}
 
 			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",currentLocation.displayRoom()));;
-			Game.globalEventBus.publish(new TextMessage("TRIGGER","DIAL",currentLocation.displayRoom()));;
+			Game.globalEventBus.publish(new TextMessage("TRIGGER","DIAL",getCurrentLocation().getName()));;
 		}
 	}
 
@@ -61,7 +61,7 @@ public class Player implements Subscriber, INVENTORY {
 		if(message.getHeader() == "PLAYER"){
 			switch (message.getType()) {
 				case "LOOK":
-					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().getDescription()));
+					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().getCurrentDescription()));
 					break;
 				default:
 					break;

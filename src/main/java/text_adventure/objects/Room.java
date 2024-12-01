@@ -2,6 +2,7 @@ package text_adventure.objects;
 
 import text_adventure.interfaces.Item;
 import text_adventure.resources.Directions;
+import text_adventure.Game;
 import text_adventure.Subscriber;
 
 public class Room implements java.io.Serializable, Subscriber{
@@ -14,7 +15,7 @@ public class Room implements java.io.Serializable, Subscriber{
     // Constructor
     public Room(String name, String description, Inventory loot) {
         setName(name);
-        setDescription(description);
+        setBaseDescription(description);
         if (loot != null){
             this.loot = loot;
         }else{
@@ -141,17 +142,16 @@ public void setCurrentDescription(String currentDescription) {
 		//I'm gonna run it down. This is the Great Trigger Method. -Brendan.
 		@Override
 		public void onMessage(Message message){
-			trigmessage = MessageSplit(message.getMessage()); //This splits up the message. I'm trying to stick with 2, with the first being a flag and the second being the new description.
+			String[] trigmessage = MessageSplit(message.getMessage()); //This splits up the message. I'm trying to stick with 2, with the first being a flag and the second being the new description.
 			//Check to see if the message is for that room specifically.
-			if(message.getChannel(). equals(getName())){
+			if(message.getHeader(). equals(getName())){
 				if(message.getType() == "GEN"){
 						if(trigmessage[0] == "ON"){
-							setCurrentDescription(baseDescription() + trigmessage[1]);
+							setCurrentDescription(getBaseDescription() + trigmessage[1]);
 						}
 						else{
-							setCurrentDescription(baseDescription() + trigmessage[1]);
+							setCurrentDescription(getBaseDescription() + trigmessage[1]);
 						}
-						break;
 			}
 		}
 	}

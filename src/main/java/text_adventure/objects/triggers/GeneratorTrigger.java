@@ -2,9 +2,11 @@
 
 package text_adventure.objects.triggers;
 
-import text_adventure.objects.MessageBus;
-import text_adventure.objects.Room;
+import text_adventure.objects.Message;
+import text_adventure.objects.TextMessage;
+import text_adventure.interfaces.Trigger;
 import text_adventure.Subscriber;
+import text_adventure.Game;
 
 
 public class GeneratorTrigger implements Trigger, Subscriber {
@@ -13,7 +15,7 @@ public class GeneratorTrigger implements Trigger, Subscriber {
     public GeneratorTrigger() {
         this.isActivated = false;
 				Game.globalEventBus.registerSubscriber("TRIGGER", this);
-				Game.globalEventBus.registerSubscriber("Engine Room");
+				Game.globalEventBus.registerSubscriber("Engine Room", this);
 				Game.globalEventBus.registerSubscriber("CONSOLE", this);
     }
 
@@ -21,9 +23,9 @@ public class GeneratorTrigger implements Trigger, Subscriber {
 			return Message.split(",");
 		}
 
+    @Override
 		public void onMessage(Message message) {
-			trigmessage = MessageSplit(message);
-			if(message.getType().equals("DIAL")) {
+			if(message.getType().equals("GEN")) {
 				this.isActivated = false;
 				Game.globalEventBus.publish(new TextMessage("Engine Room", "GEN", "OFF,The generator is offline."));
 				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","*The alarm system blares on*\n ALERT! GENERATOR OFFLINE \n*As lights flicker off.*"));
@@ -43,4 +45,5 @@ public class GeneratorTrigger implements Trigger, Subscriber {
 						Game.globalEventBus.publish(new TextMessage("Engine Room", "GEN", "ON,The generator is online."));
         }
     }
+
 }

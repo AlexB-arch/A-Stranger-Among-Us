@@ -56,8 +56,8 @@ public void start() {
 		NPC alice = new NPC("Alice", gameWorld.get("Mess Hall"));
 		globalEventBus.registerSubscriber("NPC", alice);
 
-		Trigger generatorTrigger = new GeneratorTrigger();
-		Trigger AliceDial = new AliceDialog("Mess Hall");
+		GeneratorTrigger generatorTrigger = new GeneratorTrigger();
+		AliceDialog AliceDial = new AliceDialog("Mess Hall");
 
 		// Add NPCs to rooms
 		gameWorld.get("Mess Hall").addNpc(alice);

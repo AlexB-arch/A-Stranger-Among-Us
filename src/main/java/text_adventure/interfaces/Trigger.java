@@ -1,4 +1,4 @@
-package text_adventure.triggers;
+package text_adventure.interfaces;
 
 public interface Trigger {
     boolean Condition();

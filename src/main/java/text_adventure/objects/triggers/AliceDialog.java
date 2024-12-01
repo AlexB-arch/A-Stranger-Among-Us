@@ -2,9 +2,10 @@
 
 package text_adventure.objects.triggers;
 
-import text_adventure.objects.MessageBus;
-import text_adventure.objects.Room;
+import text_adventure.objects.Message;
+import text_adventure.objects.TextMessage;
 import text_adventure.Subscriber;
+import text_adventure.Game;
 
 
 public class AliceDialog implements Subscriber {
@@ -14,7 +15,7 @@ public class AliceDialog implements Subscriber {
 
     public AliceDialog(String RoomName) {
 				this.currentRoom = RoomName;
-        this.genstate = false;
+        		this.genstate = false;
 				this.state = 1;
 				Game.globalEventBus.registerSubscriber("TRIGGER", this);
 				Game.globalEventBus.registerSubscriber("Mess Hall", this);
@@ -27,9 +28,13 @@ public class AliceDialog implements Subscriber {
 
 		@Override
 		public void onMessage(Message message) {
-			trigmessage = MessageSplit(message);
 			if(message.getType().equals("DIAL")) {
-				if(message.getMessage() == this.currentRoom && genstate = false && state == 1){
+				System.out.println("Alice Dialog Triggered");
+				System.out.println("Current Room: " + this.currentRoom);
+				System.out.println("Player Room: " + message.getMessage());
+				System.out.println(currentRoom.equals(message.getMessage()));
+				System.out.println("State: " + genstate);
+				if(message.getMessage() == this.currentRoom && genstate == false && state == 1){
 					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","Hi I'm Alice."));
 					state++;
 					}
@@ -52,4 +57,5 @@ public class AliceDialog implements Subscriber {
 			}
 		}
 	}
+
 }
