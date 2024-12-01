@@ -99,24 +99,25 @@ public class Parser {
 		WordProcessor input1 = input.get(0);
 		WordProcessor input2 = input.get(1);
 		String response = "";
-
-		// Check if the first word is a valid action
+	
 		if (input1.getWordType() != WordType.VERB) {
 			response = "Can't do that. " + input1.getWord() + " is not a valid action!";
 		} else if (input2.getWordType() != WordType.NOUN) {
-			response = "Can't do that. " + input2.getWord() + " is not a valid object! (not noun)";
+			response = "Can't do that. " + input2.getWord() + " is not a valid object!";
 		} else {
 			switch (input1.getWord()) {
-				//TODO: Implement the cases
 				case "go":
 					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
 					break;
+				case "interact":
+					Game.player.interact(input2.getWord());
+					break;
+				// Handle other verbs
 				default:
-					response = "Not yet implemented";
+					response = "You can't do that.";
 					break;
 			}
 		}
-
 		return response;
 	}
 

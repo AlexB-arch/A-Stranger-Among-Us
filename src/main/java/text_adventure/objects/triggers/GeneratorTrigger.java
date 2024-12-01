@@ -25,11 +25,15 @@ public class GeneratorTrigger implements Trigger, Subscriber {
 
     @Override
 		public void onMessage(Message message) {
-			if(message.getType().equals("GEN")) {
+			if(message.getType().equals("GEN") && message.getMessage() == "OFF") {
+        System.out.println("Generator is offline");
 				this.isActivated = false;
 				Game.globalEventBus.publish(new TextMessage("Engine Room", "GEN", "OFF,The generator is offline."));
 				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","*The alarm system blares on*\n ALERT! GENERATOR OFFLINE \n*As lights flicker off.*"));
 			}
+      else if(message.getType().equals("GEN") && message.getMessage() == "ON") {
+        activate();
+      }
 		}
 
     @Override
@@ -40,6 +44,7 @@ public class GeneratorTrigger implements Trigger, Subscriber {
     @Override
     public void activate() {
         if (!isActivated) {
+            System.out.println("Generator is online");
             isActivated = true;
             Game.globalEventBus.publish(new TextMessage("TRIGGER", "GEN", "ON,The generator is online."));
 						Game.globalEventBus.publish(new TextMessage("Engine Room", "GEN", "ON,The generator is online."));

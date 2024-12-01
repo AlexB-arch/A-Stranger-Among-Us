@@ -2,6 +2,10 @@ package text_adventure.objects;
 
 import text_adventure.interfaces.Item;
 import text_adventure.resources.Directions;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import text_adventure.Game;
 import text_adventure.Subscriber;
 
@@ -11,18 +15,24 @@ public class Room implements java.io.Serializable, Subscriber{
     private Room north, south, west, east;
     public Inventory loot;
     public NPC npc;
+    public List<String> interactables;
 
     // Constructor
-    public Room(String name, String description, Inventory loot) {
+    public Room(String name, String description, Inventory loot, List<String> interactables){
         setName(name);
         setBaseDescription(description);
+        if (interactables != null) {
+            this.interactables = interactables;
+        } else {
+            this.interactables = new ArrayList<>();
+        }
         if (loot != null){
             this.loot = loot;
         }else{
             loot = new Inventory();
         }
-					Game.globalEventBus.registerSubscriber("TRIGGER", this);
-					Game.globalEventBus.registerSubscriber(getName(), this);
+        Game.globalEventBus.registerSubscriber("TRIGGER", this);
+        Game.globalEventBus.registerSubscriber(getName(), this);
     }
 
     public Room getNorth(){
@@ -212,5 +222,17 @@ public void setCurrentDescription(String currentDescription) {
     // Get the item in the room by name
     public Item getCurrentRoomItem(String itemName){
         return loot.takeItem(itemName).orElse(null);
+    }
+
+    public List<String> getInteractables() {
+        return interactables;
+    }
+
+    public void addInteractable(String interactable) {
+        interactables.add(interactable);
+    }
+
+    public void removeInteractable(String interactable) {
+        interactables.remove(interactable);
     }
 }

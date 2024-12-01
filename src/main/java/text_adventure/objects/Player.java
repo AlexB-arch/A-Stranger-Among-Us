@@ -3,6 +3,7 @@ package text_adventure.objects;
 import text_adventure.Game;
 import text_adventure.Subscriber;
 import java.util.HashMap;
+import java.util.List;
 
 import text_adventure.resources.Directions;
 import text_adventure.interfaces.INVENTORY;
@@ -55,6 +56,25 @@ public class Player implements Subscriber, INVENTORY {
 			Game.globalEventBus.publish(new TextMessage("TRIGGER","DIAL",getCurrentLocation().getName()));;
 		}
 	}
+
+public void interact(String interactable) {
+    List<String> interactables = currentLocation.getInteractables();
+
+    if (interactables.contains(interactable)) {
+        switch (interactable.toLowerCase()) {
+            case "generator button":
+                Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You press the generator button. The generator hums to life!"));
+                Game.globalEventBus.publish(new TextMessage("TRIGGER", "GEN", "ON"));
+                break;
+            // Add more cases for other interactables
+            default:
+                Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You interact with the " + interactable + "."));
+                break;
+        }
+    } else {
+        Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "There's nothing like that to interact with here."));
+    }
+}
 
 	@Override
 	public void onMessage(Message message) {
