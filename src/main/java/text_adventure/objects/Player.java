@@ -24,7 +24,7 @@ public class Player implements Subscriber, INVENTORY {
 	return currentLocation;
   }
 
-  
+
   public void setCurrentLocation(Room currentLocation) {
     this.currentLocation = currentLocation;
   }
@@ -52,6 +52,7 @@ public class Player implements Subscriber, INVENTORY {
 			}
 
 			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",currentLocation.displayRoom()));;
+			Game.globalEventBus.publish(new TextMessage("TRIGGER","DIAL",currentLocation.displayRoom()));;
 		}
 	}
 

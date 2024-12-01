@@ -2,10 +2,11 @@ package text_adventure.objects;
 
 import text_adventure.interfaces.Item;
 import text_adventure.resources.Directions;
+import text_adventure.Subscriber;
 
-public class Room implements java.io.Serializable{
+public class Room implements java.io.Serializable, Subscriber{
 
-    private String name, description;
+    private String name, baseDescription, currentDescription;
     private Room north, south, west, east;
     public Inventory loot;
     public NPC npc;
@@ -19,6 +20,8 @@ public class Room implements java.io.Serializable{
         }else{
             loot = new Inventory();
         }
+					Game.globalEventBus.registerSubscriber("TRIGGER", this);
+					Game.globalEventBus.registerSubscriber(getName(), this);
     }
 
     public Room getNorth(){
@@ -61,13 +64,21 @@ public class Room implements java.io.Serializable{
         this.name = name;
     }
 
-    public String getDescription(){
-        return description;
+		public String getBaseDescription() {
+        return baseDescription;
     }
 
-    public void setDescription(String description){
-        this.description = description;
+		public void setBaseDescription(String baseDescription) {
+        this.baseDescription = baseDescription;
     }
+
+		public String getCurrentDescription() {
+		return currentDescription;
+}
+
+public void setCurrentDescription(String currentDescription) {
+		this.currentDescription = currentDescription;
+}
 
     // Returns the name of the room in the specified direction
     public String getRoomName(Directions direction){
@@ -89,13 +100,13 @@ public class Room implements java.io.Serializable{
     public String getRoomDescription(Directions direction){
         switch(direction){
             case NORTH:
-                return getNorth().getDescription();
+                return getNorth().getCurrentDescription();
             case SOUTH:
-                return getSouth().getDescription();
+                return getSouth().getCurrentDescription();
             case WEST:
-                return getWest().getDescription();
+                return getWest().getCurrentDescription();
             case EAST:
-                return getEast().getDescription();
+                return getEast().getCurrentDescription();
             default:
                 return "Invalid Direction";
         }
@@ -123,11 +134,35 @@ public class Room implements java.io.Serializable{
         }
     }
 
+		public static String[] MessageSplit(String message){
+					 return message.split(",");
+		}
+
+		//I'm gonna run it down. This is the Great Trigger Method. -Brendan.
+		@Override
+		public void onMessage(Message message){
+			trigmessage = MessageSplit(message.getMessage()); //This splits up the message. I'm trying to stick with 2, with the first being a flag and the second being the new description.
+			//Check to see if the message is for that room specifically.
+			if(message.getChannel(). equals(getName())){
+				if(message.getType() == "GEN"){
+						if(trigmessage[0] == "ON"){
+							setCurrentDescription(baseDescription() + trigmessage[1]);
+						}
+						else{
+							setCurrentDescription(baseDescription() + trigmessage[1]);
+						}
+						break;
+			}
+		}
+	}
+
+
+
     // When the player enters a room, the room description and available exits are displayed
     public String displayRoom(){
         String message = "";
         message += "You are in the " + getName() + ".\n";
-        message += getDescription() + "\n";
+        message += getCurrentDescription() + "\n";
         message += "Exits: ";
         if (north != null) {
             message += "north ";

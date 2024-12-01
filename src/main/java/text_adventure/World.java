@@ -9,10 +9,10 @@ import java.util.Map;
 
 /**
  * World
- * This class defines our world and all the connections and rooms in it. 
- * It stores all of these rooms in a Map for easy lookup and traversal for other 
- * systems. 
- * 
+ * This class defines our world and all the connections and rooms in it.
+ * It stores all of these rooms in a Map for easy lookup and traversal for other
+ * systems.
+ *
  * Importantly it also populates the items in the world, builds the graphviz maps among other things.
  */
 public class World {
@@ -99,7 +99,7 @@ public class World {
         engineRoom.setExits(hallwayEngine, null, engineStorage, null);
         engineStorage.setExits(null, null, null, engineRoom);
         hallwayEngine.setExits(messHall, engineRoom, null, null);
-        
+
 
         // Central Storage Bay Area
         Room storageBay = createRoom("Storage Bay",
@@ -254,11 +254,11 @@ public class World {
         hallwayFuel.setExits(fuelStorage, mainCorridor, null, null);
         mainCorridor.setExits(hallwayEjection, null, hallwayFuel, null);
 
-        
+
     }
 
-        
-    
+
+
 
     private Room createRoom(String name, String description, String[] items) {
         Inventory inventory = new Inventory();
@@ -278,7 +278,7 @@ public class World {
             // Add all rooms in your game
             rooms.keySet().forEach(x -> viz.addRoom(rooms.get(x)));
             viz.saveToFile("Map.dot");
-          
+
             } catch (IOException e){
                 System.out.println(e);
             }
@@ -291,4 +291,5 @@ public class World {
         rooms.get("Quarantine Room").addNpc(new NPC("Theodore", this.rooms.get("Quarantine Room")));
         rooms.get("Waste Control").addNpc(new NPC("Bony", this.rooms.get("Waste Control Room")));
     }
+
 }
