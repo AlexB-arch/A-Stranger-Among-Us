@@ -1,49 +1,33 @@
 package text_adventure.objects;
-import java.util.ArrayList;
-import java.util.Optional;
-
-import text_adventure.interfaces.Item;
+import java.util.HashMap;
 
 
 public class Inventory {
-    private ArrayList<Item> inventoryItems = new ArrayList<>();
+    private HashMap<String, Item> items;
 
-    public void addItem(Item item) {
-        inventoryItems.add(item);
+    public Inventory() {
+        items = new HashMap<String, Item>();
     }
 
-    public void removeItem(Item item) {
-        inventoryItems.remove(item);
+    public void addItem(Item item) {
+        items.put(item.getName().toLowerCase(), item);
+    }
+
+    public void removeItem(String itemName) {
+        items.remove(itemName.toLowerCase());
+    }
+
+    public Item getItemByName(String itemName) {
+        return items.get(itemName.toLowerCase());
     }
     
     public int size(){
-        return inventoryItems.size();
-    }
-    public boolean contains(Item item){
-        return inventoryItems.contains(item);
+        return items.size();
     }
     
-// better ways to do this I think
-    public Optional<Item> takeItem(String Name){
-        for (int i = 0; i < inventoryItems.size(); i++){
-            if (inventoryItems.get(i).getName().equals(Name)){
-                Item copyItem =  inventoryItems.get(i);
-                inventoryItems.remove(i);
-                return Optional.of(copyItem);
-            }
-        }
-        return Optional.empty();
-    }
-
-    public String toString(){
-        String inventoryPP = "------------------";
-        for (Item item: inventoryItems){
-            inventoryPP += "\n" + item.toString();  
-        }
-        return inventoryPP;
-    }
-    public void printItems() {
-        System.out.print(toString());
+    // method to check if an item is in the inventory
+    public boolean inInventory(Item item){
+        return items.containsValue(item);
     }
 }
     

@@ -3,6 +3,8 @@ package text_adventure;
 import java.util.List;
 import java.util.Map;
 
+import text_adventure.objects.Container;
+import text_adventure.objects.Item;
 import text_adventure.objects.MessageBus;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
@@ -10,45 +12,43 @@ import text_adventure.objects.Room;
 import text_adventure.objects.TextMessage;
 
 public class Game implements java.io.Serializable {
+	private static Game instance;
+  	public static Player player;
+  	public static boolean DEBUG;
 
-  public static Player player;
-  public static boolean DEBUG;
+ 	public static MessageBus globalEventBus;
 
-  public static MessageBus globalEventBus;
+  	public static Map<String, Room> gameWorld;
 
-  public static Map<String, Room> gameWorld;
+  	private ConsoleManager consoleManager;
 
-  private ConsoleManager consoleManager;
+  	private boolean shouldexit;
 
-  private boolean shouldexit;
+  	public Game() {
+		instance = this;
+		Parser.initDictionary();
+		globalEventBus = new MessageBus(10,3);
+		shouldexit = false;
+    	start();
+  	}
 
-  public Game() {
-    Parser.initDictionary();
-	globalEventBus = new MessageBus(10,3);
-
-	shouldexit = false;
-    start();
-
-  }
-
-public void start() {
+	public void start() {
 
 		// Initalize the Message Bus
 		globalEventBus.startMessageProcessing();
+
 		// Initialize the player
 		player = new Player();
 		consoleManager = new ConsoleManager();
 		globalEventBus.registerSubscriber("PLAYER", player);
 		globalEventBus.registerSubscriber("CONSOLE", consoleManager);
 		
-		// Create the rooms
-
-		// Players starts in the sleeping quarters
-
+		// Initialize the world
 		World worldBuilder = new World();
 		gameWorld = worldBuilder.initializeRooms();
 		worldBuilder.visualizeWorld();
 
+		// Set the player's starting location
 		player.setCurrentLocation(gameWorld.get("Barracks Storage"));
 
 		// Initialize NPCs
@@ -62,26 +62,25 @@ public void start() {
 		showIntro();
 	}
 
-  // Call the parser to tokenize the input
-  public String runCommands(String inputString) {
-	List<String> inputList;
-	String string = "";
-	String lowerCaseInput;
+	// Call the parser to tokenize the input
+	public String runCommands(String inputString) {
+		List<String> inputList;
+		String string = "";
+		String lowerCaseInput;
 
+		// Cleans up the input and converts it to lowercase
+		lowerCaseInput = inputString.trim().toLowerCase();
 
-	// Cleans up the input and converts it to lowercase
-	lowerCaseInput = inputString.trim().toLowerCase();
-
-	if (!lowerCaseInput.equals("quit") || !lowerCaseInput.equals("exit")) {
-		if(lowerCaseInput.equals("")){
-			string = "Please enter a command.\n";
+		if (!lowerCaseInput.equals("quit") || !lowerCaseInput.equals("exit")) {
+			if(lowerCaseInput.equals("")){
+				string = "Please enter a command.\n";
+			} else {
+				inputList = Parser.tokenizedInput(lowerCaseInput);
+				string = Parser.parseInput(inputList);
+			}
 		} else {
-			inputList = Parser.tokenizedInput(lowerCaseInput);
-			string = Parser.parseInput(inputList);
+			string = endGame();
 		}
-	}else{
-		string = endGame();
-	}
 		return string;
 	}
 
@@ -91,12 +90,12 @@ public void start() {
 	}
 
 
-  public String endGame(){
-	String message;
-    message = "To be continued...";
-    setShouldExit(true);
-	return message;
-  }
+  	public String endGame(){
+		String message;
+		message = "To be continued...";
+		setShouldExit(true);
+		return message;
+	}
 
   	public void showIntro(){
 		String message;
@@ -109,13 +108,80 @@ public void start() {
 		message += "Or type 'quit' or 'exit' to stop the game.\n";
 
 		globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
-  }
-  public boolean getShouldExit(){
-	return shouldexit;
-  }
+  	}
 
-  private void setShouldExit(boolean bool){
-	shouldexit = bool;
-  }
+	public boolean getShouldExit(){
+		return shouldexit;
+	}
 
+	private void setShouldExit(boolean bool){
+		shouldexit = bool;
+	}
+
+  	public String useItem(String itemName) {
+        Item item = player.getInventory().getItemByName(itemName);
+        if (item != null) {
+            boolean used = item.performAction("use");
+            if (used) {
+                globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have used the " + itemName + "."));
+                return "You have used the " + itemName + ".";
+            } else {
+                globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You can't use the " + itemName + "."));
+                return "You can't use the " + itemName + ".";
+            }
+        } else {
+            globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + itemName + "."));
+            return "You don't have a " + itemName + ".";
+        }
+    }
+
+	public static Game getInstance() {
+		return instance;
+	}
+
+	public void takeItem(String itemName) {
+		player.takeItem(itemName);
+	}
+
+	public String lookAtObject(String itemName) {
+		Room currentRoom = player.getCurrentLocation();
+		Item item = currentRoom.getInventory().getItemByName(itemName);
+		if (item == null) {
+			item = player.getInventory().getItemByName(itemName);
+		}
+
+		if (item != null) {
+			String description = item.getDescription();
+			globalEventBus.publish(new TextMessage("CONSOLE", "OUT", description));
+			return description;
+		} else {
+			String message = "You don't see a " + itemName + " here.";
+			globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
+			return message;
+		}
+	}
+
+    public String lookInObject(String itemName) {
+		Item item = player.getInventory().getItemByName(itemName);
+		if (item == null) {
+			item = player.getCurrentLocation().getInventory().getItemByName(itemName);
+		}
+
+		if (item instanceof Container) {
+			Container container = (Container) item;
+			if (container.isOpen()) {
+				String contents = container.describeItems();
+				globalEventBus.publish(new TextMessage("CONSOLE", "OUT", contents));
+				return contents;
+			} else {
+				String message = "The " + itemName + " is closed.";
+				globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
+				return message;
+			}
+		} else {
+			String message = "You can't look inside the " + itemName + ".";
+			globalEventBus.publish(new TextMessage("CONSOLE", "OUT", message));
+			return message;
+		}
+    }
 }

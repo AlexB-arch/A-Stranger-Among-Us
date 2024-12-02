@@ -1,9 +1,11 @@
 package text_adventure.objects;
 
-import text_adventure.interfaces.Item;
 import text_adventure.resources.Directions;
 
 public class Room implements java.io.Serializable{
+
+    // Static variable to keep track of the number of rooms created
+    private static int roomCount = 0;
 
     private String name, description;
     private Room north, south, west, east, up, down;
@@ -12,6 +14,9 @@ public class Room implements java.io.Serializable{
 
     // Constructor
     public Room(String name, String description, Inventory loot) {
+        // Increment the room count each time a room is created
+        roomCount++;
+
         setName(name);
         setDescription(description);
         if (loot != null){
@@ -192,12 +197,16 @@ public class Room implements java.io.Serializable{
     }
 
     // Get the NPC in the room by name
-    public NPC getCurrentRoomNpc(String npcName){
-        // If the NPC is not in the room, return
+    public boolean getCurrentRoomNpc(String npcName){
+        // If the NPC is in the room, return true
         if (npc != null && npc.getName().equalsIgnoreCase(npcName)){
-            return npc;
+            return true;
         }
-        return null;
+        return false;
+    }
+
+    public NPC getNPC(){
+        return npc;
     }
 
     // Remove the NPC from the room once in the party
@@ -205,18 +214,13 @@ public class Room implements java.io.Serializable{
         this.npc = null;
     }
 
-    // Add an item to the room
-    public void addItem(Item item){
-        loot.addItem(item);
+    // TODO: Add and Remove items from Rooms
+    public Inventory getInventory() {
+        return loot;
     }
 
-    // Remove an item from the room
-    public void removeItem(Item item){
-        loot.takeItem(item.getName());
-    }
-
-    // Get the item in the room by name
-    public Item getCurrentRoomItem(String itemName){
-        return loot.takeItem(itemName).orElse(null);
+    // Get the number of rooms created
+    public static int getRoomCount(){
+        return roomCount;
     }
 }

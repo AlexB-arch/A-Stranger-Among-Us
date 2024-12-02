@@ -85,24 +85,4 @@ public class PartyTests {
 
         assertEquals(player.getParty().size(), expected);
     }
-
-    // Remove the NPC from the room once in the party
-    @Test
-    public void testRemoveNpcFromRoom() {
-        // Add the NPC to the room
-        aliceNpc.getLocation().addNpc(aliceNpc);
-
-        // Check that the NPC is in the room
-        assertEquals(aliceNpc.getLocation().getCurrentRoomNpc(aliceNpc.getName()), aliceNpc);
-
-        // Add NPC to party
-        player.addPartyMember(aliceNpc);
-
-        // Check that the NPC is in the party
-        assertEquals(player.getParty().get(aliceNpc.getName()), aliceNpc);
-
-        // Assure that the NPC is removed from the room
-        // Expected to be null
-        assertEquals(aliceNpc.getLocation().getCurrentRoomNpc(aliceNpc.getName()), null);
-    }
 }

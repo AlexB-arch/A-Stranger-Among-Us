@@ -1,8 +1,6 @@
 package text_adventure;
 
 import text_adventure.objects.Message;
-import text_adventure.objects.TextMessage;
-import text_adventure.Subscriber;
 
 public class ConsoleManager implements Subscriber{
     private boolean isDebug = false;
