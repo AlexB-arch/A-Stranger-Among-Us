@@ -21,9 +21,9 @@ public class RoomVisualizerTest {
     @Before
     public void setUp() {
         visualizer = new RoomVisualizer();
-        kitchen = new Room("Kitchen","A test Kitchen", new Inventory(), null);
-        hall = new Room("Hall", "A test Hall", new Inventory(),null);
-        backRoom = new Room("BackRoom", "A test backroom", new Inventory(), null);
+        kitchen = new Room("Kitchen","A test Kitchen", new Inventory(), null, null);
+        hall = new Room("Hall", "A test Hall", new Inventory(),null, null);
+        backRoom = new Room("BackRoom", "A test backroom", new Inventory(), null, null);
         testFilePath = "test_map.dot";
     }
     
@@ -58,8 +58,8 @@ public class RoomVisualizerTest {
     
     @Test
     public void testMultipleConnections() throws IOException {
-        Room dining = new Room("Dining", "Test Dining room", new Inventory(), null);
-        Room garden = new Room("Garden", "A test Garden",new Inventory(), null);
+        Room dining = new Room("Dining", "Test Dining room", new Inventory(), null, null);
+        Room garden = new Room("Garden", "A test Garden",new Inventory(), null, null);
         
         kitchen.setExits(hall, dining, garden, null);
         visualizer.addRoom(kitchen);

@@ -1,4 +1,4 @@
-//Generator Trigger -Brendan
+//Alice's First Dialog Trigger -Brendan
 
 package text_adventure.objects.triggers;
 
@@ -16,7 +16,6 @@ public class AliceDialog implements Subscriber {
 				this.currentRoom = RoomName;
 				this.state = 1;
 				Game.globalEventBus.registerSubscriber("TRIGGER", this);
-				Game.globalEventBus.registerSubscriber("Mess Hall", this);
 				Game.globalEventBus.registerSubscriber("CONSOLE", this);
     }
 

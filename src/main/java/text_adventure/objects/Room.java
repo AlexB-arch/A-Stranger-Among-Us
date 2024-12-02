@@ -16,11 +16,13 @@ public class Room implements java.io.Serializable, Subscriber{
     public Inventory loot;
     public NPC npc;
     public List<String> interactables;
+    public String key;
 
     // Constructor
-    public Room(String name, String description, Inventory loot, List<String> interactables){
+    public Room(String name, String description, Inventory loot, List<String> interactables, String key){
         setName(name);
         setBaseDescription(description);
+        setKey(key);
         if (interactables != null) {
             this.interactables = interactables;
         } else {
@@ -28,7 +30,7 @@ public class Room implements java.io.Serializable, Subscriber{
         }
         if (loot != null){
             this.loot = loot;
-        }else{
+        }else {
             loot = new Inventory();
         }
         Game.globalEventBus.registerSubscriber("TRIGGER", this);
@@ -145,28 +147,25 @@ public void setCurrentDescription(String currentDescription) {
         }
     }
 
-		public static String[] MessageSplit(String message){
-					 return message.split(",");
-		}
+    public static String[] MessageSplit(String message){
+                    return message.split(",");
+    }
 
-		//I'm gonna run it down. This is the Great Trigger Method. -Brendan.
-		@Override
-		public void onMessage(Message message){
-			String[] trigmessage = MessageSplit(message.getMessage()); //This splits up the message. I'm trying to stick with 2, with the first being a flag and the second being the new description.
-			//Check to see if the message is for that room specifically.
-			if(message.getHeader(). equals(getName())){
-				if(message.getType() == "GEN"){
-						if(trigmessage[0] == "ON"){
-							setCurrentDescription(getBaseDescription() + trigmessage[1]);
-						}
-						else{
-							setCurrentDescription(getBaseDescription() + trigmessage[1]);
-						}
-			}
-		}
-	}
-
-
+    //I'm gonna run it down. This is the Great Trigger Method. -Brendan.
+    @Override
+    public void onMessage(Message message){
+        String[] trigmessage = MessageSplit(message.getMessage()); //This splits up the message. I'm trying to stick with 2, with the first being a flag and the second being the new description.
+        if(message.getHeader(). equals(getName())){
+            if(message.getType() == "GEN"){
+                    if(trigmessage[0] == "ON"){
+                        setCurrentDescription(getBaseDescription() + trigmessage[1]);
+                    }
+                    else{
+                        setCurrentDescription(getBaseDescription() + trigmessage[1]);
+                    }
+            }   
+        }
+    }
 
     // When the player enters a room, the room description and available exits are displayed
     public String displayRoom(){
@@ -234,5 +233,13 @@ public void setCurrentDescription(String currentDescription) {
 
     public void removeInteractable(String interactable) {
         interactables.remove(interactable);
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

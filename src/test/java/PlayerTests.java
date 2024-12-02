@@ -17,7 +17,7 @@ public class PlayerTests {
     @Test
     public void testAddPartyMember() {
 
-        Room room = new Room("Sleeping Quarters", "A room with beds", null, null);
+        Room room = new Room("Sleeping Quarters", "A room with beds", null, null, null);
         NPC npc = new NPC("Alice", room);
 
         player.addPartyMember(npc);
@@ -26,7 +26,7 @@ public class PlayerTests {
     
     @Test
     public void testRemovePartyMember() {
-        Room room = new Room("Sleeping Quarters", "A room with beds", null, null);
+        Room room = new Room("Sleeping Quarters", "A room with beds", null, null, null);
         NPC npc = new NPC("Bob", room);
         
         player.addPartyMember(npc);

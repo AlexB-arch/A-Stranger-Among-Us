@@ -11,7 +11,7 @@ public class PartyTests {
     // Initialize Player
     private Player player = new Player();
     // Initialize NPC
-    private NPC aliceNpc = new NPC("alice", new Room("Test Room", "Test Description", null, null));
+    private NPC aliceNpc = new NPC("alice", new Room("Test Room", "Test Description", null, null, null));
 
     @Test
     public void testEmptyParty() {
@@ -47,8 +47,8 @@ public class PartyTests {
     @Test
     public void testAddMultipleToParty() {
         // Declare two more NPCs
-        NPC bobNpc = new NPC("bob", new Room("Test Room", "Test Description", null, null));
-        NPC charlieNpc = new NPC("charlie", new Room("Test Room", "Test Description", null, null));
+        NPC bobNpc = new NPC("bob", new Room("Test Room", "Test Description", null, null, null));
+        NPC charlieNpc = new NPC("charlie", new Room("Test Room", "Test Description", null, null, null));
         
         // Add NPCs to party
         player.addPartyMember(aliceNpc);
@@ -64,8 +64,8 @@ public class PartyTests {
     @Test
     public void testRemoveMultipleFromParty() {
         // Declare two more NPCs
-        NPC bobNpc = new NPC("bob", new Room("Test Room", "Test Description", null, null));
-        NPC charlieNpc = new NPC("charlie", new Room("Test Room", "Test Description", null, null));
+        NPC bobNpc = new NPC("bob", new Room("Test Room", "Test Description", null, null, null));
+        NPC charlieNpc = new NPC("charlie", new Room("Test Room", "Test Description", null, null, null));
         
         // Add NPCs to party
         player.addPartyMember(aliceNpc);
