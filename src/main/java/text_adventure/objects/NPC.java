@@ -8,7 +8,7 @@ import text_adventure.Subscriber;
 public class NPC implements Subscriber {
     private String name;
     private Room location;
-    private Inventory inventory;
+    public Inventory inventory;
 
     // Required item for puzzle
     private String requiredItem;
@@ -20,8 +20,6 @@ public class NPC implements Subscriber {
     // States
     private String currentState = "default";
     private boolean isAlive = true;
-
-    //TODO: Add states as enum
 
     // Constructor
     public NPC(String name, Room location) {
@@ -110,14 +108,14 @@ public class NPC implements Subscriber {
     }
 
     public void receiveItem(Item item) {
+        inventory.addItem(item);
         if(item.getName().equalsIgnoreCase(requiredItem)) {
-            inventory.addItem(item);
             puzzleSolved = true;
             Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", name + " received the " + item.getName() + ". Puzzle solved!"));
             // Notify Puzzle system if applicable
             // Puzzle.markAsSolved(this);
         } else {
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", name + " does not need the " + item.getName() + "."));
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", name + " received the " + item.getName() + "."));
         }
     }
 
@@ -133,5 +131,13 @@ public class NPC implements Subscriber {
     public void onMessage(Message message) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'onMessage'");
+    }
+
+    public void giveItemToPlayer(String itemName, Player player) {
+        Item item = inventory.getItemByName(itemName);
+        if (item != null) {
+            inventory.removeItem(itemName);
+            player.getInventory().addItem(item);
+        }
     }
 }

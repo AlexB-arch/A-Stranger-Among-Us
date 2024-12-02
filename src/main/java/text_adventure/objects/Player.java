@@ -7,11 +7,11 @@ import java.util.HashMap;
 import text_adventure.resources.Directions;
 
 public class Player implements Subscriber {
-	private Room currentLocation;
+	public Room currentLocation;
 	public Inventory inventory;
 
 	// Party. Consists of the NPC name as the key and the NPC object as the value
-	private HashMap<String, NPC> party;
+	public HashMap<String, NPC> party;
 
 	public Player() {
 		inventory = new Inventory();
@@ -68,7 +68,9 @@ public class Player implements Subscriber {
 
 	public void addPartyMember(NPC npc) {
 		party.put(npc.getName(), npc);
-		npc.getLocation().removeNpc(npc);
+		if (npc.getLocation() != null) {
+			npc.getLocation().removeNpc(npc);
+		}
 	}
 
 	public void removePartyMember(NPC npc) {
@@ -83,18 +85,8 @@ public class Player implements Subscriber {
 	}
 
 	public void takeItem(String itemName) {
-        Room currentRoom = getCurrentLocation();
-        Inventory roomInventory = currentRoom.getInventory();
-        Item item = roomInventory.getItemByName(itemName);
-        
-        if (item != null) {
-            roomInventory.removeItem(itemName);
-            inventory.addItem(item);
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have looted: " + itemName));
-        } else {
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "Item not found in the room."));
-        }
-    }
+		inventory.addItem(currentLocation.getInventory().getItemByName(itemName));
+	}
 
 	// Method to give Items to NPC
 	public void giveItemToNPC(String itemName, NPC npc) {

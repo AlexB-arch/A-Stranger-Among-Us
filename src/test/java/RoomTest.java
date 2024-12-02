@@ -52,6 +52,43 @@ public class RoomTest {
     @Test
     public void testRoomLoot() {
         Room room = new Room("Room", "Description", new Inventory());
-        assertEquals(new Inventory(), room.getInventory());
+        Item item = new Item("Sword", "A sharp sword.", true, true, null);
+        room.getInventory().addItem(item);
+        assertEquals(item, room.getInventory().getItemByName("Sword"));
+
+        room.getInventory().removeItem("Sword");
+        assertEquals(null, room.getInventory().getItemByName("Sword"));
     }
+
+    @Test
+    public void testRoomRemoveItem() {
+        Room room = new Room("Room", "Description", new Inventory());
+        Item item = new Item("Sword", "A sharp sword.", true, true, null);
+        room.getInventory().addItem(item);
+        assertEquals(item, room.getInventory().getItemByName("Sword"));
+
+        room.getInventory().removeItem("Sword");
+        assertEquals(null, room.getInventory().getItemByName("Sword"));
+    }
+
+    @Test
+    public void testRoomGetItemByName() {
+        Room room = new Room("Room", "Description", new Inventory());
+        Item item = new Item("Sword", "A sharp sword.", true, true, null);
+        room.getInventory().addItem(item);
+        assertEquals(item, room.getInventory().getItemByName("Sword"));
+    }
+
+    @Test
+    public void testRoomGetInventory() {
+        Room room = new Room("Room", "Description", new Inventory());
+        assertEquals(0, room.getInventory().size());
+    }
+
+    @Test
+    public void testRoomGetDescription() {
+        Room room = new Room("Room", "Description", new Inventory());
+        assertEquals("Description", room.getDescription());
+    }
+
 }

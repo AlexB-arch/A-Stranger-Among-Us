@@ -139,9 +139,8 @@ public class Game implements java.io.Serializable {
 		return instance;
 	}
 
-	public String takeItem(String itemName) {
+	public void takeItem(String itemName) {
 		player.takeItem(itemName);
-		return "You have taken the " + itemName + ".";
 	}
 
 	public String lookAtObject(String itemName) {

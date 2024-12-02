@@ -156,12 +156,12 @@ public class Room implements java.io.Serializable{
     }
 
     // Get the NPC in the room by name
-    public NPC getCurrentRoomNpc(String npcName){
-        // If the NPC is not in the room, return
+    public boolean getCurrentRoomNpc(String npcName){
+        // If the NPC is in the room, return true
         if (npc != null && npc.getName().equalsIgnoreCase(npcName)){
-            return npc;
+            return true;
         }
-        return null;
+        return false;
     }
 
     public NPC getNPC(){

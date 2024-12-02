@@ -110,12 +110,10 @@ public class Item {
         return Item.itemCount;
     }
 
-    @Override
-    public String toString() {
-        return "Item{name='" + name + "', description='" + description + "', takable=" + takable + ", movable=" + movable + "}";
-    }
-
-    public boolean performAction(String string) {
+    public boolean performAction(String action) {
+        if (action.equals("use")) {
+            return true;
+        }
         return false;
     }
 }
