@@ -18,11 +18,11 @@ public class RoomVisualizer {
         dot = new StringBuilder();
         dot.append("digraph GameMap {\n");
         dot.append("    node [shape=box, style=filled, fillcolor=lightgray];\n");
-        dot.append("    edge [dir=both];\n");
+        dot.append("    edge [dir=forward];\n");
     }
     
     public void addRoom(Room room) {
-        String roomId = room.getName().replaceAll("\\s+", "_");
+        String roomId = room.getName().replaceAll("[\\s:;.-]+", "_");
         dot.append(String.format("    %s [label=\"%s\"];\n", 
                    roomId, room.getName()));
         
@@ -30,12 +30,15 @@ public class RoomVisualizer {
         addConnection(room, room.getSouth(), "south");
         addConnection(room, room.getEast(), "east");
         addConnection(room, room.getWest(), "west");
+        addConnection(room, room.getUp(), "up");
+        addConnection(room, room.getDown(), "down");
+
     }
     
     private void addConnection(Room from, Room to, String direction) {
         if (to != null) {
-            String fromId = from.getName().replaceAll("\\s+", "_");
-            String toId = to.getName().replaceAll("\\s+", "_");
+            String fromId = from.getName().replaceAll("[\\s:;.-]+", "_");
+            String toId = to.getName().replaceAll("[\\s:;.-]+", "_");
             dot.append(String.format("    %s -> %s [label=\"%s\"];\n", 
                        fromId, toId, direction));
         }

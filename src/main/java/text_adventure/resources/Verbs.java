@@ -16,8 +16,6 @@ public class Verbs {
         "close",
         "pull",
         "push",
-        "up",
-        "down",
         "quit",
         "exit",
         "use",

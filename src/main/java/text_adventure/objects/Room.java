@@ -1,25 +1,25 @@
 package text_adventure.objects;
 
-import text_adventure.interfaces.Item;
 import text_adventure.resources.Directions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import text_adventure.Game;
-import text_adventure.Subscriber;
+    // Static variable to keep track of the number of rooms created
+    private static int roomCount = 0;
 
-public class Room implements java.io.Serializable, Subscriber{
-
-    private String name, baseDescription, currentDescription;
-    private Room north, south, west, east;
+    private String name, description;
+    private Room north, south, west, east, up, down;
     public Inventory loot;
     public NPC npc;
     public List<String> interactables;
     public String key;
 
     // Constructor
-    public Room(String name, String description, Inventory loot, List<String> interactables, String key){
+    public Room(String name, String description, Inventory loot) {
+        // Increment the room count each time a room is created
+        roomCount++;
+
         setName(name);
         setBaseDescription(description);
         setKey(key);
@@ -69,6 +69,20 @@ public class Room implements java.io.Serializable, Subscriber{
         this.east = east;
     }
 
+    public void setUp(Room up){
+        this.up = up;
+    }
+    public Room getUp(){
+        return up;
+    }
+
+    public void setDown(Room down){
+        this.down = down;
+    }
+    public Room getDown(){
+        return down;
+    }
+
     public String getName(){
         return name;
     }
@@ -104,6 +118,10 @@ public void setCurrentDescription(String currentDescription) {
                 return getWest().getName();
             case EAST:
                 return getEast().getName();
+            case UP:
+                return getUp().getName();
+            case DOWN: 
+                return getDown().getName();
             default:
                 return "Invalid Direction";
         }
@@ -119,7 +137,11 @@ public void setCurrentDescription(String currentDescription) {
             case WEST:
                 return getWest().getCurrentDescription();
             case EAST:
-                return getEast().getCurrentDescription();
+                return getEast().getDescription();
+            case UP:
+                return getUp().getDescription();
+            case DOWN:
+                return getDown().getDescription();
             default:
                 return "Invalid Direction";
         }
@@ -131,6 +153,15 @@ public void setCurrentDescription(String currentDescription) {
         this.east = east;
         this.west = west;
     }
+    public void setExits(Room north, Room south, Room east, Room west,Room up, Room down){
+        this.north = north;
+        this.south = south;
+        this.east = east;
+        this.west = west;
+        this.up = up;
+        this.down = down;
+    }
+
 
     public Room getExit(Directions direction) {
         switch (direction) {
@@ -142,6 +173,10 @@ public void setCurrentDescription(String currentDescription) {
                 return east;
             case WEST:
                 return west;
+            case UP:
+                return up;
+            case DOWN:
+                return down;
             default:
                 return null;
         }
@@ -185,6 +220,12 @@ public void setCurrentDescription(String currentDescription) {
         if (west != null) {
             message += "west ";
         }
+        if (up != null){
+            message += "up ";
+        }
+        if (down != null){
+            message += "down ";
+        }
         message += "\n";
         return message;
     }
@@ -195,12 +236,16 @@ public void setCurrentDescription(String currentDescription) {
     }
 
     // Get the NPC in the room by name
-    public NPC getCurrentRoomNpc(String npcName){
-        // If the NPC is not in the room, return
+    public boolean getCurrentRoomNpc(String npcName){
+        // If the NPC is in the room, return true
         if (npc != null && npc.getName().equalsIgnoreCase(npcName)){
-            return npc;
+            return true;
         }
-        return null;
+        return false;
+    }
+
+    public NPC getNPC(){
+        return npc;
     }
 
     // Remove the NPC from the room once in the party
@@ -208,14 +253,14 @@ public void setCurrentDescription(String currentDescription) {
         this.npc = null;
     }
 
-    // Add an item to the room
-    public void addItem(Item item){
-        loot.addItem(item);
+    // TODO: Add and Remove items from Rooms
+    public Inventory getInventory() {
+        return loot;
     }
 
-    // Remove an item from the room
-    public void removeItem(Item item){
-        loot.takeItem(item.getName());
+    // Get the number of rooms created
+    public static int getRoomCount(){
+        return roomCount;
     }
 
     // Get the item in the room by name

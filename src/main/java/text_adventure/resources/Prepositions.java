@@ -20,8 +20,6 @@ public class Prepositions {
         "into",
         "onto",
         "upon",
-        "up",
-        "down",
         "up to",
         "down to",
         "up from",

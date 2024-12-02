@@ -6,15 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import text_adventure.resources.Directions;
-import text_adventure.interfaces.INVENTORY;
-import text_adventure.interfaces.Item;
 
-public class Player implements Subscriber, INVENTORY {
-	private Room currentLocation;
+public class Player implements Subscriber {
+	public Room currentLocation;
 	public Inventory inventory;
 
 	// Party. Consists of the NPC name as the key and the NPC object as the value
-	private HashMap<String, NPC> party;
+	public HashMap<String, NPC> party;
 
 	public Player() {
 		inventory = new Inventory();
@@ -48,10 +46,15 @@ public class Player implements Subscriber, INVENTORY {
 				case WEST:
           			currentLocation = currentLocation.getExit(direction);
 					break;
+				case DOWN:
+					currentLocation = currentLocation.getExit(direction);
+					break;
+				case UP:
+					currentLocation = currentLocation.getExit(direction);
+					break;
 				default:
 					break;
 			}
-
 			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",currentLocation.displayRoom()));;
 			Game.globalEventBus.publish(new TextMessage("TRIGGER","DIAL",getCurrentLocation().getName()));;
 		}
@@ -91,7 +94,9 @@ public void interact(String interactable) {
 
 	public void addPartyMember(NPC npc) {
 		party.put(npc.getName(), npc);
-		npc.getLocation().removeNpc(npc);
+		if (npc.getLocation() != null) {
+			npc.getLocation().removeNpc(npc);
+		}
 	}
 
 	public void removePartyMember(NPC npc) {
@@ -105,32 +110,38 @@ public void interact(String interactable) {
 		return party;
 	}
 
-	@Override
-	public void addItem(Item item) {
-		inventory.addItem(item);
+	public void takeItem(String itemName) {
+		inventory.addItem(currentLocation.getInventory().getItemByName(itemName));
 	}
 
-	@Override
-	public void removeItem(Item item) {
-		inventory.removeItem(item);
+	// Method to give Items to NPC
+	public void giveItemToNPC(String itemName, NPC npc) {
+        Item item = inventory.getItemByName(itemName);
+        if (item != null) {
+            inventory.removeItem(itemName);
+            npc.receiveItem(item);
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have given " + itemName + " to " + npc.getName() + "."));
+        } else {
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You do not have " + itemName + " in your inventory."));
+        }
+    }
+
+	public Inventory getInventory() {
+		return inventory;
 	}
 
-	@Override
-	public void useItem(Item item) {
-	}
+	public void useItem(String itemName) {
+        Item item = inventory.getItemByName(itemName);
+		if (item != null) {
+			boolean used = item.performAction("use");
+			if (used) {
+				Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have used the " + itemName + "."));
+			} else {
+				Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You can't use the " + itemName + "."));
+			}
+		} else {
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + itemName + "."));
+		}
+    }
 
-	@Override
-	public int size() {
-		return inventory.size();
-	}
-
-	@Override
-	public boolean contains(Item item) {
-		return inventory.contains(item);
-	}
-
-	@Override
-	public void printItems() {
-		inventory.printItems();
-	}
 }
