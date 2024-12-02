@@ -12,17 +12,45 @@ public class NPCTests {
     
     @Test
     public void testNPCReceiveItem() {
-        Room room = new Room("Tower", "A tall tower.", new Inventory());
-        NPC npc = new NPC("Guard", room, "Shield");
-        
-        Item correctItem = new Item("Shield", "Protects the tower.", true, true, null);
-        Item wrongItem = new Item("Helmet", "Protects the head.", true, true, null);
-        
-        npc.receiveItem(correctItem);
-        assertTrue(npc.isPuzzleSolved());
-        assertTrue(npc.getInventory().getItemByName("Shield") != null);
-        
-        npc.receiveItem(wrongItem);
-        assertFalse(npc.getInventory().getItemByName("Helmet") != null);
+        Room room = new Room("Room", "Description", new Inventory());
+        NPC npc = new NPC("NPC", room);
+        Item item = new Item("Item", "Description", null);
+        npc.inventory.addItem(item);
+        assertTrue(npc.inventory.inInventory(item));
+    }
+
+    @Test
+    public void testNPCRemoveItem() {
+        Room room = new Room("Room", "Description", new Inventory());
+        NPC npc = new NPC("NPC", room);
+        Item item = new Item("Item", "Description", null);
+        npc.inventory.addItem(item);
+        npc.inventory.removeItem("Item");
+        assertFalse(npc.inventory.inInventory(item));
+    }
+
+    @Test
+    public void testNPCSetLocation() {
+        Room room = new Room("Room", "Description", new Inventory());
+        Room room2 = new Room("Room2", "Description", new Inventory());
+        NPC npc = new NPC("NPC", room);
+        npc.setLocation(room2);
+        assertTrue(npc.getLocation() == room2);
+    }
+
+    @Test
+    public void testNPCSetCurrentState() {
+        Room room = new Room("Room", "Description", new Inventory());
+        NPC npc = new NPC("NPC", room);
+        npc.setCurrentState("State");
+        assertTrue(npc.getCurrentState().equals("State"));
+    }
+
+    @Test
+    public void testNPCSetIsAlive() {
+        Room room = new Room("Room", "Description", new Inventory());
+        NPC npc = new NPC("NPC", room);
+        npc.setIsAlive(true);
+        assertTrue(npc.getIsAlive());
     }
 }

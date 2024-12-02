@@ -23,13 +23,13 @@ public class NPC implements Subscriber {
 
     // Constructor
     public NPC(String name, Room location) {
-        this.name = name;
+        this.name = name != null ? name : "";
         this.location = location;
         inventory = new Inventory();
     }
 
     public NPC(String name, Room location, String requiredItem) {
-        this.name = name;
+        this.name = name != null ? name : "";
         this.location = location;
         this.inventory = new Inventory();
         this.requiredItem = requiredItem;
