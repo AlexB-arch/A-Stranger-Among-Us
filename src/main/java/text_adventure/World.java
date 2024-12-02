@@ -201,12 +201,12 @@ public class World {
 
         // Turbo lifts 
 
-        Room turboLiftDeck1hallwayBotany = createRoom("TurboLift Deck 1: Botany","TurboLift that goes down to the storage hallway on Deck 2", null);
-        Room turboLiftDeck2hallwayWaste = createRoom("TurboLift Deck 2: Storage", "Turbo lift that goes up to the botany hallway on Deck 1", null);
-        Room turboLiftDeck2ThrusterBay = createRoom("TurboLift Deck 2: ThrusterBay", "Turbo lift that goes down to Fuel Storage on Deck 3", null);
-        Room turboLiftDeck2WasteControl = createRoom("TurboLift Deck 2: Waste Control", "Turbo lift that goes down to Waste Ejection on Deck 3", null);
-        Room turboLiftDeck3FuelStorage = createRoom("TurboLift Deck 3: Fuel Storage", "Turbo lift that goes up to the Thruster bay on Deck 2", null);
-        Room turboLiftDeck3WasteEjection = createRoom("TurboLift Deck 3: Waste Ejection", "Turbo lift that goes up to Waste Control on Deck 2", null);
+        Room turboLiftDeck1hallwayBotany = createRoom("TurboLift Deck 1 Botany","TurboLift that goes down to the storage hallway on Deck 2", null);
+        Room turboLiftDeck2hallwayWaste = createRoom("TurboLift Deck 2 Storage", "Turbo lift that goes up to the botany hallway on Deck 1", null);
+        Room turboLiftDeck2ThrusterBay = createRoom("TurboLift Deck 2 ThrusterBay", "Turbo lift that goes down to Fuel Storage on Deck 3", null);
+        Room turboLiftDeck2WasteControl = createRoom("TurboLift Deck 2 Waste Control", "Turbo lift that goes down to Waste Ejection on Deck 3", null);
+        Room turboLiftDeck3FuelStorage = createRoom("TurboLift Deck 3 Fuel Storage", "Turbo lift that goes up to the Thruster bay on Deck 2", null);
+        Room turboLiftDeck3WasteEjection = createRoom("TurboLift Deck 3 Waste Ejection", "Turbo lift that goes up to Waste Control on Deck 2", null);
 
 
         // Floor 1 connections (N, S, E, W)
@@ -234,7 +234,6 @@ public class World {
 
         dataCenter.setExits(null, null, null , hallwayData);
         hallwayData.setExits(null, null, dataCenter, hallwayCommunication);
-
         medicalBay.setExits(null, null, medicalCloset, hallwayMedical);
         medicalCloset.setExits(null, null, null, medicalBay);
         hallwayMedical.setExits(null, null, medicalBay , hallwayStorage);

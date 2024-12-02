@@ -501,7 +501,7 @@ public class Deck1TraversalTest {
          Room currentRoom = player.getCurrentLocation();
 
          // Check exits
-         assertEquals("TurboLift Deck 1: Botany", currentRoom.getExit(Directions.NORTH).getName());
+         assertEquals("TurboLift Deck 1 Botany", currentRoom.getExit(Directions.NORTH).getName());
          assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
          assertEquals("Mess Hall", currentRoom.getExit(Directions.EAST).getName());
          assertEquals("Botany Bay", currentRoom.getExit(Directions.WEST).getName());
@@ -646,7 +646,7 @@ public class Deck1TraversalTest {
          Room currentRoom = player.getCurrentLocation();
 
          // Check exits
-         assertEquals("TurboLift Deck 1: Botany", currentRoom.getExit(Directions.NORTH).getName());
+         assertEquals("TurboLift Deck 1 Botany", currentRoom.getExit(Directions.NORTH).getName());
          assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
          assertEquals("Mess Hall", currentRoom.getExit(Directions.EAST).getName());
          assertEquals("Botany Bay", currentRoom.getExit(Directions.WEST).getName());
@@ -822,6 +822,6 @@ public class Deck1TraversalTest {
         game.runCommands("go east"); // To Botany Hallway
         game.runCommands("go north"); // To Turbolift
         Room currentRoom = player.getCurrentLocation();
-        assertEquals("TurboLift Deck 1: Botany", currentRoom.getName());
+        assertEquals("TurboLift Deck 1 Botany", currentRoom.getName());
     }
  }
