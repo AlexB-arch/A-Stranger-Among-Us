@@ -2,6 +2,13 @@ package text_adventure.objects;
 
 import java.util.ArrayList;
 
+/**
+ * ItemList - Alex
+ * Class for a list of items.
+ * 
+ * Used to get a list of items from a room or inventory.
+ */
+
 public class ItemList extends ArrayList<Item> {
     private String name;
 
