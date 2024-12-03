@@ -8,6 +8,12 @@ import text_adventure.interfaces.Trigger;
 import text_adventure.Subscriber;
 import text_adventure.Game;
 
+/**
+ * GeneratorTrigger - Brendan
+ * Trigger for the generator.
+ * 
+ * Allows the Generator to be toggled off and on through the MessageBus system.
+ */
 
 public class GeneratorTrigger implements Trigger, Subscriber {
     public boolean isActivated;
