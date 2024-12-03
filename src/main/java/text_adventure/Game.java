@@ -144,10 +144,6 @@ public class Game implements java.io.Serializable {
 		return instance;
 	}
 
-	public void takeItem(String itemName) {
-		player.takeItem(itemName);
-	}
-
 	public String lookAtObject(String itemName) {
 		Room currentRoom = player.getCurrentLocation();
 		Item item = currentRoom.getInventory().getItemByName(itemName);

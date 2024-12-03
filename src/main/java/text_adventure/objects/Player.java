@@ -110,21 +110,34 @@ public void interact(String interactable) {
 		return party;
 	}
 
-	public void takeItem(String itemName) {
-		inventory.addItem(currentLocation.getInventory().getItemByName(itemName));
+	public void takeItem(Item item) {
+		inventory.addItem(item);
+		Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + item.getName() + "."));
 	}
 
-	// Method to give Items to NPC
-	public void giveItemToNPC(String itemName, NPC npc) {
-        Item item = inventory.getItemByName(itemName);
-        if (item != null) {
-            inventory.removeItem(itemName);
-            npc.receiveItem(item);
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have given " + itemName + " to " + npc.getName() + "."));
-        } else {
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You do not have " + itemName + " in your inventory."));
-        }
-    }
+	public void takeItemByName(String itemName) {
+		Item item = currentLocation.getInventory().getItemByName(itemName);
+		if (item != null) {
+			inventory.addItem(item);
+			currentLocation.getInventory().removeItem(item);
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + itemName + "."));
+		} else {
+			// Check if the item is inside a container in the player's inventory
+			for (Item invItem : inventory.items.values()) {
+				if (invItem instanceof Container) {
+					Container container = (Container) invItem;
+					Item containerItem = container.getItemByName(itemName);
+					if (containerItem != null) {
+						inventory.addItem(containerItem);
+						container.removeItem(containerItem);
+						Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + itemName + " from the " + container.getName() + "."));
+						return;
+					}
+				}
+			}
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "There is no " + itemName + " here."));
+		}
+	}
 
 	public Inventory getInventory() {
 		return inventory;
@@ -144,4 +157,24 @@ public void interact(String interactable) {
 		}
     }
 
+	public void giveItemToNPC(String string, NPC npc) {
+		Item item = inventory.getItemByName(string);
+		if (item != null) {
+			inventory.removeItem(item);
+			npc.getInventory().addItem(item);
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have given the " + string + " to " + npc.getName() + "."));
+		} else {
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + string + "."));
+		}
+	}
+
+	public void openContainerIfInInventory(String containerName) {
+        Item item = inventory.getItemByName(containerName);
+        if (item instanceof Container) {
+            Container container = (Container) item;
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", container.open()));
+        } else {
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + containerName + " in your inventory."));
+        }
+    }
 }

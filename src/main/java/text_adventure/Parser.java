@@ -104,14 +104,14 @@ public class Parser {
 		} else {
 			switch (input1.getWord()) {
 				case "go":
-					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));				
+					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
 					break;
 				case "interact":
 					Game.player.interact(input2.getWord());
 					break;
 				// Handle other verbs
 				case "take":
-                    Game.getInstance().takeItem(input2.getWord());
+					Game.player.takeItemByName(input2.getWord());
                     break;
                 case "use":
                     Game.player.useItem(input2.getWord());

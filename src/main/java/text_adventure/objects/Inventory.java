@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 
 public class Inventory {
-    private HashMap<String, Item> items;
+    HashMap<String, Item> items;
 
     public Inventory() {
         items = new HashMap<String, Item>();
@@ -13,8 +13,8 @@ public class Inventory {
         items.put(item.getName().toLowerCase(), item);
     }
 
-    public void removeItem(String itemName) {
-        items.remove(itemName.toLowerCase());
+    public void removeItem(Item item) {
+        items.remove(item.getName().toLowerCase());
     }
 
     public Item getItemByName(String itemName) {
