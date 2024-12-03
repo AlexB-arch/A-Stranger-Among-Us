@@ -89,14 +89,19 @@ public class Player implements Subscriber {
 		return party;
 	}
 
-	public void takeItem(String itemName) {
+	public void takeItem(Item item) {
+		inventory.addItem(item);
+		Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + item.getName() + "."));
+	}
+
+	public void takeItemByName(String itemName) {
 		Item item = currentLocation.getInventory().getItemByName(itemName);
 		if (item != null) {
 			inventory.addItem(item);
 			currentLocation.getInventory().removeItem(item);
-			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You have taken the " + itemName + "."));
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + itemName + "."));
 		} else {
-			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","There is no " + itemName + " here."));
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "There is no " + itemName + " here."));
 		}
 	}
 

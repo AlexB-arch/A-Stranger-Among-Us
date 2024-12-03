@@ -49,7 +49,7 @@ public class PlayerTests {
         Item item = new Item("Sword", "A sharp sword.", true, true, null);
         room.getInventory().addItem(item);
         player.currentLocation = room;
-        player.takeItem("Sword");
+        player.takeItemByName("Sword");
         assertEquals(item, player.inventory.getItemByName("Sword"));
     }
 
@@ -62,7 +62,7 @@ public class PlayerTests {
         room.getInventory().addItem(item);
         player.currentLocation = room;
 
-        player.takeItem("Sword");
+        player.takeItemByName("Sword");
         player.giveItemToNPC("Sword", npc);
         assertTrue(npc.inventory.inInventory(item));
         assertFalse(player.inventory.inInventory(item));

@@ -7,7 +7,7 @@ public class Container extends ItemHolder implements java.io.Serializable {
     public Container(String name, String description, ItemList itemList, ItemHolder container, boolean openable) {
         super(name, description, itemList, container);
         this.items = new ItemList();
-        this.openable = false;
+        this.openable = openable;
         this.isOpen = false;
     }
 
@@ -33,15 +33,13 @@ public class Container extends ItemHolder implements java.io.Serializable {
     public String open() {
         String string;
 
-        if (!openable) {
+        if (isOpen) {
+            string = "The " + getName() + " is already open.";
+        } else if (!openable) {
             string = "Can't open " + getName();
         } else {
-            if (isOpen) {
-                string = "The " + getName() + " is already open.";
-            } else {
-                isOpen = true;
-                string = "You open the " + getName();
-            }
+            isOpen = true;
+            string = "You open the " + getName();
         }
         return string;
     }
@@ -67,17 +65,17 @@ public class Container extends ItemHolder implements java.io.Serializable {
     public String describe() {
         String string;
         
-        string = super.describe();
-        if (openable) {
-            if (isOpen) {
-                string += " (open)";
-            } else {
-                string += " (closed)";
-            }
+        string = getName();
+        if (!openable) {
+            return string + " can't be opened or closed.";
+        } else if (openable && !isOpen) {
+            string += " is closed.";
+        } else if (openable && isOpen && getItemCount() == 0) {
+             string += " is open. There is nothing in it.";
         }
         if (isOpen) {
             if (getItemCount() > 0) {
-                string += "\n There is something in it.";
+                string += " is open. It contains: " + getItems().toString();
             }
         }
         return string;
