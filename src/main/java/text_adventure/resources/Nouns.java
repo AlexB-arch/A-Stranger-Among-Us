@@ -22,6 +22,7 @@ public class Nouns {
         "alice",
         "douglass",
         "generator",
+        "blue keycard"
         // Add more nouns as needed
     };
 

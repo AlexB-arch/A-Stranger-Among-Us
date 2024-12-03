@@ -217,33 +217,39 @@ public class Parser {
 
 	// Parses the input
 	static String parseInput(List<String> input) {
-		List<WordProcessor> processedInput = new ArrayList<WordProcessor>();
-		WordType type;
+		List<WordProcessor> processedInput = new ArrayList<>();
 		String response;
 		String errorMessage = "";
-
-		for (String word : input) {
-			if (dictionary.containsKey(word)){
-				type = dictionary.get(word);
-
-				if (type != WordType.ARTICLE) {
-					// Skip articles
-					processedInput.add(new WordProcessor(word, type));
+		int i = 0;
+	
+		while (i < input.size()) {
+			boolean found = false;
+	
+			// Try to combine words to form the longest matching phrase in the dictionary
+			for (int j = input.size(); j > i; j--) {
+				String phrase = String.join(" ", input.subList(i, j));
+				if (dictionary.containsKey(phrase)) {
+					WordType type = dictionary.get(phrase);
+					processedInput.add(new WordProcessor(phrase, type));
+					i = j;
+					found = true;
+					break;
 				}
-
-			} else {
-				processedInput.add(new WordProcessor(word, WordType.ERROR));
-				errorMessage += "I don't know the word '" + word + "'\r\n";
+			}
+	
+			if (!found) {
+				String word = input.get(i);
+				errorMessage += "I don't understand the word '" + word + "'.\n";
+				i++;
 			}
 		}
-
-		// Check if there is an error message to send back
-		if (errorMessage != "") {
+	
+		if (!errorMessage.equals("")) {
 			response = errorMessage;
 		} else {
 			response = processInput(processedInput);
 		}
-
+	
 		return response;
 	}
 

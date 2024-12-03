@@ -29,4 +29,8 @@ public class WordProcessor {
     public void setWordType(WordType type) {
         this.type = type;
     }
+
+    public WordProcessor add(WordProcessor other) {
+        return new WordProcessor(this.word + "-" + other.getWord(), this.type);
+    }
 }

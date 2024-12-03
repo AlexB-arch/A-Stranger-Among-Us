@@ -258,7 +258,7 @@ public class World {
         messHall.setExits(bridge, hallwayEngine, hallwayBotany, hallwayBarracks);
         barracks.setExits(barracksStorage, null, hallwayBarracks, null);
         barracksStorage.setExits(null, barracks, null, null);
-        hallwayBarracks.setExits(null, null, barracks, messHall);
+        hallwayBarracks.setExits(null, null, messHall, barracks);
         weaponsBay.setExits(null, null, hallwayWeapons, null);
         hallwayWeapons.setExits(null, null, weaponsBay, hallwayEngine);
         bridge.setExits(null, messHall, null, null);
