@@ -10,6 +10,8 @@ import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 import text_adventure.objects.TextMessage;
+import text_adventure.objects.triggers.GeneratorTrigger;
+import text_adventure.objects.triggers.AliceDialog;
 
 public class Game implements java.io.Serializable {
 	private static Game instance;
@@ -27,7 +29,7 @@ public class Game implements java.io.Serializable {
   	public Game() {
 		instance = this;
 		Parser.initDictionary();
-		globalEventBus = new MessageBus(10,3);
+		globalEventBus = new MessageBus(150,5);
 		shouldexit = false;
     	start();
   	}
@@ -54,6 +56,9 @@ public class Game implements java.io.Serializable {
 		// Initialize NPCs
 		NPC alice = new NPC("Alice", gameWorld.get("Mess Hall"));
 		globalEventBus.registerSubscriber("NPC", alice);
+
+		GeneratorTrigger generatorTrigger = new GeneratorTrigger();
+		AliceDialog AliceDial = new AliceDialog("Mess Hall");
 
 		// Add NPCs to rooms
 		gameWorld.get("Mess Hall").addNpc(alice);

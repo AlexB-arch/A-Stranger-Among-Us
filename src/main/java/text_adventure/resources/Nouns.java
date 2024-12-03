@@ -21,7 +21,7 @@ public class Nouns {
         "down",
         "alice",
         "douglass",
-
+        "generator",
         // Add more nouns as needed
     };
 

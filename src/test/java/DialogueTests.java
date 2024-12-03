@@ -16,7 +16,7 @@ import text_adventure.objects.Room;
 
 public class DialogueTests {
     // Initialize NPC
-    private NPC npc = new NPC("alice", new Room("Test Room", "Test Description", null));
+    private NPC npc = new NPC("alice", new Room("Test Room", "Test Description", null, null, null));
 
     // Initialize dialogue map
     private HashMap<String, String> dialogue = new HashMap<String, String>();

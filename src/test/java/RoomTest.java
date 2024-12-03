@@ -1,12 +1,25 @@
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import text_adventure.Game;
 import text_adventure.objects.Inventory;
 import text_adventure.objects.Item;
+import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 
 public class RoomTest {
+
+    private Game game;
+    private Player player;
+
+    @Before
+    public void setUp() {
+        game = new Game();
+        player = Game.player;
+    }
+
 
     @Test
     public void testAddItemsToRoom() {
@@ -88,7 +101,7 @@ public class RoomTest {
     @Test
     public void testRoomGetDescription() {
         Room room = new Room("Room", "Description", new Inventory());
-        assertEquals("Description", room.getDescription());
+        assertEquals("Description", room.getBaseDescription());
     }
 
 }
