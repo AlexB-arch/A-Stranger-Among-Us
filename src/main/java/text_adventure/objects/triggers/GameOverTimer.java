@@ -12,6 +12,12 @@ import text_adventure.resources.AmbienceSelector;
 
 /*
  * Class that manages the game over and periodic messages as the game is being played.
+ * 
+ *         .put("initialDelay", 25000L)
+        .put("interval", 210000L)
+        .put("isCountdown", true)
+        .put("duration", 900000L);
+
  */
 public class GameOverTimer implements Subscriber {
 
@@ -20,10 +26,10 @@ public class GameOverTimer implements Subscriber {
 
         JSONObject countdownPayload = new JSONObject()
         .put("timerId", "stranger_timer")
-        .put("initialDelay", 15000L)
-        .put("interval", 210000L)
+        .put("initialDelay", 2000L)
+        .put("interval", 10000L)
         .put("isCountdown", true)
-        .put("duration", 900000L);
+        .put("duration", 90000L);
 
         Game.globalEventBus.registerSubscriber("TIMER", this);
 
@@ -46,7 +52,8 @@ public class GameOverTimer implements Subscriber {
                 Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",AmbienceSelector.getRandomAmbience()));
                 break;
             case "TIMER_COMPLETED":
-                System.out.println("DEAD completed: " + messageData.getString("timerId"));
+                Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","Out of the shadows a figure approaches and cuts you down from behind.."));
+                Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",Game.getInstance().endGame()));
                 break;
         }
      }
