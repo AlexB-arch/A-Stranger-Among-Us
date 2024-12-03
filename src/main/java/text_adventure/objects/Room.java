@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Room - Various parts by everyone
+ * Room - Various contributors.
  * The room class is used to create rooms in the game. Each room has a name, description, exits, and items.
  * 
  * The room class also contains methods to add and remove items, as well as display the room description and exits.

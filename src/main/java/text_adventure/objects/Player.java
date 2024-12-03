@@ -8,7 +8,7 @@ import java.util.List;
 import text_adventure.resources.Directions;
 
 /**
- * Player - All contributed various parts.
+ * Player - Various contributors.
  * The player class is the main character in the game. It contains the player's current location, inventory, and party members.
  * The player can move, interact with objects, and use items.
  */
