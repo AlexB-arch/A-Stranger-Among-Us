@@ -13,8 +13,8 @@ public class Inventory {
         items.put(item.getName().toLowerCase(), item);
     }
 
-    public void removeItem(String itemName) {
-        items.remove(itemName.toLowerCase());
+    public void removeItem(Item item) {
+        items.remove(item.getName().toLowerCase());
     }
 
     public Item getItemByName(String itemName) {

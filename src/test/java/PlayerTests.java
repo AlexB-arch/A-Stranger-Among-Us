@@ -6,8 +6,10 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 import text_adventure.Game;
+import text_adventure.objects.Container;
 import text_adventure.objects.Inventory;
 import text_adventure.objects.Item;
+import text_adventure.objects.ItemList;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
@@ -24,7 +26,7 @@ public class PlayerTests {
         Item item = new Item("Sword", "A sharp sword.", true, true, null);
         inventory.addItem(item);
         assertEquals(item, inventory.getItemByName("Sword"));
-        inventory.removeItem("Sword");
+        inventory.removeItem(item);
         assertNull(inventory.getItemByName("Sword"));
     }
 

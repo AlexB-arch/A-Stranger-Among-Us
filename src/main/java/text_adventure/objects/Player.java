@@ -90,20 +90,15 @@ public class Player implements Subscriber {
 	}
 
 	public void takeItem(String itemName) {
-		inventory.addItem(currentLocation.getInventory().getItemByName(itemName));
+		Item item = currentLocation.getInventory().getItemByName(itemName);
+		if (item != null) {
+			inventory.addItem(item);
+			currentLocation.getInventory().removeItem(item);
+			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You have taken the " + itemName + "."));
+		} else {
+			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","There is no " + itemName + " here."));
+		}
 	}
-
-	// Method to give Items to NPC
-	public void giveItemToNPC(String itemName, NPC npc) {
-        Item item = inventory.getItemByName(itemName);
-        if (item != null) {
-            inventory.removeItem(itemName);
-            npc.receiveItem(item);
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have given " + itemName + " to " + npc.getName() + "."));
-        } else {
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You do not have " + itemName + " in your inventory."));
-        }
-    }
 
 	public Inventory getInventory() {
 		return inventory;
@@ -122,5 +117,16 @@ public class Player implements Subscriber {
 			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + itemName + "."));
 		}
     }
+
+	public void giveItemToNPC(String string, NPC npc) {
+		Item item = inventory.getItemByName(string);
+		if (item != null) {
+			inventory.removeItem(item);
+			npc.getInventory().addItem(item);
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have given the " + string + " to " + npc.getName() + "."));
+		} else {
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + string + "."));
+		}
+	}
 
 }

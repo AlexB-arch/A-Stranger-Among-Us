@@ -56,7 +56,7 @@ public class RoomTest {
         room.getInventory().addItem(item);
         assertEquals(item, room.getInventory().getItemByName("Sword"));
 
-        room.getInventory().removeItem("Sword");
+        room.getInventory().removeItem(item);
         assertEquals(null, room.getInventory().getItemByName("Sword"));
     }
 
@@ -67,7 +67,7 @@ public class RoomTest {
         room.getInventory().addItem(item);
         assertEquals(item, room.getInventory().getItemByName("Sword"));
 
-        room.getInventory().removeItem("Sword");
+        room.getInventory().removeItem(item);
         assertEquals(null, room.getInventory().getItemByName("Sword"));
     }
 
