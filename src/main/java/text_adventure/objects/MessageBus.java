@@ -13,6 +13,14 @@ import java.util.concurrent.TimeUnit;
 
 import text_adventure.Subscriber;
 
+/**
+ * MessageBus - Austin
+ * This is the MessageBus system. It is used to send messages from object to object, allowing the whole game to communicate with itself with ease.
+ * 
+ * Hail the MessageBus! The MessageBus is mighty and powerful!
+ * 
+ */
+
 public class MessageBus {
     private BlockingQueue<Message> messageQueue;
     private Map<String, List<Subscriber>> subscribersMap;
