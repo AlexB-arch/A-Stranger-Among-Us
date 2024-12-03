@@ -1,5 +1,7 @@
 package text_adventure.objects;
 
+import java.util.stream.Collectors;
+
 public class Container extends ItemHolder implements java.io.Serializable {
     private boolean openable;
     private boolean isOpen;
@@ -32,14 +34,23 @@ public class Container extends ItemHolder implements java.io.Serializable {
     @Override
     public String open() {
         String string;
-
-        if (isOpen) {
-            string = "The " + getName() + " is already open.";
-        } else if (!openable) {
+        // If the container is not openable, return a message saying so
+        if (!openable) {
             string = "Can't open " + getName();
         } else {
-            isOpen = true;
-            string = "You open the " + getName();
+            // If the container is already open, return a message saying so
+            if (isOpen) {
+                string = "The " + getName() + " is already open.";
+            } else {
+                // If the container is closed, open it and if its empty, return a message saying so
+                isOpen = true;
+                if (getItems().isEmpty()) {
+                    string = "You open the " + getName() + " and find nothing inside.";
+                } else {
+                    // If the container is not empty, return a message with the items inside
+                    string = "You open the " + getName() + " and find: " + getItems().stream().map(Item::getName).collect(Collectors.joining(", "));
+                }
+            }
         }
         return string;
     }
@@ -63,22 +74,7 @@ public class Container extends ItemHolder implements java.io.Serializable {
 
     @Override
     public String describe() {
-        String string;
-        
-        string = getName();
-        if (!openable) {
-            return string + " can't be opened or closed.";
-        } else if (openable && !isOpen) {
-            string += " is closed.";
-        } else if (openable && isOpen && getItemCount() == 0) {
-             string += " is open. There is nothing in it.";
-        }
-        if (isOpen) {
-            if (getItemCount() > 0) {
-                string += " is open. It contains: " + getItems().toString();
-            }
-        }
-        return string;
+        return getDescription();
     }
 
     public ItemList getInventory() {

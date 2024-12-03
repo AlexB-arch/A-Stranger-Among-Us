@@ -73,108 +73,85 @@ public class ContainerTests {
     }
 
     @Test
-    public void testContainerOpen() {
+    public void testEmptyContainerOpen() {
         Container container = new Container("container", "description", null, null, true);
-        assertEquals("You open the container", container.open());
+        String expected = "You open the container and find nothing inside.";
+        assertEquals(expected, container.open());
     }
 
     @Test
-    public void testContainerOpenAlreadyOpen() {
-        Container container = new Container("container", "description", null, null, true);
-        container.open();
-        assertEquals("The container is already open.", container.open());
-    }
-
-    @Test
-    public void testContainerClose() {
-        Container container = new Container("container", "description", null, null, true);
-        container.open();
-        assertEquals("You close the container", container.close());
-    }
-
-    @Test
-    public void testContainerCloseAlreadyClosed() {
-        Container container = new Container("container", "description", null, null, true);
-        assertEquals("The container is already closed.", container.close());
-    }
-
-    @Test
-    public void testContainerOpenNotOpenable() {
-        Container container = new Container("container", "description", null, null, false);
-        assertEquals("Can't open container", container.open());
-    }
-
-    @Test
-    public void testContainerCloseNotOpenable() {
-        Container container = new Container("container", "description", null, null, false);
-        assertEquals("Can't close container", container.close());
-    }
-
-    @Test
-    public void testContainerDescribe() {
-        Container container = new Container("container", "description", null, null, true);
-        assertEquals("description", container.describe());
-    }
-
-    @Test
-    public void testContainerDescribeOpen() {
-        Container container = new Container("container", "description", null, null, true);
-        container.open();
-        
-        String expected = container.getName() + " is open. There is nothing in it.";
-
-        assertEquals(expected, container.describe());
-    }
-
-    @Test
-    public void testContainerDescribeClosed() {
-        Container container = new Container("container", "description", null, null, true);
-        
-        String expected = container.getName() + " is closed.";
-
-        assertEquals(expected, container.describe());
-    }
-
-    @Test
-    public void testContainerDescribeNotOpenable() {
-        Container container = new Container("container", "description", null, null, false);
-        
-        String expected = container.getName() + " can't be opened or closed.";
-
-        assertEquals(expected, container.describe());
-    }
-
-    @Test
-    public void testContainerDescribeOpenableNotOpen() {
-        Container container = new Container("container", "description", null, null, true);
-        
-        String expected = container.getName() + " is closed.";
-
-        assertEquals(expected, container.describe());
-    }
-
-    @Test
-    public void testContainerDescribeOpenableOpenEmpty() {
-        Container container = new Container("container", "description", null, null, true);
-        container.open();
-        
-        String expected = container.getName() + " is open. There is nothing in it.";
-
-        assertEquals(expected, container.describe());
-    }
-
-    /*@Test
-    public void testContainerDescribeOpenableOpenWithItems() {
+    public void testNonEmptyContainerOpen() {
         Container container = new Container("container", "description", null, null, true);
         Item item1 = new Item("item1", "description", true, true, container);
         Item item2 = new Item("item2", "description", true, true, container);
         
         container.addItem(item1);
         container.addItem(item2);
-        container.open();
         
-        String expected = container.getName() + " is open. It contains: item1, item2";
+        String expected = "You open the container and find: item1, item2";
+        assertEquals(expected, container.open());
+    }
 
-        assertEquals(expected, container.describe());
-    }*/
+    @Test
+    public void testContainerAlreadyOpen() {
+        Container container = new Container("container", "description", null, null, true);
+        container.open();
+        String expected = "The container is already open.";
+        assertEquals(expected, container.open());
+    }
+
+    @Test
+    public void testNonOpenableContainerOpen() {
+        Container container = new Container("container", "description", null, null, false);
+        String expected = "Can't open container";
+        assertEquals(expected, container.open());
+    }
+
+    @Test
+    public void testEmptyContainerClose() {
+        Container container = new Container("container", "description", null, null, true);
+        container.open();
+        String expected = "You close the container";
+        assertEquals(expected, container.close());
+    }
+
+    @Test
+    public void testNonEmptyContainerClose() {
+        Container container = new Container("container", "description", null, null, true);
+        Item item1 = new Item("item1", "description", true, true, container);
+        Item item2 = new Item("item2", "description", true, true, container);
+        
+        container.addItem(item1);
+        container.addItem(item2);
+        
+        container.open();
+        String expected = "You close the container";
+        assertEquals(expected, container.close());
+    }
+
+    @Test
+    public void testContainerAlreadyClosed() {
+        Container container = new Container("container", "description", null, null, true);
+        String expected = "The container is already closed.";
+        assertEquals(expected, container.close());
+    }
+
+    @Test
+    public void testNonOpenableContainerClose() {
+        Container container = new Container("container", "description", null, null, false);
+        String expected = "Can't close container";
+        assertEquals(expected, container.close());
+    }
+
+    @Test
+    public void testContainerOpenable() {
+        Container container = new Container("container", "description", null, null, true);
+        assertEquals(true, container.isOpenable());
+    }
+
+    @Test
+    public void testContainerNotOpenable() {
+        Container container = new Container("container", "description", null, null, false);
+        assertEquals(false, container.isOpenable());
+    }
 }

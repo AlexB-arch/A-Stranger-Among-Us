@@ -83,14 +83,6 @@ public class PlayerTests {
         assertFalse(npc.inventory.inInventory(item));
     }
 
-    /*public void testPlayerUseItem() {
-        Player player = new Player();
-        Item item = new Item("Sword", "A sharp sword.", true, true, null);
-        player.inventory.addItem(item);
-        player.useItem("Sword");
-        assertFalse(player.inventory.inInventory(item));
-    }*/
-
     @Test
     public void testPlayerAddPartyMember() {
         Player player = new Player();
@@ -106,5 +98,28 @@ public class PlayerTests {
         player.addPartyMember(npc);
         player.removePartyMember(npc);
         assertFalse(player.party.containsKey("Bob"));
+    }
+
+    @Test
+    public void testPlayerTakeContainerWithItemInside() {
+        Player player = new Player();
+        Room room = new Room("Room", "Description", new Inventory());
+        Container container = new Container("Chest", "A large chest.", null, null, true);
+        Item item = new Item("Sword", "A sharp sword.", true, true, null);
+        container.addItem(item);
+        room.getInventory().addItem(container);
+        player.currentLocation = room;
+
+        player.takeItemByName("Chest");
+        assertTrue(player.inventory.inInventory(container));
+        assertFalse(player.inventory.inInventory(item));
+        assertFalse(room.getInventory().inInventory(container));
+
+        player.openContainerIfInInventory("Chest");
+        assertTrue(container.isOpen());
+
+        player.takeItemByName("Sword");
+        assertTrue(player.inventory.inInventory(item));
+        assertFalse(container.getInventory().inInventory(item));
     }
 }

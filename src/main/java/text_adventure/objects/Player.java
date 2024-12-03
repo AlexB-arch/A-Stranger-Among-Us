@@ -101,6 +101,19 @@ public class Player implements Subscriber {
 			currentLocation.getInventory().removeItem(item);
 			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + itemName + "."));
 		} else {
+			// Check if the item is inside a container in the player's inventory
+			for (Item invItem : inventory.items.values()) {
+				if (invItem instanceof Container) {
+					Container container = (Container) invItem;
+					Item containerItem = container.getItemByName(itemName);
+					if (containerItem != null) {
+						inventory.addItem(containerItem);
+						container.removeItem(containerItem);
+						Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + itemName + " from the " + container.getName() + "."));
+						return;
+					}
+				}
+			}
 			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "There is no " + itemName + " here."));
 		}
 	}
@@ -134,4 +147,13 @@ public class Player implements Subscriber {
 		}
 	}
 
+	public void openContainerIfInInventory(String containerName) {
+        Item item = inventory.getItemByName(containerName);
+        if (item instanceof Container) {
+            Container container = (Container) item;
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", container.open()));
+        } else {
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + containerName + " in your inventory."));
+        }
+    }
 }
