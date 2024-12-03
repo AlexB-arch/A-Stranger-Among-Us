@@ -2,6 +2,13 @@ package text_adventure;
 
 import text_adventure.objects.Message;
 
+/**
+ * ConsoleManager - Brendan
+ * This class is used to manage the console output and input.
+ * 
+ * This class implements the MessageBus system to deliver messages to the console.
+ */
+
 public class ConsoleManager implements Subscriber{
     private boolean isDebug = false;
     private boolean lockPromptInput = false;
