@@ -1,5 +1,11 @@
 package text_adventure.objects;
 
+/**
+ * TextMessage - Austin
+ * This class is used to create a message object that can be sent to the message bus.
+ * 
+ */
+
 public class TextMessage implements Message {
     private final String type;
     private final String header;
