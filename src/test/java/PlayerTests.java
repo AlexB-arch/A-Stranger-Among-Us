@@ -30,6 +30,8 @@ public class PlayerTests {
         assertNull(inventory.getItemByName("Sword"));
     }
 
+        Room room = new Room("Sleeping Quarters", "A room with beds", null, null, null);
+        NPC npc = new NPC("Alice", room);
     @Test
     public void testPlayerParty() {
         Player player = new Player();
@@ -51,6 +53,15 @@ public class PlayerTests {
         player.currentLocation = room;
         player.takeItemByName("Sword");
         assertEquals(item, player.inventory.getItemByName("Sword"));
+    }
+    @Test
+    public void testRemovePartyMember() {
+        Room room = new Room("Sleeping Quarters", "A room with beds", null, null, null);
+        NPC npc = new NPC("Bob", room);
+        Player player = new Player();
+        player.addPartyMember(npc);
+        player.removePartyMember(npc);
+        assertFalse(player.getParty().containsKey(npc.getName()));
     }
 
     @Test

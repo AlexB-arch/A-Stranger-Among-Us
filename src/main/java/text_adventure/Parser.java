@@ -77,7 +77,10 @@ public class Parser {
 					break;
 				case "talkto":
 					response = "Not yet implemented";
-					
+					break;
+				case "interactwith":
+					Game.player.interact(input3.getWord());
+					System.out.println(input3.getWord());
 					break;
 				default:
 					response = "I don't know how to '" + input1.getWord() + " " + input2.getWord() + " " + input3.getWord() + "'";
@@ -93,17 +96,20 @@ public class Parser {
 		WordProcessor input1 = input.get(0);
 		WordProcessor input2 = input.get(1);
 		String response = "";
-
-		// Check if the first word is a valid action
+	
 		if (input1.getWordType() != WordType.VERB) {
 			response = "Can't do that. " + input1.getWord() + " is not a valid action!";
 		} else if (input2.getWordType() != WordType.NOUN) {
-			response = "Can't do that. " + input2.getWord() + " is not a valid object! (not noun)";
+			response = "Can't do that. " + input2.getWord() + " is not a valid object!";
 		} else {
 			switch (input1.getWord()) {
 				case "go":
 					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
 					break;
+				case "interact":
+					Game.player.interact(input2.getWord());
+					break;
+				// Handle other verbs
 				case "take":
 					Game.player.takeItemByName(input2.getWord());
                     break;
@@ -111,11 +117,10 @@ public class Parser {
                     Game.player.useItem(input2.getWord());
                     break;
 				default:
-					response = "Not yet implemented";
+					response = "You can't do that.";
 					break;
 			}
 		}
-
 		return response;
 	}
 
@@ -168,6 +173,9 @@ public class Parser {
 					break;
 				case "give":
 					response = "Give what?";
+					break;
+				case "interact":
+					response = "Interact with what?";
 					break;
 				default:
 					break;
