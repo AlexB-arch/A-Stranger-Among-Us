@@ -43,7 +43,7 @@ public class Game implements java.io.Serializable {
 		globalEventBus.startMessageProcessing();
 
 		// Timer Manager
-		timerManager = new AsyncTimerManager();
+		timerManager = new AsyncTimerManager(globalEventBus);
 
 
 		// Initialize the player
@@ -159,7 +159,7 @@ public class Game implements java.io.Serializable {
 		globalEventBus.shutdown();
 	}
 
-	public void takeItem(String itemName) {
+	public void takeItem(Item itemName) {
 		player.takeItem(itemName);
 	}
 

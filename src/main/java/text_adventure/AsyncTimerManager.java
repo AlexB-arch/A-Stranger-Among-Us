@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import text_adventure.objects.AsyncTimer;
 import text_adventure.objects.Message;
+import text_adventure.objects.MessageBus;
 import text_adventure.objects.TimerMessage;
 
 
@@ -40,6 +41,7 @@ class TimerConfig {
 public class AsyncTimerManager implements Subscriber {
     private final Map<String, AsyncTimer> timers;
     private final Map<String, TimerConfig> timerConfigs;
+    private final MessageBus timerBus;
 
     // Message types as constants
     private static final String TYPE_CREATE = "TIMER_CREATE";
@@ -49,25 +51,30 @@ public class AsyncTimerManager implements Subscriber {
     private static final String TYPE_TICK = "TIMER_TICK";
     private static final String TYPE_COMPLETED = "TIMER_COMPLETED";
 
-    public AsyncTimerManager() {
+    // public AsyncTimerManager() {
+    //     this.timers = new ConcurrentHashMap<>();
+    //     this.timerConfigs = new ConcurrentHashMap<>();
+
+    //     .registerSubscriber("TIMER", this);
+    // }
+
+    public AsyncTimerManager(MessageBus bus) {
         this.timers = new ConcurrentHashMap<>();
         this.timerConfigs = new ConcurrentHashMap<>();
+        this.timerBus = bus;
 
-        Game.globalEventBus.registerSubscriber("TIMER", this);
+        this.timerBus.registerSubscriber("TIMER", this);
     }
 
 
     private void publishMessage(Message message) {
-            Game.globalEventBus.publish(message);
-        }
+            this.timerBus.publish(message);
+    }
     
 
     @Override
     public void onMessage(Message message) {
-        if (!"TIMER".equals(message.getHeader())) {
-            return; // Ignore non-timer messages
-        }
-
+        if ("TIMER".equals(message.getHeader())) {
         switch (message.getType()) {
             case TYPE_CREATE:
                 handleCreateTimer(message.getMessage());
@@ -78,6 +85,7 @@ public class AsyncTimerManager implements Subscriber {
             case TYPE_DELETE:
                 handleDeleteTimer(message.getMessage());
                 break;
+            }
         }
     }
 
@@ -148,7 +156,6 @@ public class AsyncTimerManager implements Subscriber {
     }
 
     private TimerConfig createConfigFromPayload(JSONObject payload) {
-        System.out.println(payload.toString());
         return new TimerConfig(
             payload.getString("timerId"),
             payload.getLong("initialDelay"),
