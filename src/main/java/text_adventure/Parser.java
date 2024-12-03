@@ -102,9 +102,7 @@ public class Parser {
 		} else {
 			switch (input1.getWord()) {
 				case "go":
-					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
-					System.out.println(input2.getWord().toUpperCase());
-				
+					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));				
 					break;
 				case "take":
                     Game.getInstance().takeItem(input2.getWord());

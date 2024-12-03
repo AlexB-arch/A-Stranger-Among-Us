@@ -63,7 +63,7 @@ public class Player implements Subscriber {
 		if(message.getHeader() == "PLAYER"){
 			switch (message.getType()) {
 				case "LOOK":
-					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().getDescription()));
+					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().displayRoom()));
 					break;
 				default:
 					break;
