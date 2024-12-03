@@ -9,7 +9,7 @@ import text_adventure.resources.Directions;
 
 public class Player implements Subscriber {
 	public Room currentLocation;
-	public Inventory inventory;
+	public static Inventory inventory;
 
 	// Party. Consists of the NPC name as the key and the NPC object as the value
 	public HashMap<String, NPC> party;
@@ -29,36 +29,23 @@ public class Player implements Subscriber {
   }
 
   public void move(Directions direction) {
-
-		if (currentLocation.getExit(direction) == null) {
-			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You can't go that way."));
+	if (currentLocation.getExit(direction) == null) {
+		Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You can't go that way."));
+	} 
+	else if (currentLocation.getExit(direction).getKey() == null) {
+		currentLocation = currentLocation.getExit(direction);
+	}
+	else {
+		if (Player.inventory.inInventory(Player.inventory.getItemByName(currentLocation.getExit(direction).getKey()))) {
+			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You unlock the door with the key and proceed."));
+			currentLocation = currentLocation.getExit(direction);
 		} else {
-			switch (direction) {
-				case NORTH:
-         			currentLocation = currentLocation.getExit(direction);
-					break;
-				case SOUTH:
-          			currentLocation = currentLocation.getExit(direction);
-					break;
-				case EAST:
-          			currentLocation = currentLocation.getExit(direction);
-					break;
-				case WEST:
-          			currentLocation = currentLocation.getExit(direction);
-					break;
-				case DOWN:
-					currentLocation = currentLocation.getExit(direction);
-					break;
-				case UP:
-					currentLocation = currentLocation.getExit(direction);
-					break;
-				default:
-					break;
-			}
-			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",currentLocation.displayRoom()));;
-			Game.globalEventBus.publish(new TextMessage("TRIGGER","DIAL",getCurrentLocation().getName()));;
+			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","The door is locked. You need the "+currentLocation.getExit(direction).getKey()+" to proceed."));
 		}
 	}
+	Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",currentLocation.displayRoom()));;
+	Game.globalEventBus.publish(new TextMessage("TRIGGER","DIAL",getCurrentLocation().getName()));;
+}
 
 
 public void interact(String interactable) {

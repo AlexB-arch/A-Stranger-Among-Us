@@ -19,7 +19,7 @@ public class Room implements Subscriber{
     public String key;
 
     // Constructor
-    public Room(String name, String description, Inventory loot, List<String> interactables, String Key) {
+    public Room(String name, String description, Inventory loot, List<String> interactables, String key) {
         // Increment the room count each time a room is created
         roomCount++;
 
