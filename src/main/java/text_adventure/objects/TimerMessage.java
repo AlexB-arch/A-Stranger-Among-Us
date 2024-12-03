@@ -4,6 +4,12 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+/**
+ * Inventory - Austin
+ * Class to implenet timer based messages.
+ * 
+ */
+
 // Implementation of the Message interface for timer operations
 public class TimerMessage implements Message {
     private final String header;
