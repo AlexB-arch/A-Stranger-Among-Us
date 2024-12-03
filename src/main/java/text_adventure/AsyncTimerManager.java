@@ -40,10 +40,10 @@ class TimerConfig {
 public class AsyncTimerManager implements Subscriber {
     private final Map<String, AsyncTimer> timers;
     private final Map<String, TimerConfig> timerConfigs;
-    private final List<Subscriber> subscribers;
 
     // Message types as constants
     private static final String TYPE_CREATE = "TIMER_CREATE";
+    private static final String TYPE_CREATED = "TIMER_CREATED";
     private static final String TYPE_UPDATE = "TIMER_UPDATE";
     private static final String TYPE_DELETE = "TIMER_DELETE";
     private static final String TYPE_TICK = "TIMER_TICK";
@@ -52,18 +52,15 @@ public class AsyncTimerManager implements Subscriber {
     public AsyncTimerManager() {
         this.timers = new ConcurrentHashMap<>();
         this.timerConfigs = new ConcurrentHashMap<>();
-        this.subscribers = new ArrayList<>();
+
+        Game.globalEventBus.registerSubscriber("TIMER", this);
     }
 
-    public void addSubscriber(Subscriber subscriber) {
-        subscribers.add(subscriber);
-    }
 
     private void publishMessage(Message message) {
-        for (Subscriber subscriber : subscribers) {
-            subscriber.onMessage(message);
+            Game.globalEventBus.publish(message);
         }
-    }
+    
 
     @Override
     public void onMessage(Message message) {
@@ -105,7 +102,7 @@ public class AsyncTimerManager implements Subscriber {
             Map<String, Object> response = new HashMap<>();
             response.put("timerId", timerId);
             response.put("status", "created");
-            publishMessage(TimerMessage.createMessage(TYPE_CREATE, response));
+            publishMessage(TimerMessage.createMessage(TYPE_CREATED, response));
         }
     }
 
@@ -151,6 +148,7 @@ public class AsyncTimerManager implements Subscriber {
     }
 
     private TimerConfig createConfigFromPayload(JSONObject payload) {
+        System.out.println(payload.toString());
         return new TimerConfig(
             payload.getString("timerId"),
             payload.getLong("initialDelay"),
@@ -185,6 +183,7 @@ public class AsyncTimerManager implements Subscriber {
                 publishMessage(TimerMessage.createMessage(TYPE_COMPLETED, completedData));
             },
             config.getDuration(),
+            config.getInitialDelay(),
             config.getInterval()
         );
     }
