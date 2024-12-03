@@ -214,7 +214,6 @@ public class Room implements java.io.Serializable{
         this.npc = null;
     }
 
-    // TODO: Add and Remove items from Rooms
     public Inventory getInventory() {
         return loot;
     }
@@ -222,5 +221,29 @@ public class Room implements java.io.Serializable{
     // Get the number of rooms created
     public static int getRoomCount(){
         return roomCount;
+    }
+
+    // Get the number of exits in the room
+    public int getExitCount(){
+        int count = 0;
+        if (north != null) {
+            count++;
+        }
+        if (south != null) {
+            count++;
+        }
+        if (east != null) {
+            count++;
+        }
+        if (west != null) {
+            count++;
+        }
+        if (up != null){
+            count++;
+        }
+        if (down != null){
+            count++;
+        }
+        return count;
     }
 }
