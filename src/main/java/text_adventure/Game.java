@@ -12,6 +12,7 @@ import text_adventure.objects.Room;
 import text_adventure.objects.TextMessage;
 import text_adventure.objects.triggers.GeneratorTrigger;
 import text_adventure.objects.triggers.AliceDialog;
+import text_adventure.objects.triggers.GameOverTimer;
 
 public class Game implements java.io.Serializable {
 	private static Game instance;
@@ -23,6 +24,8 @@ public class Game implements java.io.Serializable {
   	public static Map<String, Room> gameWorld;
 
   	private ConsoleManager consoleManager;
+
+	private AsyncTimerManager timerManager;
 
   	private boolean shouldexit;
 
@@ -39,6 +42,10 @@ public class Game implements java.io.Serializable {
 		// Initalize the Message Bus
 		globalEventBus.startMessageProcessing();
 
+		// Timer Manager
+		timerManager = new AsyncTimerManager();
+
+
 		// Initialize the player
 		player = new Player();
 		consoleManager = new ConsoleManager();
@@ -50,6 +57,9 @@ public class Game implements java.io.Serializable {
 		gameWorld = worldBuilder.initializeRooms();
 		worldBuilder.visualizeWorld();
 
+
+		// Timers
+		GameOverTimer gameTimer = new GameOverTimer();
 		// Set the player's starting location
 		player.setCurrentLocation(gameWorld.get("Barracks Storage"));
 
@@ -142,6 +152,11 @@ public class Game implements java.io.Serializable {
 
 	public static Game getInstance() {
 		return instance;
+	}
+
+	public void shutdownAsync(){
+		timerManager.shutdown();
+		globalEventBus.shutdown();
 	}
 
 	public void takeItem(String itemName) {
