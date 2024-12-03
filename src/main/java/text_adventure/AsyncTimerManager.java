@@ -8,7 +8,14 @@ import text_adventure.objects.AsyncTimer;
 import text_adventure.objects.Message;
 import text_adventure.objects.TimerMessage;
 
-
+/**
+ * TimerConfig - Austin
+ * This class is used to configure the timer.
+ * 
+ * TimerConfig class is used to configure the timer with the initial delay, interval.
+ * 
+ * We primarily use this class to create timer based triggers.
+ */
 
 // Timer configuration class
 class TimerConfig {
