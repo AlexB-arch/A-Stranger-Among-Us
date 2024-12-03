@@ -46,7 +46,7 @@ public class AsyncTimer {
      * @param tickMs Interval between ticks in milliseconds
      */
     public void startCountdown(Consumer<Long> onTick, Runnable onComplete, 
-                             long durationMs, long tickMs) {
+                             long durationMs, long initialDelay, long tickMs) {
         if (!isRunning) {
             final long startTime = System.currentTimeMillis();
             final long endTime = startTime + durationMs;
@@ -63,7 +63,7 @@ public class AsyncTimer {
                         onTick.accept(remaining);
                     }
                 },
-                0,
+                initialDelay,
                 tickMs,
                 TimeUnit.MILLISECONDS
             );

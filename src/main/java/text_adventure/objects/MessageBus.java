@@ -1,12 +1,12 @@
 package text_adventure.objects;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +25,7 @@ public class MessageBus {
 
     // Register a subscriber for a specific message type
     public void registerSubscriber(String subscriberKey, Subscriber subscriber) {
-        subscribersMap.computeIfAbsent(subscriberKey, k -> new ArrayList<>()).add(subscriber);
+        subscribersMap.computeIfAbsent(subscriberKey, k -> new CopyOnWriteArrayList<>()).add(subscriber);
 
     }
 
@@ -47,7 +47,7 @@ public class MessageBus {
                     while (true) {
                         Message message = messageQueue.take(); // Blocks if queue is empty
                         String messageHeader = message.getHeader();
-                        List<Subscriber> subscribers = subscribersMap.getOrDefault(messageHeader, new ArrayList<>());
+                        List<Subscriber> subscribers = subscribersMap.getOrDefault(messageHeader, new CopyOnWriteArrayList<>());
 
                         for (Subscriber subscriber : subscribers) {
                             subscriber.onMessage(message); // Notify all subscribers

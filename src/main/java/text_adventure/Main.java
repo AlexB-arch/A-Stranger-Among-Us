@@ -28,8 +28,8 @@ public class Main {
 			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",output));
 			
 		} while (game.getShouldExit() != true);
-
-		Game.globalEventBus.shutdown();
+		
+		game.shutdownAsync();
 
 	}
 }
