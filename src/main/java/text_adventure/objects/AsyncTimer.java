@@ -3,6 +3,13 @@ package text_adventure.objects;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 
+/**
+ * AsyncTimer - Austin
+ * A utility class for running tasks asynchronously on a timer.
+ * 
+ * This class uses a ScheduledExecutorService to run tasks at fixed intervals
+ */
+
 public class AsyncTimer {
     private final ScheduledExecutorService executor;
     private ScheduledFuture<?> scheduledTask;
