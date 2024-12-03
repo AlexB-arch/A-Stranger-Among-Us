@@ -1,5 +1,12 @@
 package text_adventure.objects;
 
+/**
+ * LootManager - Alex
+ * Class for managing loot.
+ * 
+ * Used to manage loot in a room or inventory.
+ */
+
 public class LootManager {
     private Item item;
     private ItemHolder itemHolder;
