@@ -301,7 +301,6 @@ public void setCurrentDescription(String currentDescription) {
         this.npc = null;
     }
 
-    // TODO: Add and Remove items from Rooms
     public Inventory getInventory() {
         return loot;
     }
@@ -334,5 +333,29 @@ public void setCurrentDescription(String currentDescription) {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    // Get the number of exits in the room
+    public int getExitCount(){
+        int count = 0;
+        if (north != null) {
+            count++;
+        }
+        if (south != null) {
+            count++;
+        }
+        if (east != null) {
+            count++;
+        }
+        if (west != null) {
+            count++;
+        }
+        if (up != null){
+            count++;
+        }
+        if (down != null){
+            count++;
+        }
+        return count;
     }
 }

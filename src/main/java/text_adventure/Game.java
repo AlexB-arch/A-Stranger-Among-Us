@@ -185,4 +185,35 @@ public class Game implements java.io.Serializable {
 			return message;
 		}
     }
+
+	public int getRoomCount() {
+		return gameWorld.size();
+	}
+
+	public int getItemCount() {
+			int count = 0;
+			for (Room room : gameWorld.values()) {
+				count += room.getInventory().size();
+			}
+			count += player.getInventory().size();
+			// Add counts from NPC inventories if necessary
+			return count;
+		}
+
+	public int getLinks() {
+		int count = 0;
+		for (Room room : gameWorld.values()) {
+			if (room.getNorth() != null || room.getSouth() != null ||
+				room.getEast() != null || room.getWest() != null ||
+				room.getUp() != null || room.getDown() != null) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	public boolean hasDynamicLinks() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'hasDynamicLinks'");
+	}
 }

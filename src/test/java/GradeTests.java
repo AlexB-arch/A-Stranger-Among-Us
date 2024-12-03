@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -10,13 +11,13 @@ public class GradeTests {
     /*@Test
     public void testMinimumRoomsForC() {
         int expected = 20;
-        assertTrue(game.getInstancedRooms() >= expected);
+        assertTrue(game.getRoomCount() >= expected);
     }
 
     @Test
     public void testMinimumItemsForC() {
         int expected = 10;
-        assertTrue(game.getInstancedItems() >= expected);
+        assertTrue(game.getItemCount() >= expected);
     }
 
     @Test
@@ -34,13 +35,13 @@ public class GradeTests {
     @Test
     public void testMinimumRoomsForB() {
         int expected = 30;
-        assertTrue(game.getInstancedRooms() >= expected);
+        assertTrue(game.getRoomCount() >= expected);
     }
 
     @Test
     public void testMinimumItemsForB() {
         int expected = 15;
-        assertTrue(game.getInstancedItems() >= expected);
+        assertTrue(game.getItemCount() >= expected);
     }
 
     @Test
@@ -62,19 +63,18 @@ public class GradeTests {
     @Test
     public void testMinimumRoomsForA() {
         int expected = 40;
-        assertTrue(game.getInstancedRooms() >= expected);
+        assertTrue(game.getRoomCount() >= expected);
     }
 
     @Test
     public void testMinimumItemsForA() {
         int expected = 20;
-        assertTrue(game.getInstancedItems() >= expected);
+        assertTrue(game.getItemCount() >= expected);
     }
 
     @Test
     public void testMinimumLinksForA() {
         int expected = 50;
-        assertTrue(game.getLinks() >= expected);
+        assertEquals(expected, game.getLinks());
     }*/
-
 }
