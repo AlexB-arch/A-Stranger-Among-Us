@@ -14,7 +14,7 @@ import text_adventure.objects.Room;
 import text_adventure.objects.RoomVisualizer;
 
 /**
- * World
+ * World - various contributors.
  * This class defines our world and all the connections and rooms in it.
  * It stores all of these rooms in a Map for easy lookup and traversal for other
  * systems.
