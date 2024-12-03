@@ -1,14 +1,18 @@
 package text_adventure.objects;
 
 import text_adventure.resources.Directions;
+import text_adventure.Subscriber;
+import text_adventure.Game;
+import text_adventure.objects.Message;
 
 import java.util.ArrayList;
 import java.util.List;
 
+public class Room implements java.io.Serializable, Subscriber{
     // Static variable to keep track of the number of rooms created
     private static int roomCount = 0;
 
-    private String name, description;
+    private String name, baseDescription, currentDescription;
     private Room north, south, west, east, up, down;
     public Inventory loot;
     public NPC npc;
@@ -16,7 +20,7 @@ import java.util.List;
     public String key;
 
     // Constructor
-    public Room(String name, String description, Inventory loot) {
+    public Room(String name, String description, Inventory loot, List<String> interactables, String Key) {
         // Increment the room count each time a room is created
         roomCount++;
 
@@ -33,6 +37,51 @@ import java.util.List;
         }else {
             loot = new Inventory();
         }
+        Game.globalEventBus.registerSubscriber("TRIGGER", this);
+        Game.globalEventBus.registerSubscriber(getName(), this);
+    }
+
+    public Room(String name, String description, Inventory loot, List<String> interactables) {
+        // Increment the room count each time a room is created
+        roomCount++;
+
+        setName(name);
+        setBaseDescription(description);
+        if (interactables != null) {
+            this.interactables = interactables;
+        } else {
+            this.interactables = new ArrayList<>();
+        }
+        if (loot != null){
+            this.loot = loot;
+        }else {
+            loot = new Inventory();
+        }
+        Game.globalEventBus.registerSubscriber("TRIGGER", this);
+        Game.globalEventBus.registerSubscriber(getName(), this);
+    }
+
+    public Room(String name, String description, Inventory loot) {
+        // Increment the room count each time a room is created
+        roomCount++;
+
+        setName(name);
+        setBaseDescription(description);
+        if (loot != null){
+            this.loot = loot;
+        }else {
+            loot = new Inventory();
+        }
+        Game.globalEventBus.registerSubscriber("TRIGGER", this);
+        Game.globalEventBus.registerSubscriber(getName(), this);
+    }
+
+    public Room(String name, String description) {
+        // Increment the room count each time a room is created
+        roomCount++;
+
+        setName(name);
+        setBaseDescription(description);
         Game.globalEventBus.registerSubscriber("TRIGGER", this);
         Game.globalEventBus.registerSubscriber(getName(), this);
     }
@@ -91,15 +140,15 @@ import java.util.List;
         this.name = name;
     }
 
-		public String getBaseDescription() {
+	public String getBaseDescription() {
         return baseDescription;
     }
 
-		public void setBaseDescription(String baseDescription) {
+	public void setBaseDescription(String baseDescription) {
         this.baseDescription = baseDescription;
     }
 
-		public String getCurrentDescription() {
+	public String getCurrentDescription() {
 		return currentDescription;
 }
 
@@ -120,7 +169,7 @@ public void setCurrentDescription(String currentDescription) {
                 return getEast().getName();
             case UP:
                 return getUp().getName();
-            case DOWN: 
+            case DOWN:
                 return getDown().getName();
             default:
                 return "Invalid Direction";
@@ -137,11 +186,11 @@ public void setCurrentDescription(String currentDescription) {
             case WEST:
                 return getWest().getCurrentDescription();
             case EAST:
-                return getEast().getDescription();
+                return getEast().getCurrentDescription();
             case UP:
-                return getUp().getDescription();
+                return getUp().getCurrentDescription();
             case DOWN:
-                return getDown().getDescription();
+                return getDown().getCurrentDescription();
             default:
                 return "Invalid Direction";
         }
@@ -198,7 +247,7 @@ public void setCurrentDescription(String currentDescription) {
                     else{
                         setCurrentDescription(getBaseDescription() + trigmessage[1]);
                     }
-            }   
+            }
         }
     }
 
@@ -264,9 +313,9 @@ public void setCurrentDescription(String currentDescription) {
     }
 
     // Get the item in the room by name
-    public Item getCurrentRoomItem(String itemName){
-        return loot.takeItem(itemName).orElse(null);
-    }
+    // public Item getCurrentRoomItem(String itemName){
+    //     return loot.takeItem(itemName).orElse(null);
+    // }
 
     public List<String> getInteractables() {
         return interactables;

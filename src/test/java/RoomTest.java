@@ -88,7 +88,7 @@ public class RoomTest {
     @Test
     public void testRoomGetDescription() {
         Room room = new Room("Room", "Description", new Inventory());
-        assertEquals("Description", room.getDescription());
+        assertEquals("Description", room.getBaseDescription());
     }
 
 }

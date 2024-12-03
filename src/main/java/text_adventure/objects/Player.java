@@ -63,9 +63,9 @@ public class Player implements Subscriber {
 
 public void interact(String interactable) {
     List<String> interactables = currentLocation.getInteractables();
-    if (interactables.contains(interactable)) {
+    if (interactables.contains(interactable.toLowerCase())) {
         switch (interactable.toLowerCase()) {
-            case "generator button":
+            case "generator":
                 Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You press the generator button. The generator hums to life!"));
                 Game.globalEventBus.publish(new TextMessage("TRIGGER", "GEN", "ON"));
                 break;

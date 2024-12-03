@@ -77,7 +77,10 @@ public class Parser {
 					break;
 				case "talkto":
 					response = "Not yet implemented";
-					
+					break;
+				case "interactwith":
+					Game.player.interact(input3.getWord());
+					System.out.println(input3.getWord());
 					break;
 				default:
 					response = "I don't know how to '" + input1.getWord() + " " + input2.getWord() + " " + input3.getWord() + "'";
@@ -103,10 +106,9 @@ public class Parser {
 				case "go":
 					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
 					System.out.println(input2.getWord().toUpperCase());
-				
 					break;
 				case "interact":
-					Game.player.interact("Generator Button");
+					Game.player.interact(input2.getWord());
 					break;
 				// Handle other verbs
 				case "take":
@@ -174,7 +176,7 @@ public class Parser {
 					response = "Give what?";
 					break;
 				case "interact":
-					Game.player.interact("Generator Button");
+					response = "Interact with what?";
 					break;
 				default:
 					break;

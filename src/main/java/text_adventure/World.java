@@ -77,7 +77,7 @@ public class World {
         
         Room engineRoom = createRoom("Engine Room",
             "The Engine Room contains the main power generators for the station.",
-            null, Arrays.asList("Generator Button"), null);
+            null, Arrays.asList("generator"), null);
         
         Room engineStorage = createRoom("Engine Room Storage",
                 "Engine Room Storage holds spare parts and tools for engine maintenance.",
@@ -108,7 +108,7 @@ public class World {
 
 		Room dockingBay = createRoom("Dock Bay",
 						"The Docking Bay is where spacecraft dock to load and unload passengers and cargo.",
-                         new String[]{"Oxygen", "Fuel", "Batteries", "Yellow Keycard"});
+                         new String[]{"Oxygen", "Fuel", "Batteries", "Yellow Keycard"}, null, null);
 
         // Data Center Area
         Room dataCenter = createRoom("Data Center",
@@ -204,12 +204,12 @@ public class World {
 
         // Turbo lifts 
 
-        Room turboLiftDeck1hallwayBotany = createRoom("TurboLift Deck 1 Botany","TurboLift that goes down to the storage hallway on Deck 2", null);
-        Room turboLiftDeck2hallwayWaste = createRoom("TurboLift Deck 2 Storage", "Turbo lift that goes up to the botany hallway on Deck 1", null);
-        Room turboLiftDeck2ThrusterBay = createRoom("TurboLift Deck 2 ThrusterBay", "Turbo lift that goes down to Fuel Storage on Deck 3", null);
-        Room turboLiftDeck2WasteControl = createRoom("TurboLift Deck 2 Waste Control", "Turbo lift that goes down to Waste Ejection on Deck 3", null);
-        Room turboLiftDeck3FuelStorage = createRoom("TurboLift Deck 3 Fuel Storage", "Turbo lift that goes up to the Thruster bay on Deck 2", null);
-        Room turboLiftDeck3WasteEjection = createRoom("TurboLift Deck 3 Waste Ejection", "Turbo lift that goes up to Waste Control on Deck 2", null);
+        Room turboLiftDeck1hallwayBotany = createRoom("TurboLift Deck 1 Botany","TurboLift that goes down to the storage hallway on Deck 2", null, null, null);
+        Room turboLiftDeck2hallwayWaste = createRoom("TurboLift Deck 2 Storage", "Turbo lift that goes up to the botany hallway on Deck 1", null, null, null);
+        Room turboLiftDeck2ThrusterBay = createRoom("TurboLift Deck 2 ThrusterBay", "Turbo lift that goes down to Fuel Storage on Deck 3", null, null, null);
+        Room turboLiftDeck2WasteControl = createRoom("TurboLift Deck 2 Waste Control", "Turbo lift that goes down to Waste Ejection on Deck 3", null, null, null);
+        Room turboLiftDeck3FuelStorage = createRoom("TurboLift Deck 3 Fuel Storage", "Turbo lift that goes up to the Thruster bay on Deck 2", null, null, null);
+        Room turboLiftDeck3WasteEjection = createRoom("TurboLift Deck 3 Waste Ejection", "Turbo lift that goes up to Waste Control on Deck 2", null, null, null);
 
 
         // Floor 1 connections (N, S, E, W)
