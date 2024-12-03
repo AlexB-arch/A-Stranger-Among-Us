@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 
 public class Inventory {
-    HashMap<String, Item> items;
+    public HashMap<String, Item> items;
 
     public Inventory() {
         items = new HashMap<String, Item>();
