@@ -15,7 +15,7 @@ import text_adventure.objects.triggers.AliceDialog;
 import text_adventure.objects.triggers.EndGame;
 
 /**
- * Game - Austin
+ * Game - Various people
  * The Game class is the main class that runs the game. It initializes the player, the world, and the console manager.
  * 
  * The game class is responsible for starting the game, showing the intro message, and running the game loop.
