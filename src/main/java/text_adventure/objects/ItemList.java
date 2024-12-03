@@ -31,4 +31,8 @@ public class ItemList extends ArrayList<Item> {
         }
         return null;
     }
+
+    public boolean inInventory(Item item) {
+        return this.contains(item);
+    }
 }

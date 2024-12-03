@@ -136,7 +136,7 @@ public class NPC implements Subscriber {
     public void giveItemToPlayer(String itemName, Player player) {
         Item item = inventory.getItemByName(itemName);
         if (item != null) {
-            inventory.removeItem(itemName);
+            inventory.removeItem(item);
             player.getInventory().addItem(item);
         }
     }

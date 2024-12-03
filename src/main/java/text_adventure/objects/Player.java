@@ -9,7 +9,7 @@ import text_adventure.resources.Directions;
 
 public class Player implements Subscriber {
 	public Room currentLocation;
-	public Inventory inventory;
+	public static Inventory inventory;
 
 	// Party. Consists of the NPC name as the key and the NPC object as the value
 	public HashMap<String, NPC> party;
@@ -29,36 +29,23 @@ public class Player implements Subscriber {
   }
 
   public void move(Directions direction) {
-
-		if (currentLocation.getExit(direction) == null) {
-			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You can't go that way."));
+	if (currentLocation.getExit(direction) == null) {
+		Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You can't go that way."));
+	} 
+	else if (currentLocation.getExit(direction).getKey() == null) {
+		currentLocation = currentLocation.getExit(direction);
+	}
+	else {
+		if (Player.inventory.inInventory(Player.inventory.getItemByName(currentLocation.getExit(direction).getKey()))) {
+			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You unlock the door with the key and proceed."));
+			currentLocation = currentLocation.getExit(direction);
 		} else {
-			switch (direction) {
-				case NORTH:
-         			currentLocation = currentLocation.getExit(direction);
-					break;
-				case SOUTH:
-          			currentLocation = currentLocation.getExit(direction);
-					break;
-				case EAST:
-          			currentLocation = currentLocation.getExit(direction);
-					break;
-				case WEST:
-          			currentLocation = currentLocation.getExit(direction);
-					break;
-				case DOWN:
-					currentLocation = currentLocation.getExit(direction);
-					break;
-				case UP:
-					currentLocation = currentLocation.getExit(direction);
-					break;
-				default:
-					break;
-			}
-			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",currentLocation.displayRoom()));;
-			Game.globalEventBus.publish(new TextMessage("TRIGGER","DIAL",getCurrentLocation().getName()));;
+			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","The door is locked. You need the "+currentLocation.getExit(direction).getKey()+" to proceed."));
 		}
 	}
+	Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",currentLocation.displayRoom()));;
+	Game.globalEventBus.publish(new TextMessage("TRIGGER","DIAL",getCurrentLocation().getName()));;
+}
 
 
 public void interact(String interactable) {
@@ -110,21 +97,34 @@ public void interact(String interactable) {
 		return party;
 	}
 
-	public void takeItem(String itemName) {
-		inventory.addItem(currentLocation.getInventory().getItemByName(itemName));
+	public void takeItem(Item item) {
+		inventory.addItem(item);
+		Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + item.getName() + "."));
 	}
 
-	// Method to give Items to NPC
-	public void giveItemToNPC(String itemName, NPC npc) {
-        Item item = inventory.getItemByName(itemName);
-        if (item != null) {
-            inventory.removeItem(itemName);
-            npc.receiveItem(item);
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have given " + itemName + " to " + npc.getName() + "."));
-        } else {
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You do not have " + itemName + " in your inventory."));
-        }
-    }
+	public void takeItemByName(String itemName) {
+		Item item = currentLocation.getInventory().getItemByName(itemName);
+		if (item != null) {
+			inventory.addItem(item);
+			currentLocation.getInventory().removeItem(item);
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + itemName + "."));
+		} else {
+			// Check if the item is inside a container in the player's inventory
+			for (Item invItem : inventory.items.values()) {
+				if (invItem instanceof Container) {
+					Container container = (Container) invItem;
+					Item containerItem = container.getItemByName(itemName);
+					if (containerItem != null) {
+						inventory.addItem(containerItem);
+						container.removeItem(containerItem);
+						Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have taken the " + itemName + " from the " + container.getName() + "."));
+						return;
+					}
+				}
+			}
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "There is no " + itemName + " here."));
+		}
+	}
 
 	public Inventory getInventory() {
 		return inventory;
@@ -144,4 +144,24 @@ public void interact(String interactable) {
 		}
     }
 
+	public void giveItemToNPC(String string, NPC npc) {
+		Item item = inventory.getItemByName(string);
+		if (item != null) {
+			inventory.removeItem(item);
+			npc.getInventory().addItem(item);
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have given the " + string + " to " + npc.getName() + "."));
+		} else {
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + string + "."));
+		}
+	}
+
+	public void openContainerIfInInventory(String containerName) {
+        Item item = inventory.getItemByName(containerName);
+        if (item instanceof Container) {
+            Container container = (Container) item;
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", container.open()));
+        } else {
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + containerName + " in your inventory."));
+        }
+    }
 }

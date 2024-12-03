@@ -36,7 +36,6 @@ public class Item {
     }
 
     public Item(String name, String description, ItemHolder container) {
-        // Increment the item count each time an item is created
         itemCount++;
 
         this.name = name;
@@ -47,7 +46,6 @@ public class Item {
     }
 
     public Item(String name, String description, boolean takable, boolean movable, ItemHolder container) {
-        // Increment the item count each time an item is created
         itemCount++;
 
         this.name = name;
@@ -131,7 +129,7 @@ public class Item {
 
     // Static method to get the number of items created
     public static int getInstancedItemCount() {
-        return Item.itemCount;
+        return itemCount;
     }
 
     public boolean performAction(String action) {

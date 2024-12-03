@@ -25,7 +25,7 @@ public class NPCTests {
         NPC npc = new NPC("NPC", room);
         Item item = new Item("Item", "Description", null);
         npc.inventory.addItem(item);
-        npc.inventory.removeItem("Item");
+        npc.inventory.removeItem(item);
         assertFalse(npc.inventory.inInventory(item));
     }
 

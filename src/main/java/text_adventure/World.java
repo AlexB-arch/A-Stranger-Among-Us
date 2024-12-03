@@ -117,7 +117,7 @@ public class World {
         // Communication Hub Area
         Room communicationHub = createRoom("Communication Hub",
         "The Communication Hub manages the station's internal and external communications.",
-        null, null, "Theodore");
+        null, null, null);
 
         Room hallwayCommunication = createRoom("Communication Hub Hallway",
         "A hallway leading to the Communication Hub. Network cables line the ceiling.",
@@ -258,7 +258,7 @@ public class World {
         messHall.setExits(bridge, hallwayEngine, hallwayBotany, hallwayBarracks);
         barracks.setExits(barracksStorage, null, hallwayBarracks, null);
         barracksStorage.setExits(null, barracks, null, null);
-        hallwayBarracks.setExits(null, null, barracks, messHall);
+        hallwayBarracks.setExits(null, null, messHall, barracks);
         weaponsBay.setExits(null, null, hallwayWeapons, null);
         hallwayWeapons.setExits(null, null, weaponsBay, hallwayEngine);
         bridge.setExits(null, messHall, null, null);
