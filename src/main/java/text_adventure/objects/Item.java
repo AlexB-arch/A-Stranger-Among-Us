@@ -11,6 +11,30 @@ public class Item {
 
     private ItemHolder container;
 
+
+
+    public Item(String name) {
+        // Increment the item count each time an item is created
+        itemCount++;
+
+        this.name = name;
+        this.description = "";
+        this.container = null;
+        this.takable = true;
+        this.movable = true;
+    }
+
+    public Item(String name, String description) {
+        // Increment the item count each time an item is created
+        itemCount++;
+
+        this.name = name;
+        this.description = description;
+        this.container = null;
+        this.takable = true;
+        this.movable = true;
+    }
+
     public Item(String name, String description, ItemHolder container) {
         // Increment the item count each time an item is created
         itemCount++;
