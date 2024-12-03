@@ -119,7 +119,7 @@ public class AsyncTimerManager implements Subscriber {
         String timerId = payload.getString("timerId");
         AsyncTimer existingTimer = timers.get(timerId);
         
-        if (existingTimer != null) {
+        if (existingTimer != null && !payload.has("status")) {
             existingTimer.stop();
             TimerConfig newConfig = createConfigFromPayload(payload);
             

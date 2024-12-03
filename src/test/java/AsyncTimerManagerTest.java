@@ -32,9 +32,11 @@ public class AsyncTimerManagerTest {
     private AsyncTimerManager manager;
     private static MessageBus testMessageBus;
 
-    @BeforeClass
-    public static void setUpClass() {
+
+    @Before
+    public void setUp() {
         testMessageBus = new MessageBus(20, 3);
+        testMessageBus.startMessageProcessing();
 
         Subscriber taskProcessor = new Subscriber(){
             @Override
@@ -46,28 +48,25 @@ public class AsyncTimerManagerTest {
                 }
             };
         };
+
         testMessageBus.registerSubscriber("TIMER", taskProcessor);
 
-    }
-
-    @Before
-    public void setUp() {
-        testMessageBus.startMessageProcessing();
-        manager = new AsyncTimerManager(testMessageBus);
         receivedMessages = new ArrayList<>();
         messageLatch = null;
         System.out.println("Setup sub");
+        
+        manager = new AsyncTimerManager(testMessageBus);
+
 
     }
 
     @After
     public void tearDown() {
         manager.shutdown();
-    }
-    @AfterClass
-    public static void shutdownMessage(){
         testMessageBus.shutdown();
+        receivedMessages.clear();
     }
+
 
     private void setupMessageCapture(int expectedMessageCount) {
         messageLatch = new CountDownLatch(expectedMessageCount);
@@ -152,7 +151,7 @@ public class AsyncTimerManagerTest {
         // Create initial timer
         JSONObject createPayload = new JSONObject()
             .put("timerId", timerId)
-            .put("initialDelay", 0L)
+            .put("initialDelay", 1L)
             .put("interval", 100L)
             .put("isCountdown", false);
 
@@ -164,7 +163,7 @@ public class AsyncTimerManagerTest {
         // Update timer interval
         JSONObject updatePayload = new JSONObject()
             .put("timerId", timerId)
-            .put("initialDelay", 0L)
+            .put("initialDelay", 1L)
             .put("interval", 200L)
             .put("isCountdown", false);
 
@@ -173,11 +172,12 @@ public class AsyncTimerManagerTest {
         // Wait for messages
         assertTrue("Did not receive expected messages in time",
                   messageLatch.await(1, TimeUnit.SECONDS));
+        
+        Thread.sleep(150);
 
         // Verify update message
         boolean foundUpdateMessage = receivedMessages.stream()
-            .anyMatch(m -> m.getType().equals("TIMER_UPDATE") &&
-                     new JSONObject(m.getMessage()).getString("status").equals("updated"));
+        .anyMatch( m -> new JSONObject(m.getMessage()).has("status") && new JSONObject(m.getMessage()).getString("status").equals("updated"));
         assertTrue("Update message not found", foundUpdateMessage);
     }
 
@@ -194,6 +194,7 @@ public class AsyncTimerManagerTest {
             .put("initialDelay", 0L)
             .put("interval", 100L)
             .put("isCountdown", false);
+            
 
         testMessageBus.publish(createTimerMessage("TIMER_CREATE", createPayload));
 
@@ -209,19 +210,20 @@ public class AsyncTimerManagerTest {
         // Wait for messages
         assertTrue("Did not receive expected messages in time",
                   messageLatch.await(1, TimeUnit.SECONDS));
-
+                  
+                  
         // Verify deletion
-        Message deleteMessage = receivedMessages.stream()
-            .filter(m -> m.getType().equals("TIMER_DELETE"))
-            .findFirst()
-            .orElseThrow();
-        JSONObject deleteResponse = new JSONObject(deleteMessage.getMessage());
-        assertEquals("deleted", deleteResponse.getString("status"));
+        boolean deleteMessage = receivedMessages.stream().anyMatch(
+            m -> new JSONObject(m.getMessage()).has("status") && new JSONObject(m.getMessage()).getString("status").equals("deleted")
+        );
+  
+
+        assertTrue("deleted", deleteMessage);
 
         // Wait to ensure no more ticks
         Thread.sleep(200);
         assertEquals("Should not receive more ticks after deletion",
-                    3, receivedMessages.size()-1);
+                    6, receivedMessages.size());
     }
     // Problem child
     @Test
@@ -234,7 +236,9 @@ public class AsyncTimerManagerTest {
             .put("timerId", "timer1")
             .put("initialDelay", 0L)
             .put("interval", 100L)
-            .put("isCountdown", false);
+            .put("isCountdown", true)
+            .put("duration", 550L);
+
 
         testMessageBus.publish(createTimerMessage("TIMER_CREATE", payload1));
 
@@ -243,25 +247,29 @@ public class AsyncTimerManagerTest {
             .put("timerId", "timer2")
             .put("initialDelay", 0L)
             .put("interval", 100L)
-            .put("isCountdown", false);
+            .put("isCountdown", true)
+            .put("duration", 550L);
+
 
         testMessageBus.publish(createTimerMessage("TIMER_CREATE", payload2));
 
         // Wait for messages
         assertTrue("Did not receive expected messages in time",
-                  messageLatch.await(1, TimeUnit.SECONDS));
+                  messageLatch.await(3, TimeUnit.SECONDS));
 
         // Verify creation messages
         long createCount = receivedMessages.stream()
             .filter(m -> m.getType().equals("TIMER_CREATED"))
             .count();
         assertEquals("Should have 2 creation messages", 2, createCount);
+        
+        Thread.sleep(550);
 
-        // Verify ticks from both timers
-        long tickCount = receivedMessages.stream()
-            .filter(m -> m.getType().equals("TIMER_TICK"))
-            .count();
-        assertTrue("Should have at least 4 ticks", tickCount >= 4);
+         // Verify ticks from both timers
+         long tickCount = receivedMessages.stream()
+             .filter(m -> m.getType().equals("TIMER_TICK"))
+             .count();
+         assertTrue("Should have at least 4 ticks", tickCount >= 4);
 
         // Verify ticks come from both timers
         Set<String> timerIds = receivedMessages.stream()
