@@ -5,6 +5,13 @@ import java.util.HashMap;
 
 // A list of nouns that the player can interact with
 // Can also be used for items in the game
+
+/**
+ * Nouns - Alex
+ * This is one of the dictionary classes to handle nouns.
+ * 
+ */
+
 public class Nouns {
 
     static String[] nouns = {
