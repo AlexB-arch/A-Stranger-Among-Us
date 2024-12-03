@@ -9,11 +9,9 @@ import text_adventure.Game;
 import text_adventure.objects.Container;
 import text_adventure.objects.Inventory;
 import text_adventure.objects.Item;
-import text_adventure.objects.ItemList;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
-import text_adventure.resources.Directions;
 
 public class PlayerTests {
 
