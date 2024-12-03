@@ -1,11 +1,16 @@
 package text_adventure;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 import org.json.JSONObject;
 
 import text_adventure.objects.AsyncTimer;
 import text_adventure.objects.Message;
+import text_adventure.objects.MessageBus;
 import text_adventure.objects.TimerMessage;
 
 
@@ -41,6 +46,7 @@ public class AsyncTimerManager implements Subscriber {
     private final Map<String, AsyncTimer> timers;
     private final Map<String, TimerConfig> timerConfigs;
     private final List<Subscriber> subscribers;
+    private static MessageBus messageBus;
 
     // Message types as constants
     private static final String TYPE_CREATE = "TIMER_CREATE";
@@ -53,17 +59,16 @@ public class AsyncTimerManager implements Subscriber {
         this.timers = new ConcurrentHashMap<>();
         this.timerConfigs = new ConcurrentHashMap<>();
         this.subscribers = new ArrayList<>();
+
+        Game.globalEventBus.registerSubscriber(TYPE_COMPLETED, this);
+        Game.globalEventBus.registerSubscriber(TYPE_TICK, this);
+        Game.globalEventBus.registerSubscriber(TYPE_CREATE, this);
+        Game.globalEventBus.registerSubscriber(TYPE_UPDATE, this);
+        Game.globalEventBus.registerSubscriber(TYPE_DELETE, this);
+
     }
 
-    public void addSubscriber(Subscriber subscriber) {
-        subscribers.add(subscriber);
-    }
 
-    private void publishMessage(Message message) {
-        for (Subscriber subscriber : subscribers) {
-            subscriber.onMessage(message);
-        }
-    }
 
     @Override
     public void onMessage(Message message) {
@@ -105,7 +110,7 @@ public class AsyncTimerManager implements Subscriber {
             Map<String, Object> response = new HashMap<>();
             response.put("timerId", timerId);
             response.put("status", "created");
-            publishMessage(TimerMessage.createMessage(TYPE_CREATE, response));
+            Game.globalEventBus.publish(TimerMessage.createMessage(TYPE_CREATE, response));
         }
     }
 
@@ -129,7 +134,7 @@ public class AsyncTimerManager implements Subscriber {
             Map<String, Object> response = new HashMap<>();
             response.put("timerId", timerId);
             response.put("status", "updated");
-            publishMessage(TimerMessage.createMessage(TYPE_UPDATE, response));
+            Game.globalEventBus.publish(TimerMessage.createMessage(TYPE_UPDATE, response));
         }
     }
 
@@ -146,7 +151,7 @@ public class AsyncTimerManager implements Subscriber {
             Map<String, Object> response = new HashMap<>();
             response.put("timerId", timerId);
             response.put("status", "deleted");
-            publishMessage(TimerMessage.createMessage(TYPE_DELETE, response));
+            Game.globalEventBus.publish(TimerMessage.createMessage(TYPE_DELETE, response));
         }
     }
 
@@ -165,7 +170,7 @@ public class AsyncTimerManager implements Subscriber {
             Map<String, Object> tickData = new HashMap<>();
             tickData.put("timerId", config.getTimerId());
             tickData.put("timestamp", System.currentTimeMillis());
-            publishMessage(TimerMessage.createMessage(TYPE_TICK, tickData));
+            Game.globalEventBus.publish(TimerMessage.createMessage(TYPE_TICK, tickData));
         }, config.getInitialDelay(), config.getInterval());
     }
 
@@ -176,13 +181,13 @@ public class AsyncTimerManager implements Subscriber {
                 tickData.put("timerId", config.getTimerId());
                 tickData.put("remaining", remaining);
                 tickData.put("timestamp", System.currentTimeMillis());
-                publishMessage(TimerMessage.createMessage(TYPE_TICK, tickData));
+                Game.globalEventBus.publish(TimerMessage.createMessage(TYPE_TICK, tickData));
             },
             () -> {
                 Map<String, Object> completedData = new HashMap<>();
                 completedData.put("timerId", config.getTimerId());
                 completedData.put("timestamp", System.currentTimeMillis());
-                publishMessage(TimerMessage.createMessage(TYPE_COMPLETED, completedData));
+                Game.globalEventBus.publish(TimerMessage.createMessage(TYPE_COMPLETED, completedData));
             },
             config.getDuration(),
             config.getInterval()

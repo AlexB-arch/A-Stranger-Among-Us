@@ -17,6 +17,8 @@ public class Game implements java.io.Serializable {
   	public static boolean DEBUG;
 
  	public static MessageBus globalEventBus;
+	
+	public static AsyncTimerManager timerManager;
 
   	public static Map<String, Room> gameWorld;
 
@@ -28,6 +30,7 @@ public class Game implements java.io.Serializable {
 		instance = this;
 		Parser.initDictionary();
 		globalEventBus = new MessageBus(10,3);
+		timerManager = new AsyncTimerManager();
 		shouldexit = false;
     	start();
   	}
@@ -36,7 +39,8 @@ public class Game implements java.io.Serializable {
 
 		// Initalize the Message Bus
 		globalEventBus.startMessageProcessing();
-
+		// Init timer manager
+		
 		// Initialize the player
 		player = new Player();
 		consoleManager = new ConsoleManager();
