@@ -20,6 +20,7 @@ import text_adventure.objects.RoomVisualizer;
  *
  * Importantly it also populates the items in the world, builds the graphviz maps among other things.
  */
+
 public class World {
     private Map<String, Room> rooms;
 
@@ -43,7 +44,7 @@ public class World {
             new Item[]{
                 new Item("Batteries"),
                 new Item("Food")
-            });
+            },null,null);
 
         Room barracks = createRoom("Barracks",
                 "The Barracks serve as living quarters where the crew sleeps and rests.",
@@ -53,14 +54,14 @@ public class World {
             "Barracks Storage holds personal belongings and supplies for the crew's accommodations.",
             new Item[]{
                 new Item("Batteries"),
-                });
+                },null,null);
 
         Room hallwayBarracks = createRoom("Barracks Hallway",
                 "This hallway connects the Barracks to the main areas of the station.",
                 null, null, null);
         
         Room weaponsBay = createRoom("Weapons Bay",
-            "The Weapons Bay stores and maintains the station's defensive armaments.",null);
+            "The Weapons Bay stores and maintains the station's defensive armaments.",null,null,null);
 
         Room hallwayWeapons = createRoom("Weapons Bay Hallway",
                 "A secure hallway leading to the Weapons Bay.",
@@ -76,20 +77,20 @@ public class World {
                 new Item("Flowers"),
                 new Item("Seeds"),
                 new Item("Oxygen Tanks")
-            });
+            },null,null);
 
         Room botanyStorage = createRoom("Botany Storage",
             "Botany Storage houses equipment and supplies for agricultural activities.",
             new Item[]{
                 new Item("Flowers"),
                 new Item("Seeds")
-            });
+            },null,null);
 
         Room hallwayBotany = createRoom("Botany Hallway",
             "A humid hallway connecting to the Botany areas.",
             new Item[]{
                 new Item("Mound of Dirt"),
-            });
+            },null,null);
 
         Room engineRoom = createRoom("Engine Room",
             "The Engine Room contains the main power generators for the station.",
@@ -111,7 +112,7 @@ public class World {
                 new Item("Food"), 
                 new Item("Screws"),
                 new Item("Red Keycard")
-            });
+            },null,null);
 
         // Communication Hub Area
         Room communicationHub = createRoom("Communication Hub",
@@ -129,14 +130,14 @@ public class World {
 
 		Room dockingBay = createRoom("Dock Bay",
 						"The Docking Bay is where spacecraft dock to load and unload passengers and cargo.",
-                         new Item[]{new Item("BLA")});
+                         new Item[]{new Item("BLA")},null,null);
 
         // Data Center Area
         Room dataCenter = createRoom("Data Center",
             "The Data Center processes and stores all digital information and computing tasks.",
             new Item[]{
                  new Item("Blue Keycard")
-            });
+            },null,null);
 
         Room hallwayData = createRoom("Data Center Hallway",
         "A cold hallway leading to the Data Center. The hum of servers can be heard.",
@@ -147,13 +148,13 @@ public class World {
             "The Medical Bay provides medical treatment and healthcare services for the crew.",
             new Item[]{
                 new Item("Bandages")
-            });
+            },null,null);
 
         Room medicalCloset = createRoom("Medical Closet",
             "The Medical Closet stores medical supplies and equipment needed for healthcare.",
             new Item[]{
                 new Item("Bandages")
-            });
+            },null,null);
 
         Room hallwayMedical = createRoom("Medical Bay Hallway",
         "A sterile hallway leading to the Medical Bay. Emergency equipment lines the walls.",
@@ -166,19 +167,19 @@ public class World {
                 new Item("Fuel"),
                 new Item("Oxygen"),
                 new Item("Batteries")
-            });
+            },null,null);
 
         Room thruster1 = createRoom("Thruster 1",
             "Thruster 1 is a maneuvering thruster located on one side of the station.",
             new Item[]{
                 new Item("Fuel")
-            });
+            },null,null);
 
         Room thruster2 = createRoom("Thruster 2",
             "Thruster 2 is a maneuvering thruster located on one side of the station.",
             new Item[]{
                 new Item("Fuel")
-            });
+            },null,null);
 
         Room hallwayStorage = createRoom("Southern Storage Hallway",
         "A maintenance hallway leading to The Storage Bay. Warning signs about fuel leaks are posted.",
@@ -212,7 +213,7 @@ public class World {
             
             new Item[]{
                 new Item("Batteries")
-            });
+            },null, null);
 
         Room ejectionControl = createRoom("Ejection Control",
             "Ejection Control monitors and operates the waste ejection systems.",
@@ -228,7 +229,7 @@ public class World {
             new Item[]{
                 new Item("Fuel"), 
                 new Item("Batteries"),
-            });
+            },null,null);
 
         Room fuelControl = createRoom("Fuel Control",
             "Fuel Control manages fuel distribution throughout the station's systems.",
@@ -316,10 +317,8 @@ public class World {
         
         turboLiftDeck2WasteControl.setExits(wasteControl,null,null,null,null,turboLiftDeck3WasteEjection);
         turboLiftDeck3WasteEjection.setExits(null,null,null,hallwayEjection, turboLiftDeck2WasteControl,null);
-
         
     }
-
 
 
 
@@ -330,7 +329,7 @@ public class World {
                   inventory.addItem(item);
               }
           }
-        Room room = new Room(name, description, Item[] items, List<String> interactables, String key)
+        Room room = new Room(name, description, inventory, interactables, key);
         rooms.put(name, room);
         return room;
     }
