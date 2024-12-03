@@ -12,6 +12,7 @@ import text_adventure.objects.Room;
 import text_adventure.objects.TextMessage;
 import text_adventure.objects.triggers.GeneratorTrigger;
 import text_adventure.objects.triggers.AliceDialog;
+import text_adventure.objects.triggers.EndGame;
 
 public class Game implements java.io.Serializable {
 	private static Game instance;
@@ -25,6 +26,9 @@ public class Game implements java.io.Serializable {
   	private ConsoleManager consoleManager;
 
   	private boolean shouldexit;
+
+	public GeneratorTrigger generatorTrigger;
+	public EndGame endGame;
 
   	public Game() {
 		instance = this;
@@ -57,8 +61,10 @@ public class Game implements java.io.Serializable {
 		NPC alice = new NPC("Alice", gameWorld.get("Mess Hall"));
 		globalEventBus.registerSubscriber("NPC", alice);
 
-		GeneratorTrigger generatorTrigger = new GeneratorTrigger();
+		generatorTrigger = new GeneratorTrigger();
 		AliceDialog AliceDial = new AliceDialog("Mess Hall");
+		endGame = new EndGame();
+
 
 		// Add NPCs to rooms
 		gameWorld.get("Mess Hall").addNpc(alice);

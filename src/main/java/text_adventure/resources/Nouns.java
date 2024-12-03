@@ -24,7 +24,10 @@ public class Nouns {
         "generator",
         "blue keycard",
         "yellow keycard",
-        "red keycard"
+        "red keycard",
+        "eject button",
+        "batteries",
+        "oxygen tanks"
         // Add more nouns as needed
     };
 
