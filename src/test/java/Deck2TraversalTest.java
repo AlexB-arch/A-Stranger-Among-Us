@@ -28,7 +28,7 @@ public class Deck2TraversalTest {
     @Test
     public void testStartingLocation() {
         Room currentRoom = player.getCurrentLocation();
-        assertEquals("TurboLift Deck 2: Storage", currentRoom.getName());
+        assertEquals("TurboLift Deck 2 Storage", currentRoom.getName());
     }
 
     // Test path to Storage Bay
@@ -173,6 +173,6 @@ public class Deck2TraversalTest {
         game.runCommands("go east"); // Back to Hallway Waste
         game.runCommands("go north"); // Back to TurboLift
         Room currentRoom = player.getCurrentLocation();
-        assertEquals("TurboLift Deck 2: Storage", currentRoom.getName());
+        assertEquals("TurboLift Deck 2 Storage", currentRoom.getName());
     }
 }

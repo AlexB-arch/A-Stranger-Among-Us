@@ -52,7 +52,7 @@ public class Deck3TraversalTest {
     public void testFuelStorageLiftStartingLocation() {
         navigateToFuelStorageLift();
         Room currentRoom = player.getCurrentLocation();
-        assertEquals("TurboLift Deck 3: Fuel Storage", currentRoom.getName());
+        assertEquals("TurboLift Deck 3 Fuel Storage", currentRoom.getName());
     }
 
     // Test starting position at Waste Ejection TurboLift
@@ -60,7 +60,7 @@ public class Deck3TraversalTest {
     public void testWasteEjectionLiftStartingLocation() {
         navigateToWasteEjectionLift();
         Room currentRoom = player.getCurrentLocation();
-        assertEquals("TurboLift Deck 3: Waste Ejection", currentRoom.getName());
+        assertEquals("TurboLift Deck 3 Waste Ejection", currentRoom.getName());
     }
 
     // Test path from Fuel Storage TurboLift to Fuel Storage
@@ -150,7 +150,7 @@ public class Deck3TraversalTest {
         game.runCommands("go south"); // To Hallway Fuel
         game.runCommands("go east"); // Back to TurboLift
         Room currentRoom = player.getCurrentLocation();
-        assertEquals("TurboLift Deck 3: Fuel Storage", currentRoom.getName());
+        assertEquals("TurboLift Deck 3 Fuel Storage", currentRoom.getName());
     }
 
     @Test
@@ -159,6 +159,6 @@ public class Deck3TraversalTest {
         game.runCommands("go south"); // To Hallway Ejection
         game.runCommands("go east"); // Back to TurboLift
         Room currentRoom = player.getCurrentLocation();
-        assertEquals("TurboLift Deck 3: Waste Ejection", currentRoom.getName());
+        assertEquals("TurboLift Deck 3 Waste Ejection", currentRoom.getName());
     }
 }

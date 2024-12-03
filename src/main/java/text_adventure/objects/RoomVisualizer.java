@@ -22,7 +22,7 @@ public class RoomVisualizer {
     }
     
     public void addRoom(Room room) {
-        String roomId = room.getName().replaceAll("\\s+", "_");
+        String roomId = room.getName().replaceAll("[\\s:;.-]+", "_");
         dot.append(String.format("    %s [label=\"%s\"];\n", 
                    roomId, room.getName()));
         
@@ -37,8 +37,8 @@ public class RoomVisualizer {
     
     private void addConnection(Room from, Room to, String direction) {
         if (to != null) {
-            String fromId = from.getName().replaceAll("\\s+", "_");
-            String toId = to.getName().replaceAll("\\s+", "_");
+            String fromId = from.getName().replaceAll("[\\s:;.-]+", "_");
+            String toId = to.getName().replaceAll("[\\s:;.-]+", "_");
             dot.append(String.format("    %s -> %s [label=\"%s\"];\n", 
                        fromId, toId, direction));
         }
