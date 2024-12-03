@@ -13,7 +13,7 @@ import text_adventure.objects.TimerMessage;
 
 
 public class GeneratorTrigger implements Trigger, Subscriber {
-    private boolean isActivated;
+    public boolean isActivated;
 
     public GeneratorTrigger() {
         this.isActivated = false;

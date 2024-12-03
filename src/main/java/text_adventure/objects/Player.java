@@ -56,10 +56,9 @@ public void interact(String interactable) {
                 Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You press the generator button. The generator hums to life!"));
                 Game.globalEventBus.publish(new TextMessage("TRIGGER", "GEN", "ON"));
                 break;
-            // Add more cases for other interactables
-            default:
-                Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You interact with the " + interactable + "."));
-                break;
+            case "eject button":
+				Game.globalEventBus.publish(new TextMessage("TRIGGER", "END", (String.valueOf(inventory.getItemCount("batteries"))  +"," +String.valueOf(inventory.getItemCount("Oxygen Tanks") ) )));
+				break;
         }
     } else {
         Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "There's nothing like that to interact with here."));
@@ -163,5 +162,9 @@ public void interact(String interactable) {
         } else {
             Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + containerName + " in your inventory."));
         }
+    }
+
+	public int getItemCount(String itemName) {
+        return inventory.getItemCount(itemName);
     }
 }
