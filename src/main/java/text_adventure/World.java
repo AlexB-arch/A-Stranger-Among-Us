@@ -117,7 +117,7 @@ public class World {
         // Communication Hub Area
         Room communicationHub = createRoom("Communication Hub",
         "The Communication Hub manages the station's internal and external communications.",
-        null, null, "Theodore");
+        null, null, null);
 
         Room hallwayCommunication = createRoom("Communication Hub Hallway",
         "A hallway leading to the Communication Hub. Network cables line the ceiling.",

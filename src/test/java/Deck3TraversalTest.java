@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.junit.Before;
 
 import text_adventure.Game;
+import text_adventure.objects.Item;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 import text_adventure.resources.Directions;
@@ -19,9 +20,10 @@ public class Deck3TraversalTest {
 
     // Helper method to get to Fuel Storage TurboLift
     private void navigateToFuelStorageLift() {
+        Player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go south"); // To Barracks
         game.runCommands("go east"); // To Barracks Hallway
-        game.runCommands("go west"); // To Mess Hall
+        game.runCommands("go east"); // To Mess Hall
         game.runCommands("go east"); // To Botany Hallway
         game.runCommands("go north"); // To TurboLift Deck 1
         game.runCommands("go down"); // To TurboLift Deck 2
@@ -35,9 +37,10 @@ public class Deck3TraversalTest {
 
     // Helper method to get to Waste Ejection TurboLift
     private void navigateToWasteEjectionLift() {
+        Player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go south"); // To Barracks
         game.runCommands("go east"); // To Barracks Hallway
-        game.runCommands("go west"); // To Mess Hall
+        game.runCommands("go east"); // To Mess Hall
         game.runCommands("go east"); // To Botany Hallway
         game.runCommands("go north"); // To TurboLift Deck 1
         game.runCommands("go down"); // To TurboLift Deck 2
@@ -90,6 +93,7 @@ public class Deck3TraversalTest {
     @Test
     public void testPathToWasteEjection() {
         navigateToWasteEjectionLift();
+        Player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go west");
         game.runCommands("go south"); // To Hallway Ejection
         game.runCommands("go north"); // To Waste Ejection
@@ -101,6 +105,7 @@ public class Deck3TraversalTest {
     @Test
     public void testPathToEjectionControl() {
         navigateToWasteEjectionLift();
+        Player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go west");
         game.runCommands("go south"); // To Hallway Ejection
         game.runCommands("go north"); // To Waste Ejection

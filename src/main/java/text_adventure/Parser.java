@@ -239,7 +239,7 @@ public class Parser {
 	
 			if (!found) {
 				String word = input.get(i);
-				errorMessage += "I don't understand the word '" + word + "'.\n";
+				errorMessage += "I don't know the word '" + word + "'\n";
 				i++;
 			}
 		}

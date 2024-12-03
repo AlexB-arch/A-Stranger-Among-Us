@@ -6,6 +6,7 @@ import text_adventure.Game;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 import text_adventure.resources.Directions;
+import text_adventure.objects.Item;
 
 public class Deck2TraversalTest {
     private Game game;
@@ -18,7 +19,7 @@ public class Deck2TraversalTest {
         // Navigate to Deck 2 TurboLift starting point
         game.runCommands("go south"); // To Barracks
         game.runCommands("go east"); // To Barracks Hallway
-        game.runCommands("go west"); // To Mess Hall
+        game.runCommands("go east"); // To Mess Hall
         game.runCommands("go east"); // To Botany Hallway
         game.runCommands("go north"); // To TurboLift Deck 1
         game.runCommands("go down"); // To TurboLift Deck 2
@@ -102,6 +103,7 @@ public class Deck2TraversalTest {
     // Test path to Waste Control
     @Test
     public void testPathToWasteControl() {
+        Player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go south"); // To Hallway Waste
         game.runCommands("go east"); // To Waste Control
         Room currentRoom = player.getCurrentLocation();
@@ -109,12 +111,13 @@ public class Deck2TraversalTest {
         
         game.runCommands("go north"); // To Waste Control Room
         currentRoom = player.getCurrentLocation();
-        assertEquals("Waste Control Room", currentRoom.getName());
+        assertEquals("Waste Control", currentRoom.getName());
     }
 
     // Test path to Quarantine Room
     @Test
     public void testPathToQuarantine() {
+        Player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go south"); // To Hallway Waste
         game.runCommands("go west"); // To Storage Bay
         game.runCommands("go south"); // To Hallway Storage

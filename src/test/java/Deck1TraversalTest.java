@@ -116,7 +116,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
 
          // Check current room
          Room currentRoom = player.getCurrentLocation();
@@ -130,8 +130,8 @@ public class Deck1TraversalTest {
          game.runCommands("go south");
          // Move east to Barracks Hallway
          game.runCommands("go east");
-         // Move west to Mess Hall
-         game.runCommands("go west");
+         // Move east to Mess Hall
+         game.runCommands("go east");
          // Move north to Bridge
          game.runCommands("go north");
 
@@ -148,7 +148,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
 
@@ -165,7 +165,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          // Move south to Engine Room
@@ -184,7 +184,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          // Move south to Engine Room
@@ -205,7 +205,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          // Move west to Hallway Weapons
@@ -224,7 +224,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          // Move west to Hallway Weapons
@@ -245,7 +245,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move east to Botany Hallway
          game.runCommands("go east");
 
@@ -262,7 +262,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move east to Botany Hallway
          game.runCommands("go east");
          // Move west to Botany Bay
@@ -281,7 +281,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move east to Botany Hallway
          game.runCommands("go east");
          // Move west to Botany Bay
@@ -336,8 +336,8 @@ public class Deck1TraversalTest {
          // Check exits
          assertNull("North exit should be null", currentRoom.getExit(Directions.NORTH));
          assertNull("South exit should be null", currentRoom.getExit(Directions.SOUTH));
-         assertEquals("Barracks", currentRoom.getExit(Directions.EAST).getName());
-         assertEquals("Mess Hall", currentRoom.getExit(Directions.WEST).getName());
+         assertEquals("Barracks", currentRoom.getExit(Directions.WEST).getName());
+         assertEquals("Mess Hall", currentRoom.getExit(Directions.EAST).getName());
      }
 
      // 4. Test Exits of Mess Hall
@@ -348,7 +348,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          Room currentRoom = player.getCurrentLocation();
 
          // Check exits
@@ -366,7 +366,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move north to Bridge
          game.runCommands("go north");
          Room currentRoom = player.getCurrentLocation();
@@ -386,7 +386,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          Room currentRoom = player.getCurrentLocation();
@@ -406,7 +406,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          // Move south to Engine Room
@@ -428,7 +428,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          // Move south to Engine Room
@@ -472,7 +472,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          // Move west to Hallway Weapons
@@ -495,7 +495,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move east to Botany Hallway
          game.runCommands("go east");
          Room currentRoom = player.getCurrentLocation();
@@ -515,7 +515,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move east to Botany Hallway
          game.runCommands("go east");
          // Move west to Botany Bay
@@ -538,7 +538,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move east to Botany Hallway
          game.runCommands("go east");
          // Move west to Botany Bay
@@ -577,7 +577,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west back to Barracks
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move north back to Barracks Storage
          game.runCommands("go north");
 
@@ -594,7 +594,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move west back to Barracks Hallway
          game.runCommands("go west");
          // Move north back to Barracks Storage
@@ -613,7 +613,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move north to Bridge
          game.runCommands("go north");
          // Move south back to Mess Hall
@@ -640,7 +640,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move east to Botany Hallway
          game.runCommands("go east");
          Room currentRoom = player.getCurrentLocation();
@@ -660,7 +660,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move north to Bridge
          game.runCommands("go north");
          Room currentRoom = player.getCurrentLocation();
@@ -717,7 +717,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move east to Botany Hallway
          game.runCommands("go east");
          // Move west to Botany Bay
@@ -739,7 +739,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move east to Botany Hallway
          game.runCommands("go east");
          // Move west to Botany Bay
@@ -765,7 +765,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          // Move south to Engine Room
@@ -793,7 +793,7 @@ public class Deck1TraversalTest {
          // Move east to Barracks Hallway
          game.runCommands("go east");
          // Move west to Mess Hall
-         game.runCommands("go west");
+         game.runCommands("go east");
          // Move south to Engine Room Hallway
          game.runCommands("go south");
          // Move west to Hallway Weapons
@@ -818,7 +818,7 @@ public class Deck1TraversalTest {
     public void testReachTurbolift() {
         game.runCommands("go south"); // To Barracks
         game.runCommands("go east"); // To Barracks Hallway
-        game.runCommands("go west"); // To Mess Hall
+        game.runCommands("go east"); // To Mess Hall
         game.runCommands("go east"); // To Botany Hallway
         game.runCommands("go north"); // To Turbolift
         Room currentRoom = player.getCurrentLocation();
