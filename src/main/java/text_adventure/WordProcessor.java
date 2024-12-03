@@ -2,7 +2,12 @@ package text_adventure;
 
 import text_adventure.resources.*;
 
-
+/**
+ * WordProcessor - Alex
+ * This class is used to process words.
+ * 
+ * Primarily used by the parser to handle the word and its type.
+ */
 
 public class WordProcessor {
     
