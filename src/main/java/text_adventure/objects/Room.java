@@ -3,12 +3,11 @@ package text_adventure.objects;
 import text_adventure.resources.Directions;
 import text_adventure.Subscriber;
 import text_adventure.Game;
-import text_adventure.objects.Message;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room implements java.io.Serializable, Subscriber{
+public class Room implements Subscriber{
     // Static variable to keep track of the number of rooms created
     private static int roomCount = 0;
 

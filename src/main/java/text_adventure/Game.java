@@ -29,7 +29,7 @@ public class Game implements java.io.Serializable {
   	public Game() {
 		instance = this;
 		Parser.initDictionary();
-		globalEventBus = new MessageBus(10,3);
+		globalEventBus = new MessageBus(150,5);
 		shouldexit = false;
     	start();
   	}
