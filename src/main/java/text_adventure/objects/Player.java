@@ -84,7 +84,7 @@ public void interact(String interactable) {
 		if(message.getHeader() == "PLAYER"){
 			switch (message.getType()) {
 				case "LOOK":
-					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().getCurrentDescription()));
+					Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",getCurrentLocation().displayRoom()));
 					break;
 				default:
 					break;
