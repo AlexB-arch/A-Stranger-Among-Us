@@ -1,11 +1,14 @@
 package text_adventure;
 
-import text_adventure.objects.*;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import text_adventure.objects.Inventory;
+import text_adventure.objects.Item;
+import text_adventure.objects.NPC;
+import text_adventure.objects.Room;
+import text_adventure.objects.RoomVisualizer;
 
 /**
  * World
@@ -35,7 +38,10 @@ public class World {
             "To the east is the Botany Bay. The door appears to have emergency locked.\n" +
             "To the west is the Barracks.\n" +
             "To the south is the Engine Room. Hallway",
-            new String[]{"Batteries", "Food"});
+            new Item[]{
+                new Item("Batteries"),
+                new Item("Food")
+            });
 
         Room barracks = createRoom("Barracks",
             "The Barracks serve as living quarters where the crew sleeps and rests.",
@@ -43,15 +49,16 @@ public class World {
 
         Room barracksStorage = createRoom("Barracks Storage",
             "Barracks Storage holds personal belongings and supplies for the crew's accommodations.",
-            new String[]{"Batteries"});
+            new Item[]{
+                new Item("Batteries"),
+                });
 
         Room hallwayBarracks = createRoom("Barracks Hallway",
             "This hallway connects the Barracks to the main areas of the station.",
             null);
 
         Room weaponsBay = createRoom("Weapons Bay",
-            "The Weapons Bay stores and maintains the station's defensive armaments.",
-            new String[]{"Plasma Gun", "Plasma Gun ammunition"});
+            "The Weapons Bay stores and maintains the station's defensive armaments.",null);
 
         Room hallwayWeapons = createRoom("Weapons Bay Hallway",
             "A secure hallway leading to the Weapons Bay.",
@@ -63,15 +70,24 @@ public class World {
 
         Room botanyBay = createRoom("Botany Bay",
             "The Botany Bay is dedicated to growing plants for food, oxygen production, and research.",
-            new String[]{"Flowers", "Seeds", "Oxygen Tanks"});
+            new Item[]{
+                new Item("Flowers"),
+                new Item("Seeds"),
+                new Item("Oxygen Tanks")
+            });
 
         Room botanyStorage = createRoom("Botany Storage",
             "Botany Storage houses equipment and supplies for agricultural activities.",
-            new String[]{"Flowers", "Seeds"});
+            new Item[]{
+                new Item("Flowers"),
+                new Item("Seeds")
+            });
 
         Room hallwayBotany = createRoom("Botany Hallway",
             "A humid hallway connecting to the Botany areas.",
-            null);
+            new Item[]{
+                new Item("Mound of Dirt"),
+            });
 
         Room engineRoom = createRoom("Engine Room",
             "The Engine Room contains the main power generators for the station.",
@@ -88,7 +104,12 @@ public class World {
         // Central Storage Bay Area
         Room storageBay = createRoom("Storage Bay",
             "The Storage Bay is a large area for storing various supplies, equipment, and cargo.",
-            new String[]{"Batteries", "Food", "Screws", "Red Keycard"});
+            new Item[]{
+                new Item("Batteries"), 
+                new Item("Food"), 
+                new Item("Screws"),
+                new Item("Red Keycard")
+            });
 
         // Communication Hub Area
         Room communicationHub = createRoom("Communication Hub",
@@ -105,12 +126,14 @@ public class World {
 
 		Room dockingBay = createRoom("Dock Bay",
 						"The Docking Bay is where spacecraft dock to load and unload passengers and cargo.",
-                         new String[]{"Oxygen", "Fuel", "Batteries", "Yellow Keycard"});
+                         new Item[]{new Item("BLA")});
 
         // Data Center Area
         Room dataCenter = createRoom("Data Center",
             "The Data Center processes and stores all digital information and computing tasks.",
-            new String[]{"Blue Keycard"});
+            new Item[]{
+                 new Item("Blue Keycard")
+            });
 
         Room hallwayData = createRoom("Data Center Hallway",
             "A cold hallway leading to the Data Center. The hum of servers can be heard.",
@@ -119,11 +142,15 @@ public class World {
         // Medical Area
         Room medicalBay = createRoom("Medical Bay",
             "The Medical Bay provides medical treatment and healthcare services for the crew.",
-            new String[]{"Bandages"});
+            new Item[]{
+                new Item("Bandages")
+            });
 
         Room medicalCloset = createRoom("Medical Closet",
             "The Medical Closet stores medical supplies and equipment needed for healthcare.",
-            new String[]{"Bandages"});
+            new Item[]{
+                new Item("Bandages")
+            });
 
         Room hallwayMedical = createRoom("Medical Bay Hallway",
             "A sterile hallway leading to the Medical Bay. Emergency equipment lines the walls.",
@@ -132,15 +159,23 @@ public class World {
         // Thruster Control Area
         Room thrusterBay = createRoom("Thruster Bay",
             "The Thruster Bay houses maneuvering thrusters to adjust the station's position.",
-            new String[]{"Fuel", "Oxygen", "Batteries"});
+            new Item[]{
+                new Item("Fuel"),
+                new Item("Oxygen"),
+                new Item("Batteries")
+            });
 
         Room thruster1 = createRoom("Thruster 1",
             "Thruster 1 is a maneuvering thruster located on one side of the station.",
-            new String[]{"Fuel"});
+            new Item[]{
+                new Item("Fuel")
+            });
 
         Room thruster2 = createRoom("Thruster 2",
             "Thruster 2 is a maneuvering thruster located on one side of the station.",
-            new String[]{"Fuel"});
+            new Item[]{
+                new Item("Fuel")
+            });
 
         Room hallwayStorage = createRoom("Southern Storage Hallway",
             "A maintenance hallway leading to The Storage Bay. Warning signs about fuel leaks are posted.",
@@ -171,7 +206,10 @@ public class World {
                 // Waste Ejection Area
         Room wasteEjection = createRoom("Waste Ejection",
             "Waste Ejection is the system that disposes of non-recyclable waste into space.",
-            new String[]{"Batteries"});
+            
+            new Item[]{
+                new Item("Batteries")
+            });
 
         Room ejectionControl = createRoom("Ejection Control",
             "Ejection Control monitors and operates the waste ejection systems.",
@@ -184,7 +222,10 @@ public class World {
         // Fuel Management Area
         Room fuelStorage = createRoom("Fuel Storage",
             "Fuel Storage is where the station's fuel reserves are kept.",
-            new String[]{"Fuel", "Batteries"});
+            new Item[]{
+                new Item("Fuel"), 
+                new Item("Batteries"),
+            });
 
         Room fuelControl = createRoom("Fuel Control",
             "Fuel Control manages fuel distribution throughout the station's systems.",
@@ -279,13 +320,13 @@ public class World {
         
     
 
-    private Room createRoom(String name, String description, String[] items) {
+    private Room createRoom(String name, String description, Item[] items) {
         Inventory inventory = new Inventory();
-        //  if (items != null) {
-        //      for (String itemName : items) {
-        //          inventory.addItem(new Item(itemName));
-        //      }
-        //  }
+          if (items != null) {
+              for (Item item : items) {
+                  inventory.addItem(item);
+              }
+          }
         Room room = new Room(name, description, inventory);
         rooms.put(name, room);
         return room;
