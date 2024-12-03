@@ -10,7 +10,7 @@ import text_adventure.Game;
 
 
 public class GeneratorTrigger implements Trigger, Subscriber {
-    private boolean isActivated;
+    public boolean isActivated;
 
     public GeneratorTrigger() {
         this.isActivated = false;
