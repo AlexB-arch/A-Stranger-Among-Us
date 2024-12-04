@@ -13,13 +13,6 @@ import text_adventure.resources.Prepositions;
 import text_adventure.resources.Verbs;
 import text_adventure.resources.WordType;
 
-/**
- * Parser - Alex
- * This class is responsible for parsing the input from the player.
- * 
- * This class can handle various types of words and read player input regardless of how the input it.
- */
-
 public class Parser {
 
   // Initializes a list of words for player actions
@@ -86,7 +79,7 @@ public class Parser {
 					response = "Not yet implemented";
 					break;
 				case "interactwith":
-					Game.player.interact(input3.getWord());
+					Main.game.player.interact(input3.getWord());
 					System.out.println(input3.getWord());
 					break;
 				default:
@@ -109,30 +102,20 @@ public class Parser {
 		} else if (input2.getWordType() != WordType.NOUN) {
 			response = "Can't do that. " + input2.getWord() + " is not a valid object!";
 		} else {
-			String noun = input2.getWord();
-			// Check if there are more words in the input and concatenate them
-			for (int i = 2; i < input.size(); i++) {
-				WordProcessor nextWord = input.get(i);
-				if (nextWord.getWordType() == WordType.NOUN) {
-					noun += " " + nextWord.getWord();
-				} else {
-					break;
-				}
-			}
-	
 			switch (input1.getWord()) {
 				case "go":
-					Game.player.move(Directions.valueOf(noun.toUpperCase()));
+					Game.player.move(Directions.valueOf(input2.getWord().toUpperCase()));
 					break;
 				case "interact":
-					Game.player.interact(noun);
+					Game.player.interact(input2.getWord());
 					break;
+				// Handle other verbs
 				case "take":
-					Game.player.takeItemByName(noun);
-					break;
-				case "use":
-					Game.player.useItem(noun);
-					break;
+					Game.player.takeItemByName(input2.getWord());
+                    break;
+                case "use":
+                    Game.player.useItem(input2.getWord());
+                    break;
 				default:
 					response = "You can't do that.";
 					break;

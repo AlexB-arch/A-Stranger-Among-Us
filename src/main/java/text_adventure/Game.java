@@ -99,7 +99,7 @@ public class Game implements java.io.Serializable {
 		// Cleans up the input and converts it to lowercase
 		lowerCaseInput = inputString.trim().toLowerCase();
 
-		if (!lowerCaseInput.equals("quit") || !lowerCaseInput.equals("exit")) {
+		if (!lowerCaseInput.equals("quit") && !lowerCaseInput.equals("exit")) {
 			if(lowerCaseInput.equals("")){
 				string = "Please enter a command.\n";
 			} else {
