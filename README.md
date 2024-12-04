@@ -47,5 +47,13 @@ All work related files are inside the [/work](Work) directory.
 The uml diagram is at `Work/uml.png`
 [uml-diagram](Work/uml.png)
 
+*To Test for Timers run the game using the above command and wait 10 minutes* 
+This will show the generator timer, the ambiance timer, and the game over timer. 
 
+All other grade tests can be run by selecting just the grade tests using `-Dtest=bnr_GradeC` and `-Dtest=bnr_GradeB`
+```
+mvn test -Dtest="bnr_GradeC"
+
+mvn test -Dtest="bnr_GradeB"
+```
 
