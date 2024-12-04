@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import text_adventure.objects.AsyncTimer;
 import text_adventure.objects.Message;
+import text_adventure.objects.MessageBus;
 import text_adventure.objects.TimerMessage;
 
 /**
@@ -47,37 +48,40 @@ class TimerConfig {
 public class AsyncTimerManager implements Subscriber {
     private final Map<String, AsyncTimer> timers;
     private final Map<String, TimerConfig> timerConfigs;
-    private final List<Subscriber> subscribers;
+    private final MessageBus timerBus;
 
     // Message types as constants
     private static final String TYPE_CREATE = "TIMER_CREATE";
+    private static final String TYPE_CREATED = "TIMER_CREATED";
     private static final String TYPE_UPDATE = "TIMER_UPDATE";
     private static final String TYPE_DELETE = "TIMER_DELETE";
     private static final String TYPE_TICK = "TIMER_TICK";
     private static final String TYPE_COMPLETED = "TIMER_COMPLETED";
 
-    public AsyncTimerManager() {
+    // public AsyncTimerManager() {
+    //     this.timers = new ConcurrentHashMap<>();
+    //     this.timerConfigs = new ConcurrentHashMap<>();
+
+    //     .registerSubscriber("TIMER", this);
+    // }
+
+    public AsyncTimerManager(MessageBus bus) {
         this.timers = new ConcurrentHashMap<>();
         this.timerConfigs = new ConcurrentHashMap<>();
-        this.subscribers = new ArrayList<>();
+        this.timerBus = bus;
+
+        this.timerBus.registerSubscriber("TIMER", this);
     }
 
-    public void addSubscriber(Subscriber subscriber) {
-        subscribers.add(subscriber);
-    }
 
     private void publishMessage(Message message) {
-        for (Subscriber subscriber : subscribers) {
-            subscriber.onMessage(message);
-        }
+            this.timerBus.publish(message);
     }
+    
 
     @Override
     public void onMessage(Message message) {
-        if (!"TIMER".equals(message.getHeader())) {
-            return; // Ignore non-timer messages
-        }
-
+        if ("TIMER".equals(message.getHeader())) {
         switch (message.getType()) {
             case TYPE_CREATE:
                 handleCreateTimer(message.getMessage());
@@ -88,6 +92,7 @@ public class AsyncTimerManager implements Subscriber {
             case TYPE_DELETE:
                 handleDeleteTimer(message.getMessage());
                 break;
+            }
         }
     }
 
@@ -112,7 +117,7 @@ public class AsyncTimerManager implements Subscriber {
             Map<String, Object> response = new HashMap<>();
             response.put("timerId", timerId);
             response.put("status", "created");
-            publishMessage(TimerMessage.createMessage(TYPE_CREATE, response));
+            publishMessage(TimerMessage.createMessage(TYPE_CREATED, response));
         }
     }
 
@@ -121,7 +126,7 @@ public class AsyncTimerManager implements Subscriber {
         String timerId = payload.getString("timerId");
         AsyncTimer existingTimer = timers.get(timerId);
         
-        if (existingTimer != null) {
+        if (existingTimer != null && !payload.has("status")) {
             existingTimer.stop();
             TimerConfig newConfig = createConfigFromPayload(payload);
             
@@ -192,6 +197,7 @@ public class AsyncTimerManager implements Subscriber {
                 publishMessage(TimerMessage.createMessage(TYPE_COMPLETED, completedData));
             },
             config.getDuration(),
+            config.getInitialDelay(),
             config.getInterval()
         );
     }

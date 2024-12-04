@@ -20,7 +20,7 @@ public class Deck3TraversalTest {
 
     // Helper method to get to Fuel Storage TurboLift
     private void navigateToFuelStorageLift() {
-        Player.inventory.addItem(new Item("blue keycard"));
+        player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go south"); // To Barracks
         game.runCommands("go east"); // To Barracks Hallway
         game.runCommands("go east"); // To Mess Hall
@@ -37,7 +37,7 @@ public class Deck3TraversalTest {
 
     // Helper method to get to Waste Ejection TurboLift
     private void navigateToWasteEjectionLift() {
-        Player.inventory.addItem(new Item("blue keycard"));
+        player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go south"); // To Barracks
         game.runCommands("go east"); // To Barracks Hallway
         game.runCommands("go east"); // To Mess Hall
@@ -93,7 +93,7 @@ public class Deck3TraversalTest {
     @Test
     public void testPathToWasteEjection() {
         navigateToWasteEjectionLift();
-        Player.inventory.addItem(new Item("blue keycard"));
+        player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go west");
         game.runCommands("go south"); // To Hallway Ejection
         game.runCommands("go north"); // To Waste Ejection
@@ -105,7 +105,7 @@ public class Deck3TraversalTest {
     @Test
     public void testPathToEjectionControl() {
         navigateToWasteEjectionLift();
-        Player.inventory.addItem(new Item("blue keycard"));
+        player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go west");
         game.runCommands("go south"); // To Hallway Ejection
         game.runCommands("go north"); // To Waste Ejection

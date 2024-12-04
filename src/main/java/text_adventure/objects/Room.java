@@ -32,6 +32,7 @@ public class Room implements Subscriber{
 
         setName(name);
         setBaseDescription(description);
+        setCurrentDescription(description);
         setKey(key);
         if (interactables != null) {
             this.interactables = interactables;
@@ -53,6 +54,7 @@ public class Room implements Subscriber{
 
         setName(name);
         setBaseDescription(description);
+        setCurrentDescription(description);
         if (interactables != null) {
             this.interactables = interactables;
         } else {
@@ -73,6 +75,7 @@ public class Room implements Subscriber{
 
         setName(name);
         setBaseDescription(description);
+        setCurrentDescription(description);
         if (loot != null){
             this.loot = loot;
         }else {
@@ -88,6 +91,7 @@ public class Room implements Subscriber{
 
         setName(name);
         setBaseDescription(description);
+        setCurrentDescription(description);
         Game.globalEventBus.registerSubscriber("TRIGGER", this);
         Game.globalEventBus.registerSubscriber(getName(), this);
     }
