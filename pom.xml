@@ -33,7 +33,6 @@
             <artifactId>json</artifactId>
             <version>20240303</version>
         </dependency>
-        
     </dependencies>
     
     <build>
@@ -55,7 +54,8 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
+                <artifactId>m</artifactId>
+                <version>2.0.0</version>
                <configuration>
                 <archive>
                 <manifest>
@@ -65,6 +65,24 @@
                 </archive>
                 </configuration>
             </plugin>
+            	<plugin>
+				<artifactId>plantuml-generator-maven-plugin</artifactId>
+				<groupId>de.elnarion.maven</groupId>
+                <version>1.1.2</version>
+				<goals>
+					<goal>generate</goal>
+				</goals>
+				<configuration>
+					<outputFilename>testdiagram1.txt</outputFilename>
+                    <scanPackages>
+				<scanPackage>
+				    text_adventure
+				</scanPackage>
+			</scanPackages>
+			<blacklistRegexp>.*TestClass.*</blacklistRegexp>
+				</configuration>
+			</plugin>
+            
         </plugins>
     </build>
     <reporting>
