@@ -24,18 +24,27 @@ index.html is in `target\reports\apidocs\index.html`
 ```
 
 Run all the tests and package a Jar file
+```
+mvn package
+```
+The following jar can then be run using the following command 
+```
+java -jar target/text_adventure-1.0-SNAPSHOT.jar
+```
 
 Generates a PlantUML graph in target/generated-docs/testdiagram1.txt
 ```
 mvn clean plantuml-generator:generate    
 ```
-Generate a PlantUML image png
+Generate a PlantUML (UML) image png , [plantuml.jar](https://plantuml.com/download) required for this operation
 ```
 export PLANTUML_LIMIT_SIZE=9000 && java -jar plantuml-1.2024.8.jar -verbose target/generated-docs/testdiagram1.txt
 ```
 
 
 ### Teacher Section
+All work related files are inside the [/work](Work) directory.  
+The uml diagram is at `Work/uml.png`
 [uml-diagram](Work/uml.png)
 
 
