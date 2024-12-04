@@ -5,6 +5,8 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     CompletetheGameTest.class,
+    Deck1TraversalTest.class,
+    Deck2TraversalTest.class,
     GradeTests.class,
     TriggerTest.class,
 })

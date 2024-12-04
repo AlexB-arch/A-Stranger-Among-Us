@@ -28,16 +28,34 @@ public class TriggerTest {
         game.runCommands("interact with generator");
 
         // Check if the generator was triggered
-        assertTrue(game.generatorTrigger.isActivated);
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        assertEquals(game.generatorTrigger.isActivated, true);
     }
 
-    @Test void testAliceDialog() {
+    @Test
+    public void testAliceDialog() {
         // Navigate to Mess Hall
         game.runCommands("go south"); // To Barracks
         game.runCommands("go east"); // To Barracks Hallway
         game.runCommands("go east"); // To Mess Hall
 
         // Check if Alice's dialog was triggered
+        assertEquals(game.AliceDial.state, 1);
+
+        game.runCommands("go south"); // To Mess Hall
+        game.runCommands("go north"); // To Mess Hall
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         assertEquals(game.AliceDial.state, 2);
     }
 }

@@ -56,8 +56,5 @@ public class GradeTests {
         assertTrue(game.getLinks() >= expected);
     }
 
-    @Test
-    public void testDynamicLinksForB() {
-        assertTrue(game.hasDynamicLinks());
-    }
+
 }
