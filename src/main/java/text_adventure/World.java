@@ -98,7 +98,7 @@ public class World {
             null, Arrays.asList("generator"), null);
         
         Room engineStorage = createRoom("Engine Room Storage",
-                "Engine Room Storage holds spare parts and tools for engine maintenance.",
+                "Engine Room Storage holds spare parts and tools for engine maintenance.\nYou find Douglass lying on the floor. Douglass is dead...",
                 null, null, null);
         
         Room hallwayEngine = createRoom("Engine Room Hallway",

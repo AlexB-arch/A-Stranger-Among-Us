@@ -33,28 +33,20 @@ public class AliceDialog implements Subscriber {
 	public void onMessage(Message message) {
 		if(message.getType().equals("DIAL")) {
 			if(message.getMessage() == this.currentRoom && state == 1){
-				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","Hi I'm Alice."));
+				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","\u001B[33mWOH! Captain don't scare me like that. I can barely see a thing in this darkenss. I bed Douglass is trying to get the generator back online. Head south and see if you can find him and get it running.\u001B[37m"));
 				state++;
 				}
 			else if(message.getMessage() == this.currentRoom && state == 2) {
-				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","Go slap the Genny Baka!"));
-				}
-			else if(message.getMessage() == "Engine Room Storage" && state == 2) {
-				state++;
+				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","\u001B[33mWhat are you doing? Go and turn the Generator on and find Douglass!\u001B[37m"));
 				}
 			else if(message.getMessage() == this.currentRoom && state == 3) {
-				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","Douglass is dead! We need go get the gun!"));
-				state++;
-				this.currentRoom = "Weapons Bay";
-			}
-			else if(message.getMessage() == this.currentRoom && state == 4) {
-				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","We need Calhoun, let's go to the Bridge"));
+				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","\u001B[33mD-Douglass is dead!!! We need to get out of here! Let's go to the Bridge and see if we can find everyone else.\u001B[37m"));
 				state++;
 				this.currentRoom = "Bridge";
 			}
-			else if(message.getMessage() == this.currentRoom && state == 5) {
-				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","Bridge no worko! We need to find Calhoun ourselves."));
-				state = 10;
+			else if(message.getMessage() == this.currentRoom && state == 4) {
+				Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","\u001B[33mThe Bridge seems to be ofline. I'm freaking out. We need to run. Let's head down to the Escape Pods on level 3. We'll need 3 oxygen tanks and 5 batteries to get the pod to launch. Hopefully we can find them on the way.\u001B[37m"));
+				state++;
 			}
 		}
 		else if(message.getType().equals("GEN")) {
