@@ -33,7 +33,7 @@ public class DynaLinksTest {
         // Check if the dynamic links were triggered
         assertEquals("Waste Control Hallway", currentRoom.getName());
 
-        Player.inventory.addItem(new Item("blue keycard"));
+        player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go east");
         Room currentRoom2 = player.getCurrentLocation();
         assertEquals("Waste Control", currentRoom2.getName());
