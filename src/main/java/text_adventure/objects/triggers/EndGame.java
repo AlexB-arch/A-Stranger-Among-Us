@@ -57,7 +57,7 @@ public class EndGame implements Subscriber{
 
         }
         else {
-            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You need to find " +(5-batteries)+" more batteries and "+(3-oxygen)+" more oxygen tanks first! Make sure the generator is running too!"));
+            Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "\u001B[33mYou need to find " +(5-batteries)+" more batteries and "+(3-oxygen)+" more oxygen tanks first! Make sure the generator is running too!\u001B[37m"));
         }
     }
 
