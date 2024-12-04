@@ -1,14 +1,26 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import text_adventure.Game;
+import text_adventure.objects.Player;
 
 public class GradeTests {
-    Game game = new Game();
 
-    /*@Test
+    private Game game;
+    private Player player;
+
+
+    @Before
+    public void setUp() {
+        game = new Game();
+        player = Game.player;
+    }
+
+    @Test
     public void testMinimumRoomsForC() {
         int expected = 20;
         assertTrue(game.getRoomCount() >= expected);
@@ -24,12 +36,6 @@ public class GradeTests {
     public void testMinimumLinksForC() {
         int expected = 30;
         assertTrue(game.getLinks() >= expected);
-    }
-
-    @Test
-    public void testTriggersForC() {
-       
-        assertNotNull(game.getTriggers());
     }
 
     @Test
@@ -51,30 +57,7 @@ public class GradeTests {
     }
 
     @Test
-    public void testTimersForB() {
-        assertNotNull(game.getTimers());
-    }
-
-    @Test
     public void testDynamicLinksForB() {
         assertTrue(game.hasDynamicLinks());
     }
-
-    @Test
-    public void testMinimumRoomsForA() {
-        int expected = 40;
-        assertTrue(game.getRoomCount() >= expected);
-    }
-
-    @Test
-    public void testMinimumItemsForA() {
-        int expected = 20;
-        assertTrue(game.getItemCount() >= expected);
-    }
-
-    @Test
-    public void testMinimumLinksForA() {
-        int expected = 50;
-        assertEquals(expected, game.getLinks());
-    }*/
 }

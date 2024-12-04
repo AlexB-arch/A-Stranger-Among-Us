@@ -36,6 +36,7 @@ public class Game implements java.io.Serializable {
 
 	public GeneratorTrigger generatorTrigger;
 	public EndGame endGame;
+	public AliceDialog AliceDial;
 
   	public Game() {
 		instance = this;
@@ -69,7 +70,7 @@ public class Game implements java.io.Serializable {
 		globalEventBus.registerSubscriber("NPC", alice);
 
 		generatorTrigger = new GeneratorTrigger();
-		AliceDialog AliceDial = new AliceDialog("Mess Hall");
+		AliceDial = new AliceDialog("Mess Hall");
 		endGame = new EndGame();
 
 
