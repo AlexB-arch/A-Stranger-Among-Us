@@ -1,6 +1,7 @@
 package text_adventure;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import text_adventure.objects.Room;
 import text_adventure.objects.RoomVisualizer;
 
 /**
- * World
+ * World - various contributors.
  * This class defines our world and all the connections and rooms in it.
  * It stores all of these rooms in a Map for easy lookup and traversal for other
  * systems.
@@ -201,7 +202,8 @@ public class World {
         // Quarantine Area
         Room quarantineRoom = createRoom("Quarantine Room",
         "The Quarantine Room isolates crew or materials that may be contaminated or hazardous.",
-        null, null, "Blue Keycard");
+        new Item[]{
+            new Item("Oxygen Tanks"), }, null, "Blue Keycard");
 
         Room hallwayQuarantine = createRoom("Quarantine Room Hallway",
         "A sealed hallway leading to the Quarantine Room. Decontamination equipment lines the walls.",
@@ -239,10 +241,19 @@ public class World {
             "A secure hallway leading to the Fuel Storage area. Heavy blast doors can seal this section.",
             null, null, null);
 
-        // Connection corridor between areas
-        Room mainCorridor = createRoom("Main Corridor",
-            "The main corridor of Floor 3 connecting the Fuel and Waste Ejection areas.",
-            null, null, null);
+        // Add the Escape pod room hallway to the main corridor
+        Room ejectorRoomHallway = createRoom("Escape Pod Room Hallway",
+            "A hallway leading to the Escape pod area.",
+            new Item[]{
+                new Item("Yellow Keycard")} 
+                , null, null);
+
+        Room ejectorRoom = createRoom("Escape Pod Room",
+            "The Escape Pod Room contains the escape pods for the station.",
+            new Item[]{
+                new Item("Oxygen Tanks"),
+                new Item("Batteries"),
+            },Arrays.asList("eject button"),"Yellow Keycard"); 
 
         // Turbo lifts 
 
@@ -305,7 +316,9 @@ public class World {
         hallwayEjection.setExits(wasteEjection, null, turboLiftDeck3WasteEjection, null);
         fuelStorage.setExits(fuelControl, hallwayFuel, null, null);
         fuelControl.setExits(null, fuelStorage, null, null);
-        hallwayFuel.setExits(fuelStorage, null, turboLiftDeck3FuelStorage, null);
+        hallwayFuel.setExits(fuelStorage, null, turboLiftDeck3FuelStorage, ejectorRoomHallway);
+        ejectorRoomHallway.setExits(null, null, hallwayFuel, ejectorRoom);
+        ejectorRoom.setExits(null, null, ejectorRoomHallway, null);
 
 
         // Turbo Lift Connections

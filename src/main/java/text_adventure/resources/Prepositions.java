@@ -2,6 +2,12 @@ package text_adventure.resources;
 
 import java.util.HashMap;
 
+/**
+ * Prepositions - Alex
+ * This is one of the dictionary classes to handle prepositions.
+ * 
+ */
+
 public class Prepositions {
     static String[] prepositions = {
         "in",

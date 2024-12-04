@@ -3,6 +3,13 @@ package text_adventure.objects;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 
+/**
+ * AsyncTimer - Austin
+ * A utility class for running tasks asynchronously on a timer.
+ * 
+ * This class uses a ScheduledExecutorService to run tasks at fixed intervals
+ */
+
 public class AsyncTimer {
     private final ScheduledExecutorService executor;
     private ScheduledFuture<?> scheduledTask;
@@ -46,7 +53,7 @@ public class AsyncTimer {
      * @param tickMs Interval between ticks in milliseconds
      */
     public void startCountdown(Consumer<Long> onTick, Runnable onComplete, 
-                             long durationMs, long tickMs) {
+                             long durationMs, long initialDelay, long tickMs) {
         if (!isRunning) {
             final long startTime = System.currentTimeMillis();
             final long endTime = startTime + durationMs;
@@ -63,7 +70,7 @@ public class AsyncTimer {
                         onTick.accept(remaining);
                     }
                 },
-                0,
+                initialDelay,
                 tickMs,
                 TimeUnit.MILLISECONDS
             );

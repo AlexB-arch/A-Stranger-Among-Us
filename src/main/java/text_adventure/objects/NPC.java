@@ -5,6 +5,14 @@ import java.util.HashMap;
 import text_adventure.Game;
 import text_adventure.Subscriber;
 
+/**
+ * NPC - Alex
+ * Class for non-player characters.
+ * 
+ * This class allows for the control, positioning, and interaction of NPCs in the game.
+ * 
+ */
+
 public class NPC implements Subscriber {
     private String name;
     private Room location;

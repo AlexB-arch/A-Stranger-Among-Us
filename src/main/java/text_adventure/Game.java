@@ -12,6 +12,15 @@ import text_adventure.objects.Room;
 import text_adventure.objects.TextMessage;
 import text_adventure.objects.triggers.GeneratorTrigger;
 import text_adventure.objects.triggers.AliceDialog;
+import text_adventure.objects.triggers.GameOverTimer;
+import text_adventure.objects.triggers.EndGame;
+
+/**
+ * Game - Various contributors.
+ * The Game class is the main class that runs the game. It initializes the player, the world, and the console manager.
+ * 
+ * The game class is responsible for starting the game, showing the intro message, and running the game loop.
+ */
 
 public class Game implements java.io.Serializable {
 	private static Game instance;
@@ -24,12 +33,17 @@ public class Game implements java.io.Serializable {
 
   	private ConsoleManager consoleManager;
 
+	private AsyncTimerManager timerManager;
+
   	private boolean shouldexit;
+
+	public GeneratorTrigger generatorTrigger;
+	public EndGame endGame;
 
   	public Game() {
 		instance = this;
 		Parser.initDictionary();
-		globalEventBus = new MessageBus(150,5);
+		globalEventBus = new MessageBus(70,5);
 		shouldexit = false;
     	start();
   	}
@@ -38,6 +52,10 @@ public class Game implements java.io.Serializable {
 
 		// Initalize the Message Bus
 		globalEventBus.startMessageProcessing();
+
+		// Timer Manager
+		timerManager = new AsyncTimerManager(globalEventBus);
+
 
 		// Initialize the player
 		player = new Player();
@@ -50,6 +68,9 @@ public class Game implements java.io.Serializable {
 		gameWorld = worldBuilder.initializeRooms();
 		worldBuilder.visualizeWorld();
 
+
+		// Timers
+		GameOverTimer gameTimer = new GameOverTimer();
 		// Set the player's starting location
 		player.setCurrentLocation(gameWorld.get("Barracks Storage"));
 
@@ -57,8 +78,10 @@ public class Game implements java.io.Serializable {
 		NPC alice = new NPC("Alice", gameWorld.get("Mess Hall"));
 		globalEventBus.registerSubscriber("NPC", alice);
 
-		GeneratorTrigger generatorTrigger = new GeneratorTrigger();
+		generatorTrigger = new GeneratorTrigger();
 		AliceDialog AliceDial = new AliceDialog("Mess Hall");
+		endGame = new EndGame();
+
 
 		// Add NPCs to rooms
 		gameWorld.get("Mess Hall").addNpc(alice);
@@ -142,6 +165,15 @@ public class Game implements java.io.Serializable {
 
 	public static Game getInstance() {
 		return instance;
+	}
+
+	public void shutdownAsync(){
+		timerManager.shutdown();
+		globalEventBus.shutdown();
+	}
+
+	public void takeItem(Item itemName) {
+		player.takeItem(itemName);
 	}
 
 	public String lookAtObject(String itemName) {

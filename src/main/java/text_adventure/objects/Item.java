@@ -1,5 +1,13 @@
 package text_adventure.objects;
 
+/**
+ * Item - Alex
+ * Class for items that can be interacted with.
+ * 
+ * Allows the item to be described, taken, and moved. As well as be stored in containers.
+ */
+
+
 public class Item {
     // Static variable to keep track of the number of items created
     private static int itemCount = 0;
