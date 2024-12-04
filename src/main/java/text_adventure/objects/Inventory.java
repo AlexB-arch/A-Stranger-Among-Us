@@ -27,7 +27,7 @@ public class Inventory {
     
     // method to check if an item is in the inventory
     public boolean inInventory(Item item){
-        return items.containsValue(item);
+        return items.containsKey(item.getName().toLowerCase());
     }
 }
     
