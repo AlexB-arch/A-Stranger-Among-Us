@@ -46,6 +46,8 @@ public class EndGame implements Subscriber{
         if (genState && batteries == 5 && oxygen == 3) {
             Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You laod the batteries and oxygen into the escape pod and eject the pod. You've managed to escape the ship and survive!"));
             Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", Game.getInstance().endGame()));
+            Game.getInstance().forceShutdown();
+
         }
         else {
             Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You need to find " +(5-batteries)+" more batteries and "+(3-oxygen)+" more oxygen tanks first! Make sure the generator is running too!"));

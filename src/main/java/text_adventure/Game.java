@@ -165,6 +165,18 @@ public class Game implements java.io.Serializable {
 		globalEventBus.shutdown();
 	}
 
+	public void forceShutdown(){
+		timerManager.shutdown();
+		globalEventBus.shutdown();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// Handle the interruption
+			Thread.currentThread().interrupt();
+		}
+		System.exit(0);
+	}
+
 	public void takeItem(Item itemName) {
 		player.takeItem(itemName);
 	}

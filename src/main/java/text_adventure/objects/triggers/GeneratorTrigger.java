@@ -23,7 +23,7 @@ public class GeneratorTrigger implements Trigger, Subscriber {
         .put("initialDelay", 60000L)
         .put("interval", 270000L)
         .put("isCountdown", false)
-        .put("duration", 900000);
+        .put("duration", 720000L);
 
         Game.globalEventBus.registerSubscriber("TIMER", this);
 

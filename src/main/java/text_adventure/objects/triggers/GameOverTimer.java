@@ -26,12 +26,17 @@ public class GameOverTimer implements Subscriber {
     public GameOverTimer(){
 
         JSONObject countdownPayload = new JSONObject()
+        // .put("timerId", "stranger_timer")
+        // .put("initialDelay", 70000L)
+        // .put("interval", 196560L)
+        // .put("isCountdown", true)
+        // .put("duration", 900000L);
         .put("timerId", "stranger_timer")
-        .put("initialDelay", 70000L)
-        .put("interval", 196560L)
+        .put("initialDelay", 100000L)
+        .put("interval", 180000L)
         .put("isCountdown", true)
-        .put("duration", 900000L);
-
+        .put("duration", 300000L);
+        //.put("duration",720000L); // 12 minutes
         Game.globalEventBus.registerSubscriber("TIMER", this);
         
         Game.globalEventBus.publish(new TimerMessage("TIMER",
@@ -54,6 +59,7 @@ public class GameOverTimer implements Subscriber {
                 case "TIMER_COMPLETED":
                     Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","Out of the shadows a figure approaches and cuts you down from behind.."));
                     Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT",Game.getInstance().endGame()));
+                    Game.getInstance().forceShutdown();
                     break;
         }
       }
