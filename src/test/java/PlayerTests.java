@@ -2,9 +2,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-
 import text_adventure.Game;
 import text_adventure.objects.Container;
 import text_adventure.objects.Inventory;
@@ -28,8 +28,9 @@ public class PlayerTests {
         assertNull(inventory.getItemByName("Sword"));
     }
 
-        Room room = new Room("Sleeping Quarters", "A room with beds", null, null, null);
-        NPC npc = new NPC("Alice", room);
+    Room room = new Room("Sleeping Quarters", "A room with beds", null, null, null);
+    NPC npc = new NPC("Alice", room);
+
     @Test
     public void testPlayerParty() {
         Player player = new Player();
@@ -52,6 +53,7 @@ public class PlayerTests {
         player.takeItemByName("Sword");
         assertEquals(item, player.inventory.getItemByName("Sword"));
     }
+
     @Test
     public void testRemovePartyMember() {
         Room room = new Room("Sleeping Quarters", "A room with beds", null, null, null);
@@ -157,5 +159,24 @@ public class PlayerTests {
         player.putItemInContainer("Sword", "Chest");
         assertFalse(player.inventory.inInventory(item));
         assertTrue(container.getInventory().inInventory(item));
+    }
+
+    @Test
+    public void testPlayerWalkAndPickUpItem() {
+        game = new Game();
+        Player player = Game.player;
+
+        // Navigate to the room
+        game.runCommands("go south"); // To Barracks
+        game.runCommands("go east"); // To Barracks Hallway
+        game.runCommands("go east"); // To Mess Hall
+
+        // Pick up the item
+        game.runCommands("take batteries");
+
+        // Check if the item is in the player's inventory
+        Item item = player.inventory.getItemByName("Batteries");
+        assertNotNull(item);
+        assertEquals("Batteries", item.getName());
     }
 }

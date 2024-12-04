@@ -46,4 +46,11 @@ public class Inventory {
     public int getItemCount(String itemName) {
         return itemCounts.getOrDefault(itemName.toLowerCase(), 0);
     }
+
+    public String printInventory() {
+        for (String itemName : items.keySet()) {
+            return(itemName + " x" + itemCounts.get(itemName));
+        }
+        return null;
+    }
 }
