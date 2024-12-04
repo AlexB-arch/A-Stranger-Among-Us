@@ -13,6 +13,13 @@ import text_adventure.resources.Prepositions;
 import text_adventure.resources.Verbs;
 import text_adventure.resources.WordType;
 
+/**
+ * Parser - Alex
+ * This class is responsible for parsing the input from the player.
+ * 
+ * This class can handle various types of words and read player input regardless of how the input it.
+ */
+
 public class Parser {
 
   // Initializes a list of words for player actions

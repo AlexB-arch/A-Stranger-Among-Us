@@ -5,11 +5,12 @@ import java.io.IOException;
 
 
 /**
- * Room visualizer that takes rooms from our world and builds a graphic visualization.
+ * Room visualizer that takes rooms from our world and builds a graphic visualization. -Austin
  * We will use this to build our visualization for our rooms. 
  * Currently it only supports the standard type of room. Will add support to add Elevators 
  * when elevators are in.
  */
+
 public class RoomVisualizer {
     private StringBuilder dot;
     private FileWriter writer;

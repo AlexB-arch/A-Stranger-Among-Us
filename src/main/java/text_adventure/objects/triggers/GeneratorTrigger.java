@@ -11,6 +11,12 @@ import text_adventure.objects.Message;
 import text_adventure.objects.TextMessage;
 import text_adventure.objects.TimerMessage;
 
+/**
+ * GeneratorTrigger - Brendan
+ * Trigger for the generator.
+ * 
+ * Allows the Generator to be toggled off and on through the MessageBus system.
+ */
 
 public class GeneratorTrigger implements Trigger, Subscriber {
     public boolean isActivated;

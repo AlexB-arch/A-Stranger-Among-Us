@@ -2,6 +2,12 @@ package text_adventure.objects;
 
 import java.util.stream.Collectors;
 
+/**
+ * Container - Alex
+ * Class for items that can hold other items.
+ * 
+ */
+
 public class Container extends ItemHolder implements java.io.Serializable {
     private boolean openable;
     private boolean isOpen;

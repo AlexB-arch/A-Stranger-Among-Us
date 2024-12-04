@@ -6,6 +6,13 @@ import java.io.InputStreamReader;
 
 import text_adventure.objects.TextMessage;
 
+/**
+ * Main - Austin
+ * This is the main class for the text adventure game.
+ * 
+ * It mostly just starts the game.
+ * 
+ */
 
 public class Main {
 

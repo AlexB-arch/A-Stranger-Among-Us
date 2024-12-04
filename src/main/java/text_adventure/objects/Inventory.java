@@ -1,6 +1,12 @@
 package text_adventure.objects;
 import java.util.HashMap;
 
+/**
+ * Inventory - Alex
+ * Class for storing items in the player's inventory.
+ * 
+ */
+
 public class Inventory {
     public HashMap<String, Item> items;
     private HashMap<String, Integer> itemCounts;

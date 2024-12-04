@@ -7,6 +7,12 @@ import text_adventure.objects.TextMessage;
 import text_adventure.Subscriber;
 import text_adventure.Game;
 
+/**
+ * AliceDialog - Brendan
+ * Class for Alice's dialog
+ * 
+ * Handles updating the dialog based on the room the player is in, the state of the generator, and how many times the player interacted with ALice.
+ */
 
 public class AliceDialog implements Subscriber {
     private String currentRoom;

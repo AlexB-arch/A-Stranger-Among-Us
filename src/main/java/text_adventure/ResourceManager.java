@@ -7,6 +7,13 @@ import org.json.*;
 
 import text_adventure.objects.NPC;
 
+/**
+ * ResourceManager - Alex
+ * This class is responsible for managing the resources of the game.
+ * 
+ * Primarily, it is responsible for loading the dialogue of NPCs.
+ */
+
 public class ResourceManager {
 
     private static String filePath = "src/main/java/text_adventure/resources/npcresources.json";
