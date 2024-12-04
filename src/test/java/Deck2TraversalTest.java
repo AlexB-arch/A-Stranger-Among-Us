@@ -103,7 +103,7 @@ public class Deck2TraversalTest {
     // Test path to Waste Control
     @Test
     public void testPathToWasteControl() {
-        Player.inventory.addItem(new Item("blue keycard"));
+        player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go south"); // To Hallway Waste
         game.runCommands("go east"); // To Waste Control
         Room currentRoom = player.getCurrentLocation();
@@ -117,7 +117,7 @@ public class Deck2TraversalTest {
     // Test path to Quarantine Room
     @Test
     public void testPathToQuarantine() {
-        Player.inventory.addItem(new Item("blue keycard"));
+        player.inventory.addItem(new Item("blue keycard"));
         game.runCommands("go south"); // To Hallway Waste
         game.runCommands("go west"); // To Storage Bay
         game.runCommands("go south"); // To Hallway Storage
