@@ -49,7 +49,8 @@ export PLANTUML_LIMIT_SIZE=9000 && java -jar plantuml-1.2024.8.jar -verbose targ
 
 ### Teacher Section
 All work related files are inside the [/work](Work) directory.  
-ALl education related documentation is in the [/Education](Education)
+ALl education related documentation is in the [/Education](Education) 
+Powerpoint is in repo
 
 The uml diagram is at `Work/uml.png`
 [uml-diagram](Work/uml.png)
