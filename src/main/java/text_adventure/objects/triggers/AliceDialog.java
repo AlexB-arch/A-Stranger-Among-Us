@@ -16,7 +16,7 @@ import text_adventure.Game;
 
 public class AliceDialog implements Subscriber {
     private String currentRoom;
-		private int state;
+		public int state;
 
     public AliceDialog(String RoomName) {
 				this.currentRoom = RoomName;

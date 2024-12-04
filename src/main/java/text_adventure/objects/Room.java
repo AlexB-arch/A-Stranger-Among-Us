@@ -266,6 +266,12 @@ public void setCurrentDescription(String currentDescription) {
         String message = "";
         message += "You are in the " + getName() + ".\n";
         message += getCurrentDescription() + "\n";
+        if(loot.printInventory() != null){
+            message += "You can see : + " + loot.printInventory() + "\n";
+        }
+        else{
+            message += "There is nothing in the room.\n";
+        }
         message += "Exits: ";
         if (north != null) {
             message += "north ";
