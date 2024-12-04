@@ -1,6 +1,10 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Test;
 
 import text_adventure.Game;
@@ -8,7 +12,7 @@ import text_adventure.Game;
 public class GradeTests {
     Game game = new Game();
 
-    /*@Test
+    @Test
     public void testMinimumRoomsForC() {
         int expected = 20;
         assertTrue(game.getRoomCount() >= expected);
@@ -26,11 +30,22 @@ public class GradeTests {
         assertTrue(game.getLinks() >= expected);
     }
 
-    @Test
-    public void testTriggersForC() {
-       
-        assertNotNull(game.getTriggers());
-    }
+    // @Test
+    // public void testTriggersForC() throws FileNotFoundException {
+    //     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    //     System.setOut(new PrintStream(outContent));
+    //     game.runCommands("go south");
+    //     game.runCommands("go east");
+    //     game.runCommands("go west");
+
+    //     String expected = "Hi I'm Alice";
+        
+    //     // Print the output
+    //     System.out.println(outContent);
+
+    //     assertTrue(outContent.toString().contains(expected));
+        
+    // }
 
     @Test
     public void testMinimumRoomsForB() {
@@ -50,15 +65,16 @@ public class GradeTests {
         assertTrue(game.getLinks() >= expected);
     }
 
-    @Test
-    public void testTimersForB() {
-        assertNotNull(game.getTimers());
-    }
+    // Timers already tested in their own file.
+    // @Test
+    // public void testTimersForB() {
+    //     assertNotNull(game.getTimers());
+    // }
 
-    @Test
-    public void testDynamicLinksForB() {
-        assertTrue(game.hasDynamicLinks());
-    }
+    // @Test
+    // public void testDynamicLinksForB() {
+    //     assertTrue(game.hasDynamicLinks());
+    // }
 
     @Test
     public void testMinimumRoomsForA() {
@@ -72,9 +88,10 @@ public class GradeTests {
         assertTrue(game.getItemCount() >= expected);
     }
 
-    @Test
-    public void testMinimumLinksForA() {
-        int expected = 50;
-        assertEquals(expected, game.getLinks());
-    }*/
+    // Not doing this
+    // @Test
+    // public void testMinimumLinksForA() {
+    //     int expected = 50;
+    //     assertEquals(expected, game.getLinks());
+    // }
 }

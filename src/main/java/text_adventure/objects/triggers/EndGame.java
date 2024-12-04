@@ -6,6 +6,13 @@ import text_adventure.interfaces.Trigger;
 import text_adventure.Subscriber;
 import text_adventure.Game;
 
+/**
+ * EndGame - Brendan
+ * This class is a trigger that is activated when the player has collected all the necessary items to escape the ship.
+ * 
+ * The player must have collected 5 batteries, 3 oxygen tanks, and the generator must be running.
+ */
+
 public class EndGame implements Subscriber{
 
     public boolean genState;

@@ -7,6 +7,13 @@ import text_adventure.Game;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Room - Various contributors.
+ * The room class is used to create rooms in the game. Each room has a name, description, exits, and items.
+ * 
+ * The room class also contains methods to add and remove items, as well as display the room description and exits.
+ */
+
 public class Room implements Subscriber{
     // Static variable to keep track of the number of rooms created
     private static int roomCount = 0;
@@ -25,6 +32,7 @@ public class Room implements Subscriber{
 
         setName(name);
         setBaseDescription(description);
+        setCurrentDescription(description);
         setKey(key);
         if (interactables != null) {
             this.interactables = interactables;
@@ -46,6 +54,7 @@ public class Room implements Subscriber{
 
         setName(name);
         setBaseDescription(description);
+        setCurrentDescription(description);
         if (interactables != null) {
             this.interactables = interactables;
         } else {
@@ -66,6 +75,7 @@ public class Room implements Subscriber{
 
         setName(name);
         setBaseDescription(description);
+        setCurrentDescription(description);
         if (loot != null){
             this.loot = loot;
         }else {
@@ -81,6 +91,7 @@ public class Room implements Subscriber{
 
         setName(name);
         setBaseDescription(description);
+        setCurrentDescription(description);
         Game.globalEventBus.registerSubscriber("TRIGGER", this);
         Game.globalEventBus.registerSubscriber(getName(), this);
     }

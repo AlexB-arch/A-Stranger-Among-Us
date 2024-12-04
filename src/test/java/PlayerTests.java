@@ -9,11 +9,9 @@ import text_adventure.Game;
 import text_adventure.objects.Container;
 import text_adventure.objects.Inventory;
 import text_adventure.objects.Item;
-import text_adventure.objects.ItemList;
 import text_adventure.objects.NPC;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
-import text_adventure.resources.Directions;
 
 public class PlayerTests {
 
@@ -132,5 +130,32 @@ public class PlayerTests {
         player.takeItemByName("Sword");
         assertTrue(player.inventory.inInventory(item));
         assertFalse(container.getInventory().inInventory(item));
+    }
+
+    @Test
+    public void testPlayerTakeContainerWithItemInsideAndPutItemInContainer() {
+        Player player = new Player();
+        Room room = new Room("Room", "Description", new Inventory());
+        Container container = new Container("Chest", "A large chest.", null, null, true);
+        Item item = new Item("Sword", "A sharp sword.", true, true, null);
+        container.addItem(item);
+        room.getInventory().addItem(container);
+        player.currentLocation = room;
+
+        player.takeItemByName("Chest");
+        assertTrue(player.inventory.inInventory(container));
+        assertFalse(player.inventory.inInventory(item));
+        assertFalse(room.getInventory().inInventory(container));
+
+        player.openContainerIfInInventory("Chest");
+        assertTrue(container.isOpen());
+
+        player.takeItemByName("Sword");
+        assertTrue(player.inventory.inInventory(item));
+        assertFalse(container.getInventory().inInventory(item));
+
+        player.putItemInContainer("Sword", "Chest");
+        assertFalse(player.inventory.inInventory(item));
+        assertTrue(container.getInventory().inInventory(item));
     }
 }

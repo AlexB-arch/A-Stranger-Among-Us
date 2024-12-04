@@ -7,9 +7,15 @@ import java.util.List;
 
 import text_adventure.resources.Directions;
 
+/**
+ * Player - Various contributors.
+ * The player class is the main character in the game. It contains the player's current location, inventory, and party members.
+ * The player can move, interact with objects, and use items.
+ */
+
 public class Player implements Subscriber {
 	public Room currentLocation;
-	public static Inventory inventory;
+	public Inventory inventory;
 
 	// Party. Consists of the NPC name as the key and the NPC object as the value
 	public HashMap<String, NPC> party;
@@ -36,7 +42,7 @@ public class Player implements Subscriber {
 		currentLocation = currentLocation.getExit(direction);
 	}
 	else {
-		if (Player.inventory.inInventory(Player.inventory.getItemByName(currentLocation.getExit(direction).getKey()))) {
+		if (inventory.inInventory(inventory.getItemByName(currentLocation.getExit(direction).getKey()))) {
 			Game.globalEventBus.publish(new TextMessage("CONSOLE","OUT","You unlock the door with the key and proceed."));
 			currentLocation = currentLocation.getExit(direction);
 		} else {
@@ -164,6 +170,22 @@ public void interact(String interactable) {
         }
     }
 
+    public void putItemInContainer(String string, String string2) {
+        Item item = inventory.getItemByName(string);
+		Item container = inventory.getItemByName(string2);
+		if (item != null && container != null) {
+			if (container instanceof Container) {
+				((Container) container).addItem(item);
+				inventory.removeItem(item);
+				Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You have put the " + string + " in the " + string2 + "."));
+			} else {
+				Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You can't put the " + string + " in the " + string2 + "."));
+			}
+		} else {
+			Game.globalEventBus.publish(new TextMessage("CONSOLE", "OUT", "You don't have a " + string + " or " + string2 + "."));
+		}
+	}
+	
 	public int getItemCount(String itemName) {
         return inventory.getItemCount(itemName);
     }

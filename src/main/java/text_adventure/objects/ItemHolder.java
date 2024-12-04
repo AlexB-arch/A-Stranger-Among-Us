@@ -1,5 +1,11 @@
 package text_adventure.objects;
 
+/**
+ * ItemHolder - Alex
+ * Class for objects that can hold items.
+ * 
+ */
+
 public class ItemHolder extends Item {
     protected ItemList items;
     private String itemName;

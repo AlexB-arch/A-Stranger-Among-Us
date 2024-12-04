@@ -2,6 +2,12 @@ package text_adventure.resources;
 
 import java.util.HashMap;
 
+/**
+ * Articles - Alex
+ * This is one of the dictionary classes to handle articles.
+ * 
+ */
+
 public class Articles {
 
     static String[] articles = {

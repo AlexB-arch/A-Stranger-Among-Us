@@ -2,6 +2,12 @@ package text_adventure.resources;
 
 import java.util.HashMap;
 
+/**
+ * Verbs - Alex
+ * This is one of the dictionary classes to handle verbs.
+ * 
+ */
+
 public class Verbs {
 
     public static String[] verbs = {
