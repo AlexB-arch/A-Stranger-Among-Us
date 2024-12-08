@@ -1,7 +1,6 @@
 package text_adventure;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -359,12 +358,12 @@ public class World {
             }
     }
 
-    private void addInitialNPCs() {
-        // Add NPCs to their starting locations
-        rooms.get("Mess Hall").addNpc(new NPC("Alice", this.rooms.get("Mess Hall")));
-        rooms.get("Botany Storage").addNpc(new NPC("Calhoun", this.rooms.get("Storage Bay")));
-        rooms.get("Quarantine Room").addNpc(new NPC("Theodore", this.rooms.get("Quarantine Room")));
-        rooms.get("Waste Control").addNpc(new NPC("Bony", this.rooms.get("Waste Control Room")));
-    }
+    // private void addInitialNPCs() {
+    //     // Add NPCs to their starting locations
+    //     rooms.get("Mess Hall").addNpc(new NPC("Alice", this.rooms.get("Mess Hall")));
+    //     rooms.get("Botany Storage").addNpc(new NPC("Calhoun", this.rooms.get("Storage Bay")));
+    //     rooms.get("Quarantine Room").addNpc(new NPC("Theodore", this.rooms.get("Quarantine Room")));
+    //     rooms.get("Waste Control").addNpc(new NPC("Bony", this.rooms.get("Waste Control Room")));
+    // }
 
 }

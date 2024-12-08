@@ -2,7 +2,6 @@ package text_adventure.objects.triggers;
 
 import text_adventure.objects.Message;
 import text_adventure.objects.TextMessage;
-import text_adventure.interfaces.Trigger;
 import text_adventure.Subscriber;
 import text_adventure.Game;
 

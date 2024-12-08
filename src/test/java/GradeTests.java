@@ -1,10 +1,4 @@
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Test;
 
 import text_adventure.Game;

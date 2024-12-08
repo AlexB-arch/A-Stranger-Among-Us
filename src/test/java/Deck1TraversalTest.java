@@ -685,9 +685,6 @@ public class Deck1TraversalTest {
          game.runCommands("go south");
          // Move west to Hallway Weapons
          game.runCommands("go west");
-         Room currentRoom = player.getCurrentLocation();
-
-         // Check exits
 
      }
 
@@ -704,9 +701,6 @@ public class Deck1TraversalTest {
          game.runCommands("go south");
          // Move west to Hallway Weapons
          game.runCommands("go west");
-         Room currentRoom = player.getCurrentLocation();
-
-         // Check exits
      }
 
      // 18. Test Exits of Botany Bay

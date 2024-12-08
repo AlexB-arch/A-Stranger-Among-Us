@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.Before;
@@ -7,7 +5,6 @@ import text_adventure.Game;
 import text_adventure.objects.Item;
 import text_adventure.objects.Player;
 import text_adventure.objects.Room;
-import text_adventure.resources.Directions;
 import text_adventure.objects.Inventory;
 
 public class CompletetheGameTest {
@@ -22,7 +19,7 @@ public class CompletetheGameTest {
 
     // Helper method to collect items
     private void collectItems(String itemName, int quantity) {
-        for (Room room : game.gameWorld.values()) {
+        for (Room room : Game.gameWorld.values()) {
             Inventory inventory = room.getInventory();
             if (inventory != null && inventory.size() > 0) {
                 player.setCurrentLocation(room);

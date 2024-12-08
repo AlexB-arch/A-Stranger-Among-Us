@@ -1,14 +1,10 @@
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import text_adventure.AsyncTimerManager;
-import text_adventure.Game;
 import text_adventure.objects.Message;
 import text_adventure.objects.MessageBus;
-import text_adventure.objects.TextMessage;
 import text_adventure.objects.TimerMessage;
 import text_adventure.Subscriber;
 
@@ -18,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 

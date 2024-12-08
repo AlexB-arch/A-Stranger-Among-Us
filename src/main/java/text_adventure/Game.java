@@ -11,8 +11,6 @@ import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 import text_adventure.objects.TextMessage;
 import text_adventure.objects.triggers.GeneratorTrigger;
-import text_adventure.objects.triggers.AliceDialog;
-import text_adventure.objects.triggers.GameOverTimer;
 import text_adventure.objects.triggers.EndGame;
 
 /**
@@ -68,9 +66,6 @@ public class Game implements java.io.Serializable {
 		gameWorld = worldBuilder.initializeRooms();
 		worldBuilder.visualizeWorld();
 
-
-		// Timers
-		GameOverTimer gameTimer = new GameOverTimer();
 		// Set the player's starting location
 		player.setCurrentLocation(gameWorld.get("Barracks Storage"));
 
@@ -79,7 +74,6 @@ public class Game implements java.io.Serializable {
 		globalEventBus.registerSubscriber("NPC", alice);
 
 		generatorTrigger = new GeneratorTrigger();
-		AliceDialog AliceDial = new AliceDialog("Mess Hall");
 		endGame = new EndGame();
 
 

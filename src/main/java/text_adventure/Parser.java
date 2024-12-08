@@ -79,7 +79,7 @@ public class Parser {
 					response = "Not yet implemented";
 					break;
 				case "interactwith":
-					Main.game.player.interact(input3.getWord());
+					Game.player.interact(input3.getWord());
 					System.out.println(input3.getWord());
 					break;
 				default:

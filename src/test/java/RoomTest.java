@@ -10,9 +10,8 @@ import text_adventure.objects.Player;
 import text_adventure.objects.Room;
 
 public class RoomTest {
-
-    private Game game;
-    private Player player;
+    Game game;
+    Player player;
 
     @Before
     public void setUp() {

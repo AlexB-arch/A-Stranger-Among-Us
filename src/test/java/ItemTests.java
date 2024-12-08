@@ -22,8 +22,8 @@ import text_adventure.objects.Room;
 public class ItemTests {
 
 
-    private Game game;
-    private Player player;
+    Game game;
+    Player player;
 
     @Before
     public void setUp() {
@@ -86,7 +86,7 @@ public class ItemTests {
 
     @Test
     public void testCollectAllItemsInRooms() {
-        Map<String, Room> rooms = game.gameWorld;
+        Map<String, Room> rooms = Game.gameWorld;
         Map<String, Integer> itemQuantities = new HashMap<>();
 
         for (Room room : rooms.values()) {
